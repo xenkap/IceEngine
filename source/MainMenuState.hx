@@ -142,7 +142,7 @@ class MainMenuState extends MusicBeatState
 		add(versionShit);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24,  FlxG.width, "Mic'd Up v" + micdEngineVersion, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, right, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
