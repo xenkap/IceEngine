@@ -4,12 +4,12 @@
 	"isPixelStage": false,
 
 	"boyfriend": [1030, -120],
-	"girlfriend": [400, 130],
+	"girlfriend": [1000, -90],
 	"opponent": [100, 100],
 	"hide_girlfriend": false,
 
-	"camera_boyfriend": [-200, 0],
-	"camera_opponent": [0, 0],
-	"camera_girlfriend": [0, 0],
+	"camera_boyfriend": [-200, 50],
+	"camera_opponent": [0, 50],
+	"camera_girlfriend": [0, 50],
 	"camera_speed": 1
 }
