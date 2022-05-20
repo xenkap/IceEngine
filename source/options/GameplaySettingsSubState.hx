@@ -41,12 +41,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Time Bar:',
-			"In what direction should the notes scroll?",
+		var option:Option = new Option('Note Scroll:',
+			"In what direction should the notes scroll?\nP.S THIS DONT WORK !!!!!!!!!!!!!!!!!",
 			'noteScroll',
 			'string',
-			'upscroll',
-			['upscroll', 'downscroll', 'leftscroll', 'rightscroll']);
+			'Upscroll',
+			['Upscroll', 'Downscroll', 'Leftscroll', 'Rightscroll']);
 		addOption(option);
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
