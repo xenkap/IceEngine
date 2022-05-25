@@ -1325,9 +1325,9 @@ class FunkinLua {
 				}
 			}
 		});
-		Lua_helper.add_callback(lua, "startLegacyDialogue", function() {
-			PlayState.instance.schoolIntro();
-		});
+		// Lua_helper.add_callback(lua, "startLegacyDialogue", function() {
+		// 	PlayState.instance.schoolIntro();
+		// });
 		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String) {
 			#if VIDEOS_ALLOWED
 			if(FileSystem.exists(Paths.video(videoFile))) {

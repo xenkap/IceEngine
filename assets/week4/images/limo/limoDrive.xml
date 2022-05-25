@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="limoDrive.png">
-	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Limo stage0000" x="0" y="0" width="2048" height="646"/>
-	<SubTexture name="Limo stage0001" x="0" y="656" width="2048" height="646"/>
-	<SubTexture name="Limo stage0002" x="0" y="1312" width="2048" height="646"/>
-	<SubTexture name="Limo stage0003" x="0" y="0" width="2048" height="646"/>
+	<SubTexture name="idle0000" x="1" y="1" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle0001" x="1" y="653" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle0002" x="1" y="1305" width="2048" height="654"/>
+	<SubTexture name="idle0003" x="1" y="1960" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle0004" x="1" y="2612" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle0005" x="1" y="3264" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle0006" x="1" y="3916" width="2048" height="654"/>
+	<SubTexture name="idle0007" x="1" y="4571" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle-loop0000" x="1" y="5223" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle-loop0001" x="1" y="5875" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
+	<SubTexture name="idle-loop0002" x="1" y="3916" width="2048" height="654"/>
+	<SubTexture name="idle-loop0003" x="1" y="4571" width="2048" height="651" frameX="0" frameY="-3" frameWidth="2048" frameHeight="654"/>
 </TextureAtlas>

@@ -1,6 +1,7 @@
 package;
 
 import Song.SwagSong;
+import flixel.FlxG;
 
 /**
  * ...
@@ -20,6 +21,7 @@ class Conductor
 	public static var crochet:Float = ((60 / bpm) * 1000); // beats in milliseconds
 	public static var stepCrochet:Float = crochet / 4; // steps in milliseconds
 	public static var songPosition:Float=0;
+	public static var songLength:Float=0;
 	public static var lastSongPos:Float;
 	public static var offset:Float = 0;
 
@@ -35,19 +37,31 @@ class Conductor
 	public static function judgeNote(note:Note, delay:Float=0, windowName:String="") //STOLEN FROM KADE ENGINE (bbpanzu) - I had to rewrite it later anyway after i added the custom hit windows lmao (Shadow Mario)
 	{
 		//tryna do MS based judgment due to popular demand
-		var diff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+		var diff:Float = note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset;
 		var timingWindows:Array<Int> = [ClientPrefs.sickWindow, ClientPrefs.goodWindow, ClientPrefs.badWindow];
 		var windowNames:Array<String> = ['sick', 'good', 'bad'];
+		var delayRate:String = '';
+		{
+			if (diff > Conductor.safeZoneOffset * 0.1)
+			{
+				delayRate = "early";
+			} else if (diff < Conductor.safeZoneOffset * -0.1)
+			{
+				delayRate = "late";
+			}
+		}
+		trace(delayRate + ' ' + diff + ' ' + (Conductor.safeZoneOffset * 0.1));
 
+		diff = Math.abs(diff);
 		// var diff = Math.abs(note.strumTime - Conductor.songPosition) / (PlayState.songMultiplier >= 1 ? PlayState.songMultiplier : 1);
 		for(i in 0...timingWindows.length) // based on 4 timing windows, will break with anything else
 		{
 			if (diff <= timingWindows[Math.round(Math.min(i, timingWindows.length - 1))])
 			{
-				return windowNames[i];
+				return [windowNames[i], delayRate];
 			}
 		}
-		return 'shit';
+		return ['shit', delayRate];
 	}
 	public static function mapBPMChanges(song:SwagSong)
 	{

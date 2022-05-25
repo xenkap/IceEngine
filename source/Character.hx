@@ -88,7 +88,14 @@ class Character extends FlxSprite
 		#else
 		animOffsets = new Map<String, Array<Dynamic>>();
 		#end
+
 		curCharacter = character;
+		if (curCharacter.startsWith('bf'))
+		{
+			if (ClientPrefs.bfAltVersion == 'ZERO') curCharacter += '-zero';
+			if (ClientPrefs.bfAltVersion == 'Reanimated') curCharacter += '-reanim';
+		}
+		
 		this.isPlayer = isPlayer;
 		antialiasing = ClientPrefs.globalAntialiasing;
 		var library:String = null;
@@ -111,7 +118,13 @@ class Character extends FlxSprite
 				if (!Assets.exists(path))
 				#end
 				{
-					path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
+					if (curCharacter.startsWith('bf'))
+					{
+						if (ClientPrefs.bfAltVersion == 'Normal') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json');
+						if (ClientPrefs.bfAltVersion == 'ZERO') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '-zero' + '.json');
+						if (ClientPrefs.bfAltVersion == 'Reanimated') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '-reanim' + '.json');
+					}
+					//If a character couldn't be found, change him to BF just to prevent a crash
 				}
 
 				#if MODS_ALLOWED
@@ -255,7 +268,7 @@ class Character extends FlxSprite
 				heyTimer -= elapsed;
 				if(heyTimer <= 0)
 				{
-					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer')
+					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer' || animation.curAnim.name == 'hairFall' || animation.curAnim.name == 'hairFall-right')
 					{
 						specialAnim = false;
 						dance();
@@ -307,6 +320,10 @@ class Character extends FlxSprite
 					playAnim('danceRight' + idleSuffix);
 				else
 					playAnim('danceLeft' + idleSuffix);
+				if (PlayState.hairBlowedLast == true)
+					idleSuffix = '';
+					recalculateDanceIdle();
+					PlayState.hairBlowedLast = false;
 			}
 			else if(animation.getByName('idle' + idleSuffix) != null) {
 					playAnim('idle' + idleSuffix);
@@ -314,10 +331,14 @@ class Character extends FlxSprite
 		}
 	}
 
+	public var playAnimFrame:Int = 0;
+
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
 		specialAnim = false;
-		animation.play(AnimName, Force, Reversed, Frame);
+		playAnimFrame = Frame;
+
+		animation.play(AnimName, Force, Reversed, playAnimFrame);
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
@@ -329,11 +350,11 @@ class Character extends FlxSprite
 
 		if (curCharacter.startsWith('gf'))
 		{
-			if (AnimName == 'singLEFT')
+			if (AnimName == 'singLEFT' || AnimName == 'hairBlow')
 			{
 				danced = true;
 			}
-			else if (AnimName == 'singRIGHT')
+			else if (AnimName == 'singRIGHT' || AnimName == 'hairBlow-right')
 			{
 				danced = false;
 			}

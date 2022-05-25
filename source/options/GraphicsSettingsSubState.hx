@@ -51,7 +51,18 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			true);
 		option.showBoyfriend = true;
 		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
+		option.onChange = onChangeBoyfriendOption;
 		addOption(option);
+
+		var option:Option = new Option('BF Version:',
+			"What BF should be used in gameplay?",
+			'bfAltVersion',
+			'string',
+			'Zero',
+			['Normal', 'ZERO', 'Reanimated']);
+		addOption(option);
+		option.showBoyfriend = true;
+		option.onChange = onChangeBoyfriendOption;
 
 		#if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		var option:Option = new Option('Framerate',
@@ -88,6 +99,20 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			var sprite:FlxSprite = sprite; //Don't judge me ok
 			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
 				sprite.antialiasing = ClientPrefs.globalAntialiasing;
+			}
+		}
+	}
+
+	function onChangeBoyfriendOption()
+	{
+		for (sprite in members)
+		{
+			var sprite:Dynamic = sprite; //Make it check for FlxSprite instead of FlxBasic
+			var sprite:FlxSprite = sprite; //Don't judge me ok
+			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
+				if (ClientPrefs.bfAltVersion == 'Normal') sprite.loadGraphic('characters/BOYFRIEND', true);
+				if (ClientPrefs.bfAltVersion == 'ZERO') sprite.loadGraphic('characters/BOYFRIEND-ZERO', true);
+				if (ClientPrefs.bfAltVersion == 'Reanimated') sprite.loadGraphic('characters/BOYFRIEND', true);
 			}
 		}
 	}
