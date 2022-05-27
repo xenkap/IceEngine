@@ -224,6 +224,13 @@ class Paths
 		return voices;
 	}
 
+	inline static public function voicesOpponent(song:String):Any
+	{
+		var songKey:String = '${song.toLowerCase().replace(' ', '-')}/Voices2';
+		var voicesOpponent = returnSound('songs', songKey);
+		return voicesOpponent;
+	}
+
 	inline static public function inst(song:String):Any
 	{
 		var songKey:String = '${song.toLowerCase().replace(' ', '-')}/Inst';

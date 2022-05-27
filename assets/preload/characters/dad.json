@@ -118,6 +118,105 @@
 				59
 			],
 			"name": "Dad Sing Note UP"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				138,
+				-93
+			],
+			"anim": "hotDILF",
+			"fps": 24,
+			"name": "WhatYouKnowAboutRollingDownInTheDeep",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-9,
+				13
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT-beatbox",
+			"loop": false,
+			"name": "Dad Beatbox Note LEFT"
+		},
+		{
+			"offsets": [
+				0,
+				28
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT-beatbox",
+			"loop": false,
+			"name": "Dad Beatbox Note RIGHT"
+		},
+		{
+			"offsets": [
+				-6,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP-beatbox",
+			"loop": false,
+			"name": "Dad Beatbox Note UP"
+		},
+		{
+			"offsets": [
+				0,
+				-31
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN-beatbox",
+			"loop": false,
+			"name": "Dad Beatbox Note DOWN"
+		},
+		{
+			"offsets": [
+				-9,
+				13
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT-beatbox-loop",
+			"loop": false,
+			"name": "Dad Beatbox Note LEFT"
+		},
+		{
+			"offsets": [
+				0,
+				28
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT-beatbox-loop",
+			"loop": false,
+			"name": "Dad Beatbox Note RIGHT"
+		},
+		{
+			"offsets": [
+				-6,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP-beatbox-loop",
+			"loop": false,
+			"name": "Dad Beatbox Note UP"
+		},
+		{
+			"offsets": [
+				0,
+				-31
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN-beatbox-loop",
+			"loop": false,
+			"name": "Dad Beatbox Note DOWN"
 		}
 	],
 	"no_antialiasing": false,

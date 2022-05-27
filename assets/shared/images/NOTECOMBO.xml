@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="NOTECOMBO.png">
+	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="NoteCombo0000" x="1" y="1" width="368" height="213"/>
+	<SubTexture name="NoteCombo0001" x="1" y="215" width="368" height="213"/>
+	<SubTexture name="NoteCombo0002" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0003" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0004" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0005" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0006" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0007" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0008" x="1" y="429" width="344" height="190" frameX="-15" frameY="-16" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0009" x="1" y="620" width="244" height="143" frameX="-115" frameY="-15" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0010" x="246" y="620" width="60" height="34" frameX="-279" frameY="-24" frameWidth="368" frameHeight="213"/>
+	<SubTexture name="NoteCombo0011" x="307" y="620" width="0" height="0" frameX="-13" frameY="-50" frameWidth="368" frameHeight="213"/>
+</TextureAtlas>

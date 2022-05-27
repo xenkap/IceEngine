@@ -149,6 +149,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 	public var comboMax:Int = 0;
+	var sectionComboBreaks:Bool = false;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -226,13 +227,13 @@ class PlayState extends MusicBeatState
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
 	var missTxt:FlxText;
-	var accuracyTxt:FlxText;
 	var mcTxt:FlxText;
+	var accuracyTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 	var missTxtTween:FlxTween;
-	var accuracyTxtTween:FlxTween;
 	var mcTxtTween:FlxTween;
+	var accuracyTxtTween:FlxTween;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -277,6 +278,8 @@ class PlayState extends MusicBeatState
 	
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
+
+	public var comboVisual:FlxSprite;
 
 	override public function create()
 	{
@@ -330,7 +333,7 @@ class PlayState extends MusicBeatState
 
 		persistentUpdate = true;
 		persistentDraw = true;
-
+	
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
 
@@ -431,10 +434,10 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage': //Week 1
-				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.8, 0.8);
 				add(bg);
 
-				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.95, 0.95);
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				add(stageFront);
@@ -511,7 +514,7 @@ class PlayState extends MusicBeatState
 				add(street);
 
 			case 'limo': //Week 4
-				skyBG = new BGSprite('limo/limoSunset', -800, -400, 0.1, 0.1);
+				skyBG = new BGSprite('limo/limoSunset', -750, -400, 0.1, 0.1);
 				skyBG.setGraphicSize(Std.int(skyBG.width * 1.2));
 				skyBG.updateHitbox();
 				add(skyBG);
@@ -1012,21 +1015,24 @@ class PlayState extends MusicBeatState
 
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
+		healthBarBG.scale.set(0.9, 0.9);
+		healthBarBG.updateHitbox();
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
-		healthBarBG.xAdd = -4;
-		healthBarBG.yAdd = -4;
-		add(healthBarBG);
+		healthBarBG.xAdd = -26;
+		healthBarBG.yAdd = -12;
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 50), Std.int(healthBarBG.height - 28), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
+		healthBar.screenCenter(X);
 		add(healthBar);
+		add(healthBarBG);
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
@@ -1041,6 +1047,15 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
+
+		comboVisual = new FlxSprite(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y - 148);
+		comboVisual.loadGraphic(Paths.image('NOTECOMBO'));
+		comboVisual.animation.addByPrefix('idle', 'NoteCombo', 24, false);
+		if (ClientPrefs.downScroll == true)
+			comboVisual.y = healthBarBG.y + 136;
+
+		add(comboVisual);
+		comboVisual.animation.play('idle', false, false, 0);
 
 		// scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		// scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1057,32 +1072,33 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.downScroll == true)
 			missTxt.y = scoreTxt.y + 26;
 
-		accuracyTxt = new FlxText(missTxt.x, missTxt.y - 26, 0, "", 20);
+		mcTxt = new FlxText(missTxt.x, missTxt.y - 26, 0, "", 20);
 		if (ClientPrefs.downScroll == true)
-			accuracyTxt.y = missTxt.y + 26;
+			mcTxt.y = missTxt.y + 26;
 
-		mcTxt = new FlxText(accuracyTxt.x, accuracyTxt.y - 26, 0, "", 20);
+		accuracyTxt = new FlxText(mcTxt.x, mcTxt.y - 26, 0, "", 20);
 		if (ClientPrefs.downScroll == true)
-			mcTxt.y = accuracyTxt.y + 26;
+			accuracyTxt.y = mcTxt.y + 26;
+
 		
 		if (isPixelStage == true) {
 			scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
 			missTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
-			accuracyTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
 			mcTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
+			accuracyTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
 			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
-			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 		} else {
 			scoreTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			missTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
-			accuracyTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			mcTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
+			accuracyTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
 			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
-			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
 			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
+			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
 		}
 
 		scoreTxt.scrollFactor.set();
@@ -1090,17 +1106,17 @@ class PlayState extends MusicBeatState
 
 		missTxt.scrollFactor.set();
 		missTxt.visible = !ClientPrefs.hideHud;
+		
+		mcTxt.scrollFactor.set();
+		mcTxt.visible = !ClientPrefs.hideHud;
 
 		accuracyTxt.scrollFactor.set();
 		accuracyTxt.visible = !ClientPrefs.hideHud;
 		
-		mcTxt.scrollFactor.set();
-		mcTxt.visible = !ClientPrefs.hideHud;
-		
 		add(scoreTxt);
-		add(missTxt);
-		add(accuracyTxt);
+		add(missTxt);	
 		add(mcTxt);
+		add(accuracyTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1121,13 +1137,14 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		missTxt.cameras = [camHUD];
-		accuracyTxt.cameras = [camHUD];
 		mcTxt.cameras = [camHUD];
+		accuracyTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
+		comboVisual.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -2384,13 +2401,13 @@ class PlayState extends MusicBeatState
 		if(ratingName == '?') {
 			scoreTxt.text = "Score: " + songScore;
 			missTxt.text = "Misses: " + songMisses;
-			accuracyTxt.text = "Accuracy: " + ratingName;
 			mcTxt.text = "Max Combo: " + comboMax;
+			accuracyTxt.text = "Rating: " + ratingName;
 		} else {
 			scoreTxt.text = "Score: " + songScore;
 			missTxt.text = "Misses: " + songMisses;
-			accuracyTxt.text = "Accuracy: " + ratingName + ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;
 			mcTxt.text = "Max Combo: " + comboMax;
+			accuracyTxt.text = "Rating: " + ratingName + ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;
 		}
 
 		if(botplayTxt.visible) {
@@ -3156,11 +3173,27 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	// public function noteComboVisual()
+	// {
+	// 	comboVisual.animation.play("idle", false, false, 0);
+	// }
+	
 	var cameraTwn:FlxTween;
+	var lastCamFocused:Bool;
 	public function moveCamera(isDad:Bool)
 	{
+		trace(sectionComboBreaks);
 		if(isDad)
 		{
+			if (lastCamFocused != isDad)
+			{
+				if (!sectionComboBreaks)
+					comboVisual.animation.play('idle', false, false, 0);
+					// noteComboVisual()
+				
+				sectionComboBreaks = false;
+			}
+
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
@@ -3182,6 +3215,7 @@ class PlayState extends MusicBeatState
 				});
 			}
 		}
+	lastCamFocused = isDad;
 	}
 
 	function tweenCamIn() {
@@ -3479,7 +3513,7 @@ class PlayState extends MusicBeatState
 				if(scoreTxtTween != null) {
 					scoreTxtTween.cancel();
 				}
-				scoreTxt.scale.y = 1.175;
+				scoreTxt.scale.y = 1.25;
 				scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
 					onComplete: function(twn:FlxTween) {
 						scoreTxtTween = null;
@@ -3488,7 +3522,7 @@ class PlayState extends MusicBeatState
 				if(missTxtTween != null) {
 					missTxtTween.cancel();
 				}
-				missTxt.scale.y = 1.175;
+				missTxt.scale.y = 1.25;
 				missTxtTween = FlxTween.tween(missTxt.scale, {x: 1, y: 1}, 0.2, {
 					onComplete: function(twn:FlxTween) {
 						missTxtTween = null;
@@ -3497,7 +3531,7 @@ class PlayState extends MusicBeatState
 				if(accuracyTxtTween != null) {
 					accuracyTxtTween.cancel();
 				}
-				accuracyTxt.scale.y = 1.175;
+				accuracyTxt.scale.y = 1.25;
 				accuracyTxtTween = FlxTween.tween(accuracyTxt.scale, {x: 1, y: 1}, 0.2, {
 					onComplete: function(twn:FlxTween) {
 						accuracyTxtTween = null;
@@ -3506,7 +3540,7 @@ class PlayState extends MusicBeatState
 				if(mcTxtTween != null) {
 					mcTxtTween.cancel();
 				}
-				mcTxt.scale.y = 1.175;
+				mcTxt.scale.y = 1.25;
 				mcTxtTween = FlxTween.tween(mcTxt.scale, {x: 1, y: 1}, 0.2, {
 					onComplete: function(twn:FlxTween) {
 						mcTxtTween = null;
@@ -3863,6 +3897,7 @@ class PlayState extends MusicBeatState
 
 	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		//Dupe note remove
+		sectionComboBreaks = true;
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
 				note.kill();
@@ -3907,6 +3942,7 @@ class PlayState extends MusicBeatState
 
 	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
 	{
+		sectionComboBreaks = true;
 		if (!boyfriend.stunned)
 		{
 			health -= 0.05 * healthLoss;
@@ -3968,6 +4004,9 @@ class PlayState extends MusicBeatState
 				if (SONG.notes[curSection].altAnim || note.noteType == 'Alt Animation') {
 					altAnim = '-alt';
 				}
+				if(note.noteType == 'Beatbox') altAnim = '-beatbox';
+				if(note.noteType == 'Bars') altAnim = '-bars';
+				if(note.noteType.startsWith('Custom Alt Anim ')) altAnim = note.noteType.replace('Custom Alt Anim ', '');
 			}
 
 			var char:Character = dad;
@@ -4128,6 +4167,7 @@ class PlayState extends MusicBeatState
 
 	public function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null) {
 		var skin:String = 'noteSplashes';
+		if(isPixelStage) skin = 'pixelUI/noteSplashes-pixel';
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 		
 		var hue:Float = ClientPrefs.arrowHSV[data % 4][0] / 360;

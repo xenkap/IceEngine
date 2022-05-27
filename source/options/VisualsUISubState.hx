@@ -88,6 +88,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
+
+		var option:Option = new Option('Mic\'d Up Icons ',
+			"If checked, uses Mic'd Up's redrawn icons.",
+			'iconVer',
+			'bool',
+			false);
+		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
