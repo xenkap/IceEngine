@@ -1100,8 +1100,8 @@ class CharacterEditorState extends MusicBeatState
 			if (startMousePos.x - char.x + char.animationsArray[curAnim].offsets[0] >= 0 && startMousePos.x - char.x <= char.width &&
 				startMousePos.y - char.y + char.animationsArray[curAnim].offsets[1] >= 0 && startMousePos.y - char.y <= char.height)
 			{
-			var mouseDragOffsetX:Int = Math.round((startCharOffset.x - (mousePos.x - startMousePos.x)));
-			var mouseDragOffsetY:Int = Math.round((startCharOffset.y - (mousePos.y - startMousePos.y)));
+			var mouseDragOffsetX:Int = Math.round((startCharOffset.x - (mousePos.x - startMousePos.x) / FlxG.camera.zoom));
+			var mouseDragOffsetY:Int = Math.round((startCharOffset.y - (mousePos.y - startMousePos.y) / FlxG.camera.zoom));
 			char.animationsArray[curAnim].offsets = [mouseDragOffsetX, mouseDragOffsetY];
 			char.addOffset(char.animationsArray[curAnim].anim, mouseDragOffsetX, mouseDragOffsetY);
 			ghostChar.addOffset(char.animationsArray[curAnim].anim, mouseDragOffsetX, mouseDragOffsetY);
@@ -1164,7 +1164,7 @@ class CharacterEditorState extends MusicBeatState
 			}
 			
 			if (FlxG.mouse.wheel > 0 && FlxG.camera.zoom > 0.1 || FlxG.camera.zoom < 3) {
-				FlxG.camera.zoom += (0 - (FlxG.mouse.wheel / 15));
+				FlxG.camera.zoom += ((FlxG.mouse.wheel / 15));
 				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
 				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 			}
