@@ -279,7 +279,7 @@ class PlayState extends MusicBeatState
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
-	public var comboSectionVisual:BGSprite;
+	public var comboVisual:FlxSprite;
 
 	override public function create()
 	{
@@ -1048,6 +1048,15 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
+		comboVisual = new FlxSprite(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y - 148);
+		comboVisual.loadGraphic(Paths.image('NOTECOMBO'));
+		comboVisual.animation.addByPrefix('idle', 'NoteCombo', 24, false);
+		if (ClientPrefs.downScroll == true)
+			comboVisual.y = healthBarBG.y + 136;
+
+		add(comboVisual);
+		comboVisual.animation.play('idle', false, false, 0);
+
 		// scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		// scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		// scoreTxt.scrollFactor.set();
@@ -1109,19 +1118,6 @@ class PlayState extends MusicBeatState
 		add(mcTxt);
 		add(accuracyTxt);
 
-		comboSectionVisual = new BGSprite('NOTECOMBO', accuracyTxt.x, scoreTxt.y - 148, 0, 0, ['NoteCombo'], false);
-		// comboSectionVisual.loadGraphic(AssetPaths.'NOTECOMBO.png', true, 385, 225);
-		// comboSectionVisual.frames = Paths.getSparrowAtlas('NOTECOMBO');
-		// comboSectionVisual.loadGraphic(Paths.image('NOTECOMBO'), true, 1024, 1024, false, false);
-		comboSectionVisual.animation.add('combo', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 24, false, false, false);
-		comboSectionVisual.animation.add('idle', [11, 12, 13, 14], 24, true, false, false);
-		comboSectionVisual.updateHitbox();
-		if (ClientPrefs.downScroll == true)
-			comboSectionVisual.y = healthBarBG.y + 136;
-
-		add(comboSectionVisual);
-		comboSectionVisual.animation.play('idle', false, false, 0);
-
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
@@ -1148,7 +1144,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
-		// comboSectionVisual.cameras = [camHUD];
+		comboVisual.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1495,92 +1491,92 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	// public function schoolIntro(?dialogueBox:DialogueBox):Void
-	// {
-	// 	// inCutscene = true;
-	// 	var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-	// 	black.scrollFactor.set();
-	// 	add(black);
+    /*public function schoolIntro(?dialogueBox:DialogueBox):Void
+    {
+	// inCutscene = true;
+	var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+	black.scrollFactor.set();
+	add(black);
 
-	// 	var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
-	// 	red.scrollFactor.set();
+	var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
+	red.scrollFactor.set();
 
-	// 	var senpaiEvil:FlxSprite = new FlxSprite();
-	// 	senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
-	// 	senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
-	// 	senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
-	// 	senpaiEvil.scrollFactor.set();
-	// 	senpaiEvil.updateHitbox();
-	// 	senpaiEvil.screenCenter();
-	// 	senpaiEvil.x += 300;
+	var senpaiEvil:FlxSprite = new FlxSprite();
+	senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
+	senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
+	senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
+	senpaiEvil.scrollFactor.set();
+	senpaiEvil.updateHitbox();
+	senpaiEvil.screenCenter();
+    senpaiEvil.x += 300;
 
-	// 	var songName:String = Paths.formatToSongPath(SONG.song);
-	// 	if (songName == 'roses' || songName == 'thorns')
-	// 	{
-	// 		remove(black);
+	var songName:String = Paths.formatToSongPath(SONG.song);
+	if (songName == 'roses' || songName == 'thorns')
+	{
+ 		remove(black);
 
-	// 		if (songName == 'thorns')
-	// 		{
-	// 			add(red);
-	// 			camHUD.visible = false;
-	// 		}
-	// 	}
+	if (songName == 'thorns')
+	{
+	    add(red);
+		camHUD.visible = false;
+	}
+	}
 
-	// 	new FlxTimer().start(0.3, function(tmr:FlxTimer)
-	// 	{
-	// 		black.alpha -= 0.15;
+	new FlxTimer().start(0.3, function(tmr:FlxTimer)
+	{
+		black.alpha -= 0.15;
 
-	// 		if (black.alpha > 0)
-	// 		{
-	// 			tmr.reset(0.3);
-	// 		}
-	// 		else
-	// 		{
-	// 			if (dialogueBox != null)
-	// 			{
-	// 				if (Paths.formatToSongPath(SONG.song) == 'thorns')
-	// 				{
-	// 					add(senpaiEvil);
-	// 					senpaiEvil.alpha = 0;
-	// 					new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
-	// 					{
-	// 						senpaiEvil.alpha += 0.15;
-	// 						if (senpaiEvil.alpha < 1)
-	// 						{
-	// 							swagTimer.reset();
-	// 						}
-	// 						else
-	// 						{
-	// 							senpaiEvil.animation.play('idle');
-	// 							FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
-	// 							{
-	// 								remove(senpaiEvil);
-	// 								remove(red);
-	// 								FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
-	// 								{
-	// 									startCountdown();
-	// 									camHUD.visible = true;
-	// 								}, true);
-	// 							});
-	// 							new FlxTimer().start(3.2, function(deadTime:FlxTimer)
-	// 							{
-	// 								FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
-	// 							});
-	// 						}
-	// 					});
-	// 				}
-	// 				else
-	// 				{
-	// 					startCountdown();
-	// 				}
-	// 			}
-	// 			else
-	// 				startCountdown();
+		if (black.alpha > 0)
+		{
+			tmr.reset(0.3);
+		}
+		else
+		{
+   			if (dialogueBox != null)
+			{
+				if (Paths.formatToSongPath(SONG.song) == 'thorns')
+				{
+					add(senpaiEvil);
+					senpaiEvil.alpha = 0;
+	                new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
+	 				{
+ 						senpaiEvil.alpha += 0.15;
+						if (senpaiEvil.alpha < 1)
+						{
+							swagTimer.reset();
+						}
+						else
+						{
+							senpaiEvil.animation.play('idle');
+							FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
+							{
+  								    remove(senpaiEvil);
+	 								remove(red);
+	 								FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
+	 								{
+	 									startCountdown();
+	 									camHUD.visible = true;
+	 								}, true);
+	 							});
+	 							new FlxTimer().start(3.2, function(deadTime:FlxTimer)
+	 							{
+	 								FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
+	 							});
+							}
+	 					});
+	 				}
+	 				else
+	 				{
+	 					startCountdown();
+	 				}
+	 			}
+	 			else
+	 				startCountdown();
 
-	// 			remove(black);
-	// 		}
-	// 	});
-	// }
+	 			remove(black);
+	 		}
+	 	});
+	 }*/
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
@@ -2401,9 +2397,6 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		// if (comboSectionVisual.animation.curAnim.name == 'combo' && comboSectionVisual.animation.curAnim.finished) comboSectionVisual.kill();
-
 		if (comboMax<combo) comboMax = combo;
 		if(ratingName == '?') {
 			scoreTxt.text = "Score: " + songScore;
@@ -3180,46 +3173,46 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function notecomboSectionVisual()
-	{
-		// comboSectionVisual.revive();
-		comboSectionVisual.animation.play('combo', false, false, 0);
-	}
+	// public function noteComboVisual()
+	// {
+	// 	comboVisual.animation.play("idle", false, false, 0);
+	// }
 	
 	var cameraTwn:FlxTween;
 	var lastCamFocused:Bool;
 	public function moveCamera(isDad:Bool)
 	{
 		trace(sectionComboBreaks);
-		if (lastCamFocused != isDad)
+		if(isDad)
 		{
-			if(isDad)
+			if (lastCamFocused != isDad)
 			{
 				if (!sectionComboBreaks)
-					notecomboSectionVisual();
-				else
-					sectionComboBreaks = false;
-
-				camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-				camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-				camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-				tweenCamIn();
+					comboVisual.animation.play('idle', false, false, 0);
+					// noteComboVisual()
+				
+				sectionComboBreaks = false;
 			}
-			else
-			{
-				camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-				camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-				camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
-				if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
-				{
-					cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-						function (twn:FlxTween)
-						{
-							cameraTwn = null;
-						}
-					});
-				}
+			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			tweenCamIn();
+		}
+		else
+		{
+			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+
+			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
+			{
+				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
+					function (twn:FlxTween)
+					{
+						cameraTwn = null;
+					}
+				});
 			}
 		}
 	lastCamFocused = isDad;
