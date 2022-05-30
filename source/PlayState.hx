@@ -279,7 +279,7 @@ class PlayState extends MusicBeatState
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
 
-	public var comboVisual:FlxSprite;
+	// public var comboVisual:FlxSprite;
 
 	override public function create()
 	{
@@ -1048,14 +1048,15 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		comboVisual = new FlxSprite(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y - 148);
-		comboVisual.loadGraphic(Paths.image('NOTECOMBO'));
-		comboVisual.animation.addByPrefix('idle', 'NoteCombo', 24, false);
-		if (ClientPrefs.downScroll == true)
-			comboVisual.y = healthBarBG.y + 136;
+		// comboVisual = new FlxSprite(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y - 148);
+		// comboVisual.loadGraphic(Paths.image('NOTECOMBO'), true, 385, 229, false);
+		// comboVisual.frames = Paths.getSparrowAtlas('NOTECOMBO');
+		// comboVisual.animation.addByPrefix('idle', 'NoteCombo', 24, false);
+		// if (ClientPrefs.downScroll == true)
+		// 	comboVisual.y = healthBarBG.y + 136;
 
-		add(comboVisual);
-		comboVisual.animation.play('idle', false, false, 0);
+		// add(comboVisual);
+		// comboVisual.animation.play('idle', false, false, 0);
 
 		// scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		// scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1144,7 +1145,7 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
-		comboVisual.cameras = [camHUD];
+		// comboVisual.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -3187,11 +3188,11 @@ class PlayState extends MusicBeatState
 		{
 			if (lastCamFocused != isDad)
 			{
-				if (!sectionComboBreaks)
-					comboVisual.animation.play('idle', false, false, 0);
-					// noteComboVisual()
+				// if (!sectionComboBreaks)
+				// 	comboVisual.animation.play('idle', false, false, 0);
+				// 	// noteComboVisual()
 				
-				sectionComboBreaks = false;
+				// sectionComboBreaks = false;
 			}
 
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);

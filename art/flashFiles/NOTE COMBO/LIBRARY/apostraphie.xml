@@ -1,0 +1,43 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="apostraphie" itemID="5f921ac8-0000084d" symbolType="graphic" lastModified="1603410640">
+  <timeline>
+    <DOMTimeline name="apostraphie" currentFrame="3">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" locked="true" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" duration="2" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!267 13S2[292 23 311 43!311 43[368 160 279 262!279 262[204 351 129 439!129 439[121 444 114 450!114 450[107 455 101 461!101 461[91 471 82 482!82 482[79 487 76 493!76 493[73 498 71 503!71 503[70 509 67 514!67 514[64 519 61 525!61 525[55
+ 528 49 531!49 531[43 534 37 532!37 532[20 526 5 515!5 515[2 512 0 507!0 507[0 502 0 496!0 496[0 491 1 486!1 486[2 480 4 475!4 475[7 464 11 453!11 453[11 448 11 443!11 443[11 437 11 432!11 432[14 427 18 421!18 421[21 416 25 410!25 410
+[27 405 28 400!28 400[29 394 29 389!29 389[30 384 32 378!32 378[36 373 39 368!39 368[43 362 46 357!46 357[50 335 56 315!56 315[67 272 72 229!72 229[73 213 71 196!71 196[89 143 108 91!108 91[139 7 221 0!221 0[245 5 267 13"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="2" duration="2" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="1" edges="
+!66 229[66 314 31 390!31 390[27 399 23 409!23 409[18 421 11 432!11 432|0 507!0 507|43 533!43 533[157 402 280 263!280 263[368 163 311 43!311 43[194 -49 114 70!114 70[66 143 66 229"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>
