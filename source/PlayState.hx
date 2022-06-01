@@ -58,6 +58,7 @@ import DialogueBoxPsych;
 #if sys
 import sys.FileSystem;
 #end
+import flixel.animation.FlxAnimation;
 
 using StringTools;
 
@@ -1047,16 +1048,6 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
-
-		// comboVisual = new FlxSprite(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y - 148);
-		// comboVisual.loadGraphic(Paths.image('NOTECOMBO'), true, 385, 229, false);
-		// comboVisual.frames = Paths.getSparrowAtlas('NOTECOMBO');
-		// comboVisual.animation.addByPrefix('idle', 'NoteCombo', 24, false);
-		// if (ClientPrefs.downScroll == true)
-		// 	comboVisual.y = healthBarBG.y + 136;
-
-		// add(comboVisual);
-		// comboVisual.animation.play('idle', false, false, 0);
 
 		// scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		// scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -4002,15 +3993,17 @@ class PlayState extends MusicBeatState
 			var curSection:Int = Math.floor(curStep / 16);
 			if (SONG.notes[curSection] != null)
 			{
-				if (SONG.notes[curSection].altAnim || note.noteType == 'Alt Animation') {
-					altAnim = '-alt';
-				}
-				if(note.noteType == 'Beatbox') altAnim = '-beatbox';
-				if(note.noteType == 'Bars') altAnim = '-bars';
+				if (SONG.notes[curSection].altAnim || note.noteType == 'Alt Animation') altAnim = '-alt';
+				if(SONG.notes[curSection].beatboxAnim || note.noteType == 'Beatbox') altAnim = '-beatbox';
+				if(SONG.notes[curSection].barsAnim || note.noteType == 'Bars') altAnim = '-bars';
 				if(note.noteType.startsWith('Custom Alt Anim ')) altAnim = note.noteType.replace('Custom Alt Anim ', '');
 			}
 
 			var char:Character = dad;
+
+			var checkInvAnim:FlxAnimation = char.animation.getByName(singAnimations[Std.int(Math.abs(note.noteData))] + altAnim);
+			if(checkInvAnim == null) altAnim = '';
+
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 			if(note.gfNote) {
 				char = gf;
@@ -4088,11 +4081,18 @@ class PlayState extends MusicBeatState
 
 			if(!note.noAnimation) {
 				var daAlt = '';
-				if(note.noteType == 'Alt Animation') daAlt = '-alt';
-				if(note.noteType == 'Beatbox') daAlt = '-beatbox';
-				if(note.noteType == 'Bars') daAlt = '-bars';
-				if(note.noteType.startsWith('Custom Alt Anim ')) daAlt = note.noteType.replace('Custom Alt Anim ', '');
+				var curSection:Int = Math.floor(curStep / 16);
+				if (SONG.notes[curSection] != null)
+				{
+					if(SONG.notes[curSection].altAnim || note.noteType == 'Alt Animation') daAlt = '-alt';
+					if(SONG.notes[curSection].beatboxAnim || note.noteType == 'Beatbox') daAlt = '-beatbox';
+					if(SONG.notes[curSection].barsAnim || note.noteType == 'Bars') daAlt = '-bars';
+					if(note.noteType.startsWith('Custom Alt Anim ')) daAlt = note.noteType.replace('Custom Alt Anim ', '-');
+				}
 	
+				var checkInvAnim:FlxAnimation = boyfriend.animation.getByName(singAnimations[Std.int(Math.abs(note.noteData))] + daAlt);
+				if(checkInvAnim == null) daAlt = '';
+
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 
 				if(note.gfNote)

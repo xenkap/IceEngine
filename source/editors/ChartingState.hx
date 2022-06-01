@@ -634,6 +634,8 @@ class ChartingState extends MusicBeatState
 	var check_changeBPM:FlxUICheckBox;
 	var stepperSectionBPM:FlxUINumericStepper;
 	var check_altAnim:FlxUICheckBox;
+	var check_barsAnim:FlxUICheckBox;
+	var check_beatboxAnim:FlxUICheckBox;
 
 	var sectionToCopy:Int = 0;
 	var notesCopied:Array<Dynamic>;
@@ -660,6 +662,14 @@ class ChartingState extends MusicBeatState
 		check_altAnim = new FlxUICheckBox(10, 60, null, null, "Alt Animation", 100);
 		check_altAnim.checked = _song.notes[curSection].altAnim;
 		check_altAnim.name = 'check_altAnim';
+
+		check_barsAnim = new FlxUICheckBox(10, 70, null, null, "Bars Animation", 100);
+		check_barsAnim.checked = _song.notes[curSection].barsAnim;
+		check_barsAnim.name = 'check_barsAnim';
+
+		check_beatboxAnim = new FlxUICheckBox(10, 80, null, null, "Beatbox Animation", 100);
+		check_beatboxAnim.checked = _song.notes[curSection].beatboxAnim;
+		check_beatboxAnim.name = 'check_beatboxAnim';
 
 		check_changeBPM = new FlxUICheckBox(10, 90, null, null, 'Change BPM', 100);
 		check_changeBPM.checked = _song.notes[curSection].changeBPM;
@@ -861,6 +871,8 @@ class ChartingState extends MusicBeatState
 		tab_group_section.add(check_mustHitSection);
 		tab_group_section.add(check_gfSection);
 		tab_group_section.add(check_altAnim);
+		tab_group_section.add(check_barsAnim);
+		tab_group_section.add(check_beatboxAnim);
 		tab_group_section.add(check_changeBPM);
 		tab_group_section.add(copyButton);
 		tab_group_section.add(pasteButton);
@@ -1350,6 +1362,10 @@ class ChartingState extends MusicBeatState
 					FlxG.log.add('changed bpm shit');
 				case "Alt Animation":
 					_song.notes[curSection].altAnim = check.checked;
+				case "Bars Animation":
+					_song.notes[curSection].barsAnim = check.checked;
+				case "Beatbox Animation":
+					_song.notes[curSection].beatboxAnim = check.checked;
 			}
 		}
 		else if (id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper))
@@ -2202,6 +2218,8 @@ class ChartingState extends MusicBeatState
 		check_mustHitSection.checked = sec.mustHitSection;
 		check_gfSection.checked = sec.gfSection;
 		check_altAnim.checked = sec.altAnim;
+		check_barsAnim.checked = sec.barsAnim;
+		check_beatboxAnim.checked = sec.beatboxAnim;
 		check_changeBPM.checked = sec.changeBPM;
 		stepperSectionBPM.value = sec.bpm;
 
@@ -2479,7 +2497,9 @@ class ChartingState extends MusicBeatState
 			gfSection: false,
 			sectionNotes: [],
 			typeOfSection: 0,
-			altAnim: false
+			altAnim: false,
+			barsAnim: false,
+			beatboxAnim: false,
 		};
 
 		_song.notes.push(sec);
