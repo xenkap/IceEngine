@@ -663,11 +663,11 @@ class ChartingState extends MusicBeatState
 		check_altAnim.checked = _song.notes[curSection].altAnim;
 		check_altAnim.name = 'check_altAnim';
 
-		check_barsAnim = new FlxUICheckBox(60, 60, null, null, "Bars Animation", 100);
+		check_barsAnim = new FlxUICheckBox(130, 60, null, null, "Bars Animation", 100);
 		check_barsAnim.checked = _song.notes[curSection].barsAnim;
 		check_barsAnim.name = 'check_barsAnim';
 
-		check_beatboxAnim = new FlxUICheckBox(60, 90, null, null, "Beatbox Animation", 100);
+		check_beatboxAnim = new FlxUICheckBox(130, 90, null, null, "Beatbox Animation", 100);
 		check_beatboxAnim.checked = _song.notes[curSection].beatboxAnim;
 		check_beatboxAnim.name = 'check_beatboxAnim';
 
