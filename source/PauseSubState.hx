@@ -14,6 +14,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
+import flixel.util.FlxTimer;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -29,6 +30,7 @@ class PauseSubState extends MusicBeatSubstate
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
+	var unPauseTimer:FlxTimer;
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
@@ -211,7 +213,21 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
-					close();
+					if (FlxG.keys.pressed.SHIFT) {
+						menuItems = ['3 (ENTER TO CANCEL)'];
+						regenMenu();
+						unPauseTimer = new FlxTimer().start(1, function(hmmm:FlxTimer) {
+							menuItems = [hmmm.loopsLeft + ' (ENTER TO CANCEL)'];
+							FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+							regenMenu();
+							if(hmmm.finished && hmmm.loopsLeft == 0) {
+								PlayState.instance.modchartTimers.remove('hmmm');
+								close();
+							}
+						}, 3);
+					} else {
+						close();
+					}
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					regenMenu();
@@ -259,6 +275,11 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
+				case '3 (ENTER TO CANCEL)' | '2 (ENTER TO CANCEL)' | '1 (ENTER TO CANCEL)' | '0 (ENTER TO CANCEL)':
+					unPauseTimer.cancel();
+					unPauseTimer.destroy();
+					menuItems = menuItemsOG;
+					regenMenu();
 			}
 		}
 	}
