@@ -17,6 +17,7 @@ function onMoveCamera(focus)
             setObjectOrder('comboVisual', 100)
             setObjectCamera('comboVisual', 'hud');
             objectPlayAnimation('comboVisual', 'combo', false);
+            playSound('wo', 0.2)
         end
         hasComboBreak = false;
         hasComboBreak = false;
