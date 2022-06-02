@@ -1078,19 +1078,19 @@ class PlayState extends MusicBeatState
 			missTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
 			mcTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
 			accuracyTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
-			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
-			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
-			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
-			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 1);
+			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 1);
+			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 1);
+			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 1);
 		} else {
 			scoreTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			missTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			mcTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
 			accuracyTxt.setFormat(Paths.font("fullphanmuff.ttf"), 20, FlxColor.WHITE, RIGHT);
-			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
-			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
-			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
-			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 0);
+			scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 0);
+			missTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 0);
+			mcTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 0);
+			accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 2, 0);
 		}
 
 		scoreTxt.scrollFactor.set();
