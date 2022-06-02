@@ -19,6 +19,10 @@ import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 import flixel.graphics.FlxGraphic;
 import WeekData;
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 using StringTools;
 
@@ -334,7 +338,13 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+			if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' +  PlayState.storyPlaylist[0].toLowerCase() + diffic))
+				|| sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' +  PlayState.storyPlaylist[0].toLowerCase() + diffic)))
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+			else
+				PlayState.storyPlaylist = [];
+				PlayState.SONG = Song.loadFromJson('test', 'test');
+			
 			PlayState.campaignScore = 0;
 			PlayState.campaignMisses = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)

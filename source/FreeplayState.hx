@@ -21,6 +21,10 @@ import WeekData;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 using StringTools;
 
@@ -358,7 +362,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		else if (accepted)
+		else if (accepted || FlxG.mouse.justPressed)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
@@ -374,7 +378,11 @@ class FreeplayState extends MusicBeatState
 			}*/
 			trace(poop);
 
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			if (sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop)) || sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)))
+				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			else
+				PlayState.SONG = Song.loadFromJson('test', 'test');
+
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 
