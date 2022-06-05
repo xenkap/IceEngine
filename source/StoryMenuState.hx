@@ -338,6 +338,8 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyDifficulty = curDifficulty;
 
+			trace(diffic);
+			trace(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' +  PlayState.storyPlaylist[0].toLowerCase() + diffic));
 			if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' +  PlayState.storyPlaylist[0].toLowerCase() + diffic))
 				|| sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' +  PlayState.storyPlaylist[0].toLowerCase() + diffic)))
 				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
