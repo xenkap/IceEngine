@@ -2,7 +2,7 @@ hasComboBreak = false;
 sectionHits = 0;
 function onCreate()
 	-- triggered when the lua file is started, some variables weren't created yet
-    makeAnimatedLuaSprite('comboVisual', 'noteCombo', 100, 150);
+    makeAnimatedLuaSprite('comboVisual', 'NOTECOMBO', 100, 150);
     addAnimationByPrefix('comboVisual', 'appear', 'appear', 24, false);
     addAnimationByPrefix('comboVisual', 'disappear', 'disappear', 24, false);
     setScrollFactor('comboVisual', 0, 0);
@@ -18,6 +18,7 @@ function onMoveCamera(focus)
         if hasComboBreak == false and sectionHits > 0 then
             setProperty('comboVisual.visible', true);
             objectPlayAnimation('comboVisual', 'appear', false);
+            setProperty('comboVisual.offset.x', getProperty('comboVisual.offset.x') + 150)
             playSound('noteComboSound');
             runTimer('disappearCombo', 0.5, 1)
         end
@@ -30,8 +31,8 @@ end
 
 function onTimerCompleted(tag, loops, loopsLeft)
     if tag == 'disappearCombo' then
-        setProperty('comboVisual.offset.x', getProperty('comboVisual.offset.x') + 350)
-        objectPlayAnimation('comboVisual', 'disappear', false);
+        setProperty('comboVisual.offset.x', getProperty('comboVisual.offset.x') - 150)
+        objectPlayAnimation('comboVisual', 'disappear', 24, false);
     end
 end
 
