@@ -380,6 +380,8 @@ class FreeplayState extends MusicBeatState
 
 			if (sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop)) || sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)))
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			else if (sys.FileSystem.exists(Paths.json(songLowercase + '/' + songLowercase)) || sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + songLowercase)))
+				PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
 			else
 				PlayState.SONG = Song.loadFromJson('test', 'test');
 
