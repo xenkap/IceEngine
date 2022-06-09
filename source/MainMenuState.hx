@@ -240,7 +240,7 @@ class MainMenuState extends MusicBeatState
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(0 - FlxG.mouse.wheel);
+				changeItem(-FlxG.mouse.wheel);
 			}
 			if (controls.UI_UP_P)
 			{

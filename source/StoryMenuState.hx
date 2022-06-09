@@ -220,7 +220,7 @@ class StoryMenuState extends MusicBeatState
 			if (FlxG.mouse.wheel != 0) 
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeWeek(0 - FlxG.mouse.wheel);
+				changeWeek(-FlxG.mouse.wheel);
 			}
 			
 			if (upP)
@@ -237,7 +237,7 @@ class StoryMenuState extends MusicBeatState
 				holdTime = 0;
 			}
 			
-			if(controls.UI_DOWN || controls.UI_UP)
+			if(downP || upP)
 			{
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
