@@ -8,6 +8,7 @@ import Controls;
 
 class ClientPrefs {
 	public static var downScroll:Bool = false;
+	public static var bfAltVersion:String = 'Normal';
 	public static var foePlay:Bool = false;
 	// public static var noteScroll:String = 'upscroll';
 	public static var middleScroll:Bool = false;
@@ -95,6 +96,7 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.bfAltVersion = bfAltVersion;
 		FlxG.save.data.foePlay = foePlay;
 		// FlxG.save.data.noteScroll = noteScroll;
 		FlxG.save.data.middleScroll = middleScroll;
@@ -146,6 +148,9 @@ class ClientPrefs {
 		// }
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
+		}
+		if(FlxG.save.data.bfAltVersion != null) {
+			bfAltVersion = FlxG.save.data.bfAltVersion;
 		}
 		if(FlxG.save.data.foePlay != null) {
 			foePlay = FlxG.save.data.foePlay;
