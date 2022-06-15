@@ -41,18 +41,26 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Note Scroll:',
-			"In what direction should the notes scroll?\nP.S THIS DONT WORK !!!!!!!!!!!!!!!!!",
-			'noteScroll',
-			'string',
-			'Upscroll',
-			['Upscroll', 'Downscroll', 'Leftscroll', 'Rightscroll']);
-		addOption(option);
+		// ADDING THIS LATER BECAUSE I CANT WRAP MY HEAD AROUND IT -ran
+		// var option:Option = new Option('Note Scroll:',
+		// 	"In what direction should the notes scroll?\nP.S THIS DONT WORK !!!!!!!!!!!!!!!!!",
+		// 	'noteScroll',
+		// 	'string',
+		// 	'Upscroll',
+		// 	['Upscroll', 'Downscroll', 'Leftscroll', 'Rightscroll']);
+		// addOption(option);
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
 			'If checked, notes go Down instead of Up, simple enough.', //Description
 			'downScroll', //Save data variable name
+			'bool', //Variable type
+			false); //Default value
+		addOption(option);
+
+		var option:Option = new Option('Play as Opponent', //Name
+			'If checked, you play the opponents notes, also simple enough.', //Description
+			'foePlay', //Save data variable name
 			'bool', //Variable type
 			false); //Default value
 		addOption(option);

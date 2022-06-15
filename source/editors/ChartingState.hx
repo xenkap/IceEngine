@@ -87,7 +87,15 @@ class ChartingState extends MusicBeatState
 		['Alt Idle Animation', "Sets a specified suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
-		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."]
+		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
+		['OTHER Flash', "Flashes the 'other' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FLASH!!!\nValue 1: Time it takes to return to normal.\nValue 2: Color to flash to"],
+		['HUD Flash', "Flashes the 'hud' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FLASH!!!\nValue 1: Time it takes to return to normal.\nValue 2: Color to flash to"],
+		['GAME Flash', "Flashes the 'game' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FLASH!!!\nValue 1: Time it takes to return to normal.\nValue 2: Color to flash to"],
+		['OTHER Fade', "Fades the 'other' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
+		['HUD Fade', "Fades the 'hud' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
+		['GAME Fade', "Fades the 'game' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
+		['Set Camera Zoom', "Sets the default camera zoom.\nThe camera won't change back to\nthe default zoom after using this.\nValue 1: Camera zoom value"],
+		['Countdown Visuals', "Triggers the countdown."]
 	];
 
 	var _file:FileReference;

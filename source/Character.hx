@@ -79,7 +79,7 @@ class Character extends FlxSprite
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
-	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
+	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?isOpponent:Bool = false)
 	{
 		super(x, y);
 
@@ -90,11 +90,6 @@ class Character extends FlxSprite
 		#end
 
 		curCharacter = character;
-		if (curCharacter.startsWith('bf'))
-		{
-			if (ClientPrefs.bfAltVersion == 'ZERO') curCharacter += '-zero';
-			if (ClientPrefs.bfAltVersion == 'Reanimated') curCharacter += '-reanim';
-		}
 		
 		this.isPlayer = isPlayer;
 		antialiasing = ClientPrefs.globalAntialiasing;
@@ -118,12 +113,7 @@ class Character extends FlxSprite
 				if (!Assets.exists(path))
 				#end
 				{
-					if (curCharacter.startsWith('bf'))
-					{
-						if (ClientPrefs.bfAltVersion == 'Normal') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json');
-						if (ClientPrefs.bfAltVersion == 'ZERO') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '-zero' + '.json');
-						if (ClientPrefs.bfAltVersion == 'Reanimated') path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '-reanim' + '.json');
-					}
+					path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json');
 					//If a character couldn't be found, change him to BF just to prevent a crash
 				}
 
@@ -232,30 +222,11 @@ class Character extends FlxSprite
 		if(animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) hasMissAnimations = true;
 		recalculateDanceIdle();
 		dance();
-
-		if (isPlayer)
-		{
+		if (!ClientPrefs.foePlay) {
+			if (isPlayer)
+				flipX = !flipX;
+		} else if (isOpponent) {
 			flipX = !flipX;
-
-			/*// Doesn't flip for BF, since his are already in the right place???
-			if (!curCharacter.startsWith('bf'))
-			{
-				// var animArray
-				if(animation.getByName('singLEFT') != null && animation.getByName('singRIGHT') != null)
-				{
-					var oldRight = animation.getByName('singRIGHT').frames;
-					animation.getByName('singRIGHT').frames = animation.getByName('singLEFT').frames;
-					animation.getByName('singLEFT').frames = oldRight;
-				}
-
-				// IF THEY HAVE MISS ANIMATIONS??
-				if (animation.getByName('singLEFTmiss') != null && animation.getByName('singRIGHTmiss') != null)
-				{
-					var oldMiss = animation.getByName('singRIGHTmiss').frames;
-					animation.getByName('singRIGHTmiss').frames = animation.getByName('singLEFTmiss').frames;
-					animation.getByName('singLEFTmiss').frames = oldMiss;
-				}
-			}*/
 		}
 	}
 
