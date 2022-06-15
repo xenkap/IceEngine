@@ -58,25 +58,7 @@ jobs:
         with:
           name: linuxBuild
           path: 'export/release/linux/bin' 
-      - name: Auto Release
-        # You may pin to the exact commit or the version.
-        # uses: CupOfTea696/gh-action-auto-release@a8f57f49a805d334ac7abe31b689e7ea24e1ee40
-        uses: CupOfTea696/gh-action-auto-release@v1.0.2
-        with:
-          # Title for the release
-          title: $semver # optional, default is Version $semver
-          # Name for the git tag
-          tag: $version # optional, default is $version
-          # Whether or not this release should be published as a draft
-          draft: false # optional, default is false
-          # The path to the CHANGELOG
-          changelog: CHANGELOG.md # optional, default is CHANGELOG.md
-          # String a CHANGELOG entry must contain to be used as the entry for this release
-          changelog-entry: $version # optional, default is $version
-          # Pattern the commit message must match to create a release
-          regex: "" # optional
-          # Pattern the commit message must match to mark the release as a prerelease
-          prerelease-regex: "" # optional
+
   buildWindows:
     runs-on: windows-latest
     
@@ -118,25 +100,7 @@ jobs:
         with:
           name: windowsBuild
           path: export/release/windows/bin
-      - name: Auto Release
-        # You may pin to the exact commit or the version.
-        # uses: CupOfTea696/gh-action-auto-release@a8f57f49a805d334ac7abe31b689e7ea24e1ee40
-        uses: CupOfTea696/gh-action-auto-release@v1.0.2
-        with:
-          # Title for the release
-          title: $semver # optional, default is Version $semver
-          # Name for the git tag
-          tag: $version # optional, default is $version
-          # Whether or not this release should be published as a draft
-          draft: false # optional, default is false
-          # The path to the CHANGELOG
-          changelog: CHANGELOG.md # optional, default is CHANGELOG.md
-          # String a CHANGELOG entry must contain to be used as the entry for this release
-          changelog-entry: $version # optional, default is $version
-          # Pattern the commit message must match to create a release
-          regex: "" # optional
-          # Pattern the commit message must match to mark the release as a prerelease
-          prerelease-regex: "" # optional
+
   buildMac:
     runs-on: macos-latest
 
@@ -177,23 +141,4 @@ jobs:
         with:
           name: macBuild
           path: export/release/macos/bin
-      - name: Auto Release
-        # You may pin to the exact commit or the version.
-        # uses: CupOfTea696/gh-action-auto-release@a8f57f49a805d334ac7abe31b689e7ea24e1ee40
-        uses: CupOfTea696/gh-action-auto-release@v1.0.2
-        with:
-          # Title for the release
-          title: $semver # optional, default is Version $semver
-          # Name for the git tag
-          tag: $version # optional, default is $version
-          # Whether or not this release should be published as a draft
-          draft: false # optional, default is false
-          # The path to the CHANGELOG
-          changelog: CHANGELOG.md # optional, default is CHANGELOG.md
-          # String a CHANGELOG entry must contain to be used as the entry for this release
-          changelog-entry: $version # optional, default is $version
-          # Pattern the commit message must match to create a release
-          regex: "" # optional
-          # Pattern the commit message must match to mark the release as a prerelease
-          prerelease-regex: "" # optional
 
