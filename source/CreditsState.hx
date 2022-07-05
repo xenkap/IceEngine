@@ -81,26 +81,29 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Ice Engine Team', 'ice'],
-			['Ordinary ¯\\_(ツ)_/¯',	'ran',				'Main\n*cough cough*\n"Programmer" of Ice Engine',			'https://www.youtube.com/c/kaipkai/',	'AFFF6B'],
-			['WindowsWhistler',			'windows', 			'Actual Programmer of Ice Engine',			 				'https://github.com/bot-beep-boop',		'FFEC6D'],
+			['Ice Engine Team',			'ice'],
+			['OrdiRANy',				'ran',				'Main "Programmer" of Ice Engine\n*cough cough*',			'https://www.youtube.com/c/kaipkai/',	'AFFF6B'],
+			['WindowsWhistler',			'windows', 			'Programmer of Ice Engine',			 						'https://github.com/bot-beep-boop',		'FFEC6D'],
+			['Ring',					'ring',				'Additional Programmer of Ice Engine', 						'', 									'9271FD'],	
+			['Cheb',					'cheb',				'Helped with some code...', 								'https://gamejolt.com/@chebtheidk', 	'53E52C'],
+			['JohnnyWereThere',			'tank',				'Week 7 Note Splash Offsets !!\ncock joke', 				'https://www.youtube.com/channel/UCnIv3iNRB4vehgx21IgMN-Q', 'F6B604'],
 			[''],
-			['Psych Engine Team', 'psych'],
+			['Psych Engine Team',		'psych'],
 			['Shadow Mario',			'shadowmario',		'Main Programmer of Psych Engine',							'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',				'riveroaken',		'Main Artist/Animator of Psych Engine',						'https://twitter.com/RiverOaken',		'C30085'],
 			['shubs',					'shubs',			'Additional Programmer of Psych Engine',					'https://twitter.com/yoshubs',			'279ADC'],
 			[''],
-			['Former Engine Members', 'psych'],
+			['Former Engine Members',	'psych'],
 			['bb-panzu',				'bb-panzu',			'Ex-Programmer of Psych Engine',							'https://twitter.com/bbsub3',			'389A58'],	
 			[''],
-			['Engine Contributors', 'psych/extra'],
+			['Engine Contributors',		'psych/extra'],
 			['iFlicky',					'iflicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',	'https://twitter.com/flicky_i',			'AA32FE'],
 			['SqirraRNG',				'gedehari',			'Chart Editor\'s Sound Waveform base',						'https://twitter.com/gedehari',			'FF9300'],
 			['PolybiusProxy',			'polybiusproxy',	'.MP4 Video Loader Extension',								'https://twitter.com/polybiusproxy',	'FFEAA6'],
 			['Keoiki',					'keoiki',			'Note Splash Animations',									'https://twitter.com/Keoiki_',			'FFFFFF'],
 			['Smokey',					'smokey',			'Spritemap Texture Support',								'https://twitter.com/Smokey_5_',		'4D5DBD'],
 			[''],
-			["Funkin' Crew", "funkin"],
+			["Funkin' Crew",			"funkin"],
 			['ninjamuffin99',			'ninjamuffin99',	"Programmer of Friday Night Funkin'",						'https://twitter.com/ninja_muffin99',	'F73838'],
 			['PhantomArcade',			'phantomarcade',	"Animator of Friday Night Funkin'",							'https://twitter.com/PhantomArcade3K',	'FFBB1B'],
 			['evilsk8r',				'evilsk8r',			"Artist of Friday Night Funkin'",							'https://twitter.com/evilsk8r',			'53E52C'],
@@ -131,7 +134,7 @@ class CreditsState extends MusicBeatState
 
 			if(!isSelectable) {
 				if (1 < creditsStuff[i].length)
-					iconPath = '' + creditsStuff[i][1];
+					iconPath = creditsStuff[i][1] + '/';
 				else
 					iconPath = '';
 			}
@@ -142,7 +145,7 @@ class CreditsState extends MusicBeatState
 					Paths.currentModDirectory = creditsStuff[i][5];
 				}
 
-				var icon:AttachedSprite = new AttachedSprite('credits/' + iconPath + '/' + creditsStuff[i][1]);
+				var icon:AttachedSprite = new AttachedSprite('credits/' + iconPath + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
 	
