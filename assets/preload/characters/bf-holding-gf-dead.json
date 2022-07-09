@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-11,
+				4
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "BF Dead with GF Loop"
+		},
+		{
+			"offsets": [
+				-14,
+				34
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "RETRY confirm holding gf"
+		},
+		{
+			"offsets": [
+				7,
+				4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "BF Dies with GF"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/bfHoldingGF-DEAD",
+	"position": [
+		0,
+		350
+	],
+	"healthicon": "bfandgf",
+	"flip_x": true,
+	"healthbar_colors": [
+		123,
+		214,
+		255
+	],
+	"camera_position": [
+		50,
+		-60
+	],
+	"sing_duration": 4,
+	"scale": 1
+}
