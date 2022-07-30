@@ -444,7 +444,10 @@ class PlayState extends MusicBeatState
 		add(gfGroup); //Needed for blammed lights
 		add(ClientPrefs.foePlay ? boyfriendGroup : dadGroup);
 		add(ClientPrefs.foePlay ? dadGroup : boyfriendGroup);
-
+		
+		if(curStage == 'spooky') {
+			add(halloweenWhite);
+		}
 
 		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
@@ -973,8 +976,7 @@ class PlayState extends MusicBeatState
 								startCountdown();
 							}
 						});
-					});
-
+					});					
 				default:
 					startCountdown();
 			}
@@ -1020,8 +1022,8 @@ class PlayState extends MusicBeatState
 
 	function stageLoad(stageName:String, ?eventBool:Bool = false)
 	{
-		// if (stageName != curStage)
-		// 	curStage = stageName;
+		if (stageName != curStage)
+			curStage = stageName;
 
 		// if (eventBool == true) {
 		// 	var stageData:StageFile = StageData.getStageFile(stageName);
@@ -1045,198 +1047,45 @@ class PlayState extends MusicBeatState
 		// 	defaultCamZoom = stageData.defaultZoom;
 		// 	initialCamZoom = stageData.defaultZoom;
 		// }
-		switch (stageName)
-		{
-			case 'stage': //Week 1
-				stagebg = new BGSprite('stageback', -750, -485, 0.8, 0.8);
-				add(stagebg);
 
-				stageFront = new BGSprite('stagefront', -450, 600, 0.95, 0.95);
+		switch (stageName) {
+			case 'stage': //Week 1
+				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.8, 0.8);
+				add(bg);
+
+				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.95, 0.95);
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
+				add(stageFront);
 				if(!ClientPrefs.lowQuality) {
-					stagesmoke = new BGSprite('stagesmoke', -325, 400, 0.9, 0.9);
-					stagesmoke.setGraphicSize(Std.int(stagesmoke.width * 1.1));
-					stagesmoke.updateHitbox();
-					add(stagesmoke);
-					stagesmoke2 = new BGSprite('stagesmoke', 1225, 390, 0.9, 0.9);
-					stagesmoke2.setGraphicSize(Std.int(stagesmoke2.width * 1.1));
-					stagesmoke2.updateHitbox();
-					stagesmoke2.flipX = true;
-					add(stagesmoke2);
+					var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
+					stageLight.updateHitbox();
+					add(stageLight);
+					var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
+					stageLight.updateHitbox();
+					stageLight.flipX = true;
+					add(stageLight);
 
-					bgShadow = new BGSprite('stageshadow', -750, -485, 0.8, 0.8);
-					add(bgShadow);
-					bgGroup.push(bgShadow);
-
-					stageLights = new BGSprite('stagelights', -125, -450, 0.8, 0.8);
-					add(stageLights);
-					bgGroup.push(stageLights);
-
-					add(stageFront);
-				} else {
-					add(stageFront);
+					var stageCurtains:BGSprite = new BGSprite('stagecurtains', -500, -300, 1.3, 1.3);
+					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+					stageCurtains.updateHitbox();
+					add(stageCurtains);
 				}
-				
-				bgGroup = [stagebg, stageFront];
-
-				//BG change stuff
-				changebg = new BGSprite('stagebackshaded', -750, -485, 0.8, 0.8);
-				add(changebg);
-				changebg.visible = false;
-
-				changeStage = new BGSprite('stagefrontshaded', -350, 600, 0.95, 0.95);
-				changeStage.setGraphicSize(Std.int(changeStage.width * 1.1));
-				add(changeStage);
-				changeStage.visible = false;
-
-				changemachine = new BGSprite('stagesmokeshaded', -325, 400, 0.9, 0.9);
-				changemachine.setGraphicSize(Std.int(changemachine.width * 1.1));
-				changemachine.updateHitbox();
-				add(changemachine);
-				changemachine.visible = false;
-
-				changemachine2 = new BGSprite('stagesmokeshaded', 1225, 390, 0.9, 0.9);
-				changemachine2.setGraphicSize(Std.int(changemachine2.width * 1.1));
-				changemachine2.updateHitbox();
-				changemachine2.flipX = true;
-				add(changemachine2);
-				changemachine2.visible = false;
-
-			    changeSmoke = new BGSprite('Smoke_Stage', 0, 400, 1.3, 1.3, ['Smoke Effect']);
-				changeSmoke.animation.addByPrefix('smoke', 'Smoke Effect', 24, true);
-				changeSmoke.animation.play('smoke', true);
-				changeSmoke.setGraphicSize(Std.int(changeSmoke.width * 0.90));
-				changeSmoke.screenCenter(X);
-				add(changeSmoke);
-				changeSmoke.visible = false;
-
-				changeLights = new BGSprite('stagelightsshaded', -125, -450, 0.8, 0.8);
-				add(changeLights);
-				changeLights.visible = false;
-
-				changeCurt = new BGSprite('stagecurtainsshaded', -1060, -800, 1.3, 1.3);
-				changeCurt.setGraphicSize(Std.int(changeCurt.width * 1.15));
-				changeCurt.updateHitbox();
-				add(changeCurt);
-				changeCurt.visible = false;
-
-				remove(gfGroup);
-				remove(dadGroup);
-				remove(boyfriendGroup);
-				add(gfGroup);
-				add(dadGroup);
-				add(boyfriendGroup);
-				
-				stageGlow = new BGSprite('stageglow', -275, -500, 0.8, 0.8);
-				stageGlow.blend = HARDLIGHT;
-	
-				stageGlowFront = new BGSprite('stageglowfront', -600, 450, 0.95, 0.95);
-				stageGlowFront.setGraphicSize(Std.int(stageGlowFront.width * 1.1));
-				stageGlowFront.updateHitbox();
-				stageGlowFront.blend = HARDLIGHT;
-	
-				stageCurtains = new BGSprite('stagecurtains', -1060, -800, 1.3, 1.3);
-				stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 1.15));
-				stageCurtains.updateHitbox();
-				add(stageGlow);
-				add(stageGlowFront);
-				add(stageCurtains);
-				bgGroup.push(stageGlow);
-				bgGroup.push(stageGlowFront);
-				bgGroup.push(stageCurtains);
-
-                //crowd
-				couple = new BGSprite('Couple', -340, 620, 1.3, 1.3, ['CoupleVibe']);
-				couple.animation.addByPrefix('walk', 'Couple Walk', 24, false);
-				couple.animation.addByPrefix('turn', 'CoupleTurn', 24, false);
-				couple.animation.addByPrefix('idle', 'CoupleVibe', 24, false);
-				//couple.animation.play('walk', true);
-				couple.x -= 2000;
-				add(couple);
-				bgGroup.push(couple);
-
-				aflac = new BGSprite('Aflac', 300, 840, 1.3, 1.3, ['AflacVibe']);
-				aflac.animation.addByPrefix('walk', 'AflacWalk', 24, false);
-				aflac.animation.addByPrefix('turn', 'AflacTurn', 24, false);
-				aflac.animation.addByPrefix('idle', 'AflacVibe', 24, false);
-				//aflac.animation.play('walk', true);
-				aflac.x -= 2840;
-				add(aflac);
-				bgGroup.push(aflac);
-
-				tsg = new BGSprite('Tsg', 640, 810, 1.3, 1.3, ['TsgVibe']);
-				tsg.animation.addByPrefix('walk', 'TsgWalk', 24, false);
-				tsg.animation.addByPrefix('turn', 'TsgTurn', 24, false);
-				tsg.animation.addByPrefix('idle', 'TsgVibe', 24, false);
-				//tsg.animation.play('walk', true);
-				tsg.x -= 3180;
-				add(tsg);
-				bgGroup.push(tsg);
-
-				sheep = new BGSprite('Sheep', 910, 760, 1.3, 1.3, ['SheepVibe']);
-				sheep.animation.addByPrefix('walk', 'SheepWalk', 24, false);
-				sheep.animation.addByPrefix('turn', 'SheepTurn', 24, false);
-				sheep.animation.addByPrefix('idle', 'SheepVibe', 24, false);
-				//sheep.animation.play('walk', true);
-				sheep.x -= 3050;
-
-				n3p = new BGSprite('N3p', 1240, 710, 1.3, 1.3, ['N3pVibe']);
-				n3p.animation.addByPrefix('walk', 'N3pWalk', 24, false);
-				n3p.animation.addByPrefix('turn', 'N3pTurn', 24, false);
-				n3p.animation.addByPrefix('idle', 'N3pVibe', 24, false);
-				//n3p.animation.play('walk', true);
-				n3p.x += 2200;
-				add(n3p);
-				add(sheep);
-				bgGroup.push(n3p);
-				bgGroup.push(sheep);
-
-				nn = new BGSprite('NN', 1580, 750, 1.3, 1.3, ['NNVibe']);
-				nn.animation.addByPrefix('walk', 'NNWalk', 24, false);
-				nn.animation.addByPrefix('turn', 'NNTurn', 24, false);
-				nn.animation.addByPrefix('idle', 'NNVibe', 24, false);
-				//nn.animation.play('walk', true);
-				nn.x += 1860;
-				add(nn);
-				bgGroup.push(nn);
 
 			case 'spooky': //Week 2
 				if(!ClientPrefs.lowQuality) {
-					var bg:BGSprite = new BGSprite('Sky', -750, -485, 0.2, 0.2);
-					add(bg);
-	
-					var snowBack:BGSprite = new BGSprite('Snow Back', -750, -350, 0.6, 0.6);
-					snowBack.setGraphicSize(Std.int(snowBack.width * 1.1));
-					snowBack.updateHitbox();
-					add(snowBack);
-	
-					var car:BGSprite = new BGSprite('Car', -650, 225, 0.75, 0.75);
-					car.setGraphicSize(Std.int(car.width * 1.1));
-					car.updateHitbox();
-					add(car);
-	
-					var wall:BGSprite = new BGSprite('Parking Wall', -340, 275, 0.75, 0.75);
-					wall.setGraphicSize(Std.int(wall.width * 1.1));
-					wall.updateHitbox();
-					add(wall);
-	
-					var front:BGSprite = new BGSprite('Front', -750, -400, 0.8, 0.8);
-					front.setGraphicSize(Std.int(front.width * 1.1));
-					front.updateHitbox();
-					add(front);
-	
-					var snowFront:BGSprite = new BGSprite('Snow Front', -750, 600, 0.95, 0.95);
-					snowFront.setGraphicSize(Std.int(snowFront.width * 1.1));
-					snowFront.updateHitbox();
-					add(snowFront);
-
-					bgGroup = [bg, snowBack, car, wall, front, snowFront];
+					halloweenBG = new BGSprite('halloween_bg', -200, -100, ['halloweem bg0', 'halloweem bg lightning strike']);
 				} else {
-					var halloweenBG:BGSprite = new BGSprite('halloween_bg_low', -200, -100);
-					add(halloweenBG);
-					bgGroup = [halloweenBG];
+					halloweenBG = new BGSprite('halloween_bg_low', -200, -100);
 				}
+				add(halloweenBG);
+
+				halloweenWhite = new BGSprite(null, -FlxG.width, -FlxG.height, 0, 0);
+				halloweenWhite.makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
+				halloweenWhite.alpha = 0;
+				halloweenWhite.blend = ADD;
 
 				//PRECACHE SOUNDS
 				CoolUtil.precacheSound('thunder_1');
@@ -1246,18 +1095,15 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) {
 					var bg:BGSprite = new BGSprite('philly/sky', -100, 0, 0.1, 0.1);
 					add(bg);
-					bgGroup = [bg];
 				}
 				
 				var city:BGSprite = new BGSprite('philly/city', -10, 0, 0.3, 0.3);
 				city.setGraphicSize(Std.int(city.width * 0.85));
 				city.updateHitbox();
 				add(city);
-				bgGroup.push(city);
 
 				phillyCityLights = new FlxTypedGroup<BGSprite>();
 				add(phillyCityLights);
-				bgGroup.push(phillyCityLights);
 
 				for (i in 0...5)
 				{
@@ -1271,12 +1117,10 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) {
 					var streetBehind:BGSprite = new BGSprite('philly/behindTrain', -40, 50);
 					add(streetBehind);
-					bgGroup.push(streetBehind);
 				}
 
 				phillyTrain = new BGSprite('philly/train', 2000, 360);
 				add(phillyTrain);
-				bgGroup.push(phillyTrain);
 
 				trainSound = new FlxSound().loadEmbedded(Paths.sound('train_passes'));
 				CoolUtil.precacheSound('train_passes');
@@ -1284,14 +1128,12 @@ class PlayState extends MusicBeatState
 
 				var street:BGSprite = new BGSprite('philly/street', -40, 50);
 				add(street);
-				bgGroup.push(street);
 
 			case 'limo': //Week 4
 				skyBG = new BGSprite('limo/limoSunset', -750, -400, 0.1, 0.1);
 				skyBG.setGraphicSize(Std.int(skyBG.width * 1.2));
 				skyBG.updateHitbox();
 				add(skyBG);
-				bgGroup = [skyBG];
 
 				if(!ClientPrefs.lowQuality) {
 					limoMetalPole = new BGSprite('gore/metalPole', -500, 220, 0.4, 0.4);
@@ -1328,8 +1170,6 @@ class PlayState extends MusicBeatState
 					grpLimoParticles.add(particle);
 					resetLimoKill();
 
-					bgGroup = [skyBG, limoMetalPole, bgLimo, limoCorpse, limoCorpseTwo, grpLimoDancers, limoLight, grpLimoParticles];
-
 					//PRECACHE SOUND
 					CoolUtil.precacheSound('dancerdeath');
 				}
@@ -1338,19 +1178,16 @@ class PlayState extends MusicBeatState
 				limo.animation.add('idle', [0, 1, 2, 3, 4, 5, 6, 7], 24, false, false);
 				limo.animation.add('idle-loop', [0, 1, 2, 3], 24, true, false);
 				add(limo);
-				bgGroup.push(limo);
 
 				fastCar = new BGSprite('limo/fastCarLol', -300, 160);
 				fastCar.active = true;
 				limoKillingState = 0;
-				bgGroup.push(fastCar);
 
 			case 'mall': //Week 5 - Cocoa, Eggnog
 				var bg:BGSprite = new BGSprite('christmas/bgWalls', -1000, -500, 0.2, 0.2);
 				bg.setGraphicSize(Std.int(bg.width * 0.8));
 				bg.updateHitbox();
 				add(bg);
-				bgGroup = [bg];
 
 				if(!ClientPrefs.lowQuality) {
 					upperBoppers = new BGSprite('christmas/upperBop', -240, -90, 0.33, 0.33, ['Upper Crowd Bob']);
@@ -1362,27 +1199,22 @@ class PlayState extends MusicBeatState
 					bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
 					bgEscalator.updateHitbox();
 					add(bgEscalator);
-					bgGroup = [bg, upperBoppers, bgEscalator];
 				}
 
 				var tree:BGSprite = new BGSprite('christmas/christmasTree', 370, -250, 0.40, 0.40);
 				add(tree);
-				bgGroup.push(tree);
 
 				bottomBoppers = new BGSprite('christmas/bottomBop', -300, 140, 0.9, 0.9, ['Bottom Level Boppers Idle']);
 				bottomBoppers.animation.addByPrefix('hey', 'Bottom Level Boppers HEY', 24, false);
 				bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
 				bottomBoppers.updateHitbox();
 				add(bottomBoppers);
-				bgGroup.push(bottomBoppers);
 
 				var fgSnow:BGSprite = new BGSprite('christmas/fgSnow', -600, 700);
 				add(fgSnow);
-				bgGroup.push(fgSnow);
 
 				santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
 				add(santa);
-				bgGroup.push(santa);
 				CoolUtil.precacheSound('Lights_Shut_off');
 
 			case 'mallEvil': //Week 5 - Winter Horrorland
@@ -1396,8 +1228,6 @@ class PlayState extends MusicBeatState
 
 				var evilSnow:BGSprite = new BGSprite('christmas/evilSnow', -200, 700);
 				add(evilSnow);
-
-				bgGroup = [bg, evilTree, evilSnow];
 
 			case 'school': //Week 6 - Senpai, Roses
 				GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
@@ -1419,15 +1249,12 @@ class PlayState extends MusicBeatState
 				add(bgStreet);
 				bgStreet.antialiasing = false;
 
-				bgGroup = [bgSky, bgSchool, bgStreet];
-
 				var widShit = Std.int(bgSky.width * 6);
 				if(!ClientPrefs.lowQuality) {
 					var fgTrees:BGSprite = new BGSprite('weeb/weebTreesBack', repositionShit + 170, 130, 0.9, 0.9);
 					fgTrees.setGraphicSize(Std.int(widShit * 0.8));
 					fgTrees.updateHitbox();
 					add(fgTrees);
-					bgGroup.push(fgTrees);
 					fgTrees.antialiasing = false;
 				}
 
@@ -1437,7 +1264,6 @@ class PlayState extends MusicBeatState
 				bgTrees.animation.play('treeLoop');
 				bgTrees.scrollFactor.set(0.85, 0.85);
 				add(bgTrees);
-				bgGroup.push(bgTrees);
 				bgTrees.antialiasing = false;
 
 				if(!ClientPrefs.lowQuality) {
@@ -1445,7 +1271,6 @@ class PlayState extends MusicBeatState
 					treeLeaves.setGraphicSize(widShit);
 					treeLeaves.updateHitbox();
 					add(treeLeaves);
-					bgGroup.push(treeLeaves);
 					treeLeaves.antialiasing = false;
 				}
 
@@ -1466,7 +1291,6 @@ class PlayState extends MusicBeatState
 					bgGirls.setGraphicSize(Std.int(bgGirls.width * daPixelZoom));
 					bgGirls.updateHitbox();
 					add(bgGirls);
-					bgGroup.push(bgGirls);
 				}
 
 			case 'schoolEvil': //Week 6 - Thorns
@@ -1493,26 +1317,23 @@ class PlayState extends MusicBeatState
 					bgGhouls.visible = false;
 					bgGhouls.antialiasing = false;
 					add(bgGhouls);
-
-					bgGroup = [bg, bgGhouls];
 				} else {
 					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool_low', posX, posY, 0.8, 0.9);
 					bg.scale.set(6, 6);
 					bg.antialiasing = false;
 					add(bg);
+				}
+		}
 
-					bgGroup = [bg];
-				}
-			if (eventBool) {
-				if (stageName != 'stage') {
-					remove(gfGroup);
-					remove(dadGroup);
-					remove(boyfriendGroup);
-				}
-				add(gfGroup); //Needed for blammed lights
-				add(ClientPrefs.foePlay ? boyfriendGroup : dadGroup);
-				add(ClientPrefs.foePlay ? dadGroup : boyfriendGroup);
+		if (eventBool) {
+			if (stageName != 'stage') {
+				remove(gfGroup);
+				remove(dadGroup);
+				remove(boyfriendGroup);
 			}
+			add(gfGroup); //Needed for blammed lights
+			add(ClientPrefs.foePlay ? boyfriendGroup : dadGroup);
+			add(ClientPrefs.foePlay ? dadGroup : boyfriendGroup);
 		}
 
 		if(isPixelStage) {
@@ -3509,53 +3330,12 @@ class PlayState extends MusicBeatState
 				if (value2 == 'true') {
 					FlxG.camera.zoom = defaultCamZoom;	
 				}
-			case 'Change Stage':
-				for (sprite in bgGroup) {
-					sprite.destroy();
-					bgGroup.remove(sprite);
-				}
-				stageLoad(value1, true);
-			
-			case 'Week 1 Smoke':
-				if (!ClientPrefs.lowDetail) {
-					if (value1 == 'enable') {
-						FlxG.camera.flash(FlxColor.WHITE, 1);
-						stagebg.visible = false;
-						stageFront.visible = false;
-						stagesmoke.visible = false;
-						stagesmoke2.visible = false;
-						bgShadow.visible = false;
-						stageLights.visible = false;
-						stageGlow.visible = false;
-						stageGlowFront.visible = false;
-						stageCurtains.visible = false;
-						changebg.visible = true;
-						changeStage.visible = true;
-						changemachine.visible = true;
-						changemachine2.visible = true;
-						changeSmoke.visible = true;
-						changeLights.visible = true;
-						changeCurt.visible = true;
-					} else {
-						FlxG.camera.flash(FlxColor.WHITE, 1);
-						stagebg.visible = true;
-						stageFront.visible = true;
-						stagesmoke.visible = true;
-						stagesmoke2.visible = true;
-						bgShadow.visible = true;
-						stageLights.visible = true;
-						stageGlow.visible = true;
-						stageGlowFront.visible = true;
-						stageCurtains.visible = true;
-						changebg.visible = false;
-						changeStage.visible = false;
-						changemachine.visible = false;
-						changemachine2.visible = false;
-						changeSmoke.visible = false;
-						changeLights.visible = false;
-						changeCurt.visible = false;
-					}
-				}
+			// case 'Change Stage':
+			// 	for (sprite in bgGroup) {
+			// 		sprite.destroy();
+			// 		bgGroup.remove(sprite);
+			// 	}
+			// 	stageLoad(value1, true);
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
