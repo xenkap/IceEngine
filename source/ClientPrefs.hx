@@ -99,7 +99,8 @@ class ClientPrefs {
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
-		FlxG.save.data.bfAltVersion = bfAltVersion;
+		FlxG.save.data.foePlay = foePlay; 
+		FlxG.save.data.rainbowNotes = rainbowNotes;
 		// FlxG.save.data.noteScroll = noteScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
