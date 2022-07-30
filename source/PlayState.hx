@@ -4784,19 +4784,6 @@ class PlayState extends MusicBeatState
 			dad.dance();
 		}
 
-		if(Paths.formatToSongPath(SONG.song) == 'dad-battle')
-			{
-				couple.dance(true);
-				sheep.dance(true);
-				n3p.dance(true);
-				if (aflac.animation.curAnim.name == 'idle')
-					aflac.dance(true);
-				if (tsg.animation.curAnim.name == 'idle')
-					tsg.dance(true);
-				if (nn.animation.curAnim.name == 'idle')
-					nn.dance(true);
-			}
-
 		switch (curStage)
 		{
 			case 'school':
