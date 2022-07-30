@@ -1747,6 +1747,8 @@ class PlayState extends MusicBeatState
 
 				switch (swagCounter)
 				{
+					case 0:
+						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 1:
 						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 						countdownReady.scrollFactor.set();
