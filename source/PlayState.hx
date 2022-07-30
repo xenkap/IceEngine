@@ -799,8 +799,8 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		comboVisual = new FlxSprite(100, 100);
-		comboVisual.frames = Paths.getSparrowAtlas('NoteCombo');
-		comboVisual.animation.addByPrefix('idle', 'Note Combo', 24, false);
+		comboVisual.frames = Paths.getSparrowAtlas('NOTECOMBO');
+		comboVisual.animation.addByPrefix('idle', 'appear', 24, false);
 
 		scoreTxt = new FlxText(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y + 26, 0, "", 20);
 		if (ClientPrefs.downScroll == true)
@@ -1727,8 +1727,8 @@ class PlayState extends MusicBeatState
 				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-				introAssets.set('default', ['three', 'two', 'one', 'go']);
-				introAssets.set('pixel', ['pixelUI/three-pixel', 'pixelUI/two-pixel', 'pixelUI/one-pixel', 'pixelUI/date-pixel']);
+				introAssets.set('default', ['ready', 'set', 'go']);
+				introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
@@ -1748,26 +1748,6 @@ class PlayState extends MusicBeatState
 
 				switch (swagCounter)
 				{
-					case 0:
-						countdownOnYourMark = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
-						countdownOnYourMark.scrollFactor.set();
-						countdownOnYourMark.updateHitbox();
-
-						if (PlayState.isPixelStage)
-							countdownOnYourMark.setGraphicSize(Std.int(countdownOnYourMark.width * daPixelZoom * defaultCamZoom));
-
-						countdownOnYourMark.screenCenter();
-						countdownOnYourMark.antialiasing = antialias;
-						add(countdownOnYourMark);
-						FlxTween.tween(countdownOnYourMark, {/*y: countdownOnYourMark.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
-							ease: FlxEase.cubeInOut,
-							onComplete: function(twn:FlxTween)
-							{
-								remove(countdownOnYourMark);
-								countdownOnYourMark.destroy();
-							}
-						});
-						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
 						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						countdownReady.scrollFactor.set();
@@ -4429,7 +4409,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.noteSplashes && note != null) {
 			var strum:StrumNote = playerStrums.members[note.noteData];
 			if(strum != null) {
-				spawnNoteSplash(strum.x - 50, strum.y - 25, note.noteData, note);
+				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 			}
 		}
 	}

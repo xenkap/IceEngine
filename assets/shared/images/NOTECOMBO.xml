@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="noteCombo.png">
+<TextureAtlas imagePath="NOTECOMBO.png">
 	<!-- Created with Adobe Animate version 21.0.6.41649 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="appear0000" x="0" y="0" width="648" height="351" frameX="0" frameY="-82" frameWidth="774" frameHeight="449"/>
@@ -21,9 +21,9 @@
 	<SubTexture name="appear0016" x="0" y="432" width="607" height="432" frameX="-160" frameY="-17" frameWidth="774" frameHeight="449"/>
 	<SubTexture name="appear0017" x="0" y="432" width="607" height="432" frameX="-160" frameY="-17" frameWidth="774" frameHeight="449"/>
 	<SubTexture name="appear0018" x="0" y="432" width="607" height="432" frameX="-160" frameY="-17" frameWidth="774" frameHeight="449"/>
-	<SubTexture name="disappear0000" x="0" y="432" width="607" height="432" frameX="0" frameY="-17" frameWidth="774" frameHeight="449"/>
-	<SubTexture name="disappear0001" x="607" y="432" width="607" height="432" frameX="0" frameY="-17" frameWidth="892" frameHeight="449"/>
-	<SubTexture name="disappear0002" x="1214" y="432" width="632" height="449" frameX="0" frameY="0" frameWidth="892" frameHeight="449"/>
-	<SubTexture name="disappear0003" x="0" y="881" width="592" height="171" frameX="-212" frameY="-89" frameWidth="892" frameHeight="449"/>
-	<SubTexture name="disappear0004" x="592" y="881" width="668" height="95" frameX="-224" frameY="-106" frameWidth="892" frameHeight="449"/>
+	<SubTexture name="appear0019" x="0" y="432" width="607" height="432" frameX="0" frameY="-17" frameWidth="774" frameHeight="449"/>
+	<SubTexture name="appear0020" x="607" y="432" width="607" height="432" frameX="0" frameY="-17" frameWidth="892" frameHeight="449"/>
+	<SubTexture name="appear0021" x="1214" y="432" width="632" height="449" frameX="0" frameY="0" frameWidth="892" frameHeight="449"/>
+	<SubTexture name="appear0022" x="0" y="881" width="592" height="171" frameX="-212" frameY="-89" frameWidth="892" frameHeight="449"/>
+	<SubTexture name="appear0023" x="592" y="881" width="668" height="95" frameX="-224" frameY="-106" frameWidth="892" frameHeight="449"/>
 </TextureAtlas>
