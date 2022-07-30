@@ -590,6 +590,9 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 
+		// var evilTrailGF = new FlxTrail(gf, null, 4, 24, 0.3, 0.069); //nice3
+		// insert(members.indexOf(gfGroup) - 1, evilTrailGF);
+
 		switch(curStage)
 		{
 			case 'limo':
@@ -598,8 +601,13 @@ class PlayState extends MusicBeatState
 				insert(members.indexOf(gfGroup) - 1, limo);
 			
 			case 'schoolEvil':
-				var evilTrail = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
-				insert(members.indexOf(dadGroup) - 1, evilTrail);
+				if (!ClientPrefs.foePlay) {
+					var evilTrailDAD = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
+					insert(members.indexOf(dadGroup) - 1, evilTrailDAD);
+				} else {
+					var evilTrailBF = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice2
+					insert(members.indexOf(boyfriendGroup) - 1, evilTrailBF);
+				}
 		}
 
 		var file:String = Paths.json(songName + '/dialogue'); //Checks for json/Psych Engine dialogue
