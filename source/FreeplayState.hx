@@ -18,10 +18,8 @@ import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import WeekData;
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
-#if sys
+import flixel.util.FlxTimer;
+#if desktop
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -35,6 +33,7 @@ class FreeplayState extends MusicBeatState
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
 	var curDifficulty:Int = -1;
+
 	private static var lastDifficultyName:String = '';
 
 	var scoreBG:FlxSprite;
@@ -364,9 +363,8 @@ class FreeplayState extends MusicBeatState
 
 		else if (accepted || FlxG.mouse.justPressed)
 		{
-			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
-			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+	        var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			/*#if MODS_ALLOWED
 			if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 			#else
@@ -378,12 +376,14 @@ class FreeplayState extends MusicBeatState
 			}*/
 			trace(poop);
 
+			#if desktop
 			if (sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop)) || sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)))
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			else if (sys.FileSystem.exists(Paths.json(songLowercase + '/' + songLowercase)) || sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + songLowercase)))
 				PlayState.SONG = Song.loadFromJson(songLowercase, songLowercase);
 			else
 				PlayState.SONG = Song.loadFromJson('test', 'test');
+			#end
 
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
@@ -397,6 +397,7 @@ class FreeplayState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());
+				persistentUpdate = false;
 			}
 
 			FlxG.sound.music.volume = 0;

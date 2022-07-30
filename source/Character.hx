@@ -33,6 +33,9 @@ typedef CharacterFile = {
 	var flip_x:Bool;
 	var no_antialiasing:Bool;
 	var healthbar_colors:Array<Int>;
+
+	var kapi_held:Bool;
+	var trail_color:Array<Int>;
 }
 
 typedef AnimArray = {
@@ -68,6 +71,9 @@ class Character extends FlxSprite
 
 	public var positionArray:Array<Float> = [0, 0];
 	public var cameraPosition:Array<Float> = [0, 0];
+	
+	public var kapiHeld:Bool = false;
+	public var trailColor:Array<Int> = [0, 0, 0];
 
 	public var hasMissAnimations:Bool = false;
 
@@ -182,6 +188,8 @@ class Character extends FlxSprite
 
 				healthIcon = json.healthicon;
 				singDuration = json.sing_duration;
+				kapiHeld = json.kapi_held;
+				trailColor = json.trail_color;
 				flipX = !!json.flip_x;
 				if(json.no_antialiasing) {
 					antialiasing = false;
@@ -239,7 +247,7 @@ class Character extends FlxSprite
 				heyTimer -= elapsed;
 				if(heyTimer <= 0)
 				{
-					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer' || animation.curAnim.name == 'hairFall' || animation.curAnim.name == 'hairFall-right')
+					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer' || animation.curAnim.name == 'hairFall' || animation.curAnim.name == 'hairFall-right' || animation.curAnim.name == 'scared')
 					{
 						specialAnim = false;
 						dance();
@@ -292,9 +300,11 @@ class Character extends FlxSprite
 				else
 					playAnim('danceLeft' + idleSuffix);
 				if (PlayState.hairBlowedLast == true)
-					idleSuffix = '';
-					recalculateDanceIdle();
-					PlayState.hairBlowedLast = false;
+					{
+						idleSuffix = '';
+						recalculateDanceIdle();
+						PlayState.hairBlowedLast = false;
+					}
 			}
 			else if(animation.getByName('idle' + idleSuffix) != null) {
 					playAnim('idle' + idleSuffix);

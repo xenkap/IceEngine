@@ -94,8 +94,8 @@ class ChartingState extends MusicBeatState
 		['OTHER Fade', "Fades the 'other' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
 		['HUD Fade', "Fades the 'hud' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
 		['GAME Fade', "Fades the 'game' camera\nALL VALUES ARE REQUIRED FOR THE EFFECT!!!\nWILL OVERWRITE ANY EXISTING FADE!!!\nValue 1: Time it takes to change.\nValue 2: Color to fade to"],
-		['Set Camera Zoom', "Sets the default camera zoom.\nThe camera won't change back to\nthe default zoom after using this.\nValue 1: Camera zoom value"],
-		['Countdown Visuals', "Triggers the countdown."]
+		['Set Camera Zoom', "Sets the default camera zoom.\nThe camera won't change back to\nthe default zoom after using this.\nValue 1: Camera zoom value (blank to revert change)\nValue 2: Set to 'true' to snap the camera back"],
+		['Countdown Visuals', "Triggers the countdown.\n(UNFINISHED)"]
 	];
 
 	var _file:FileReference;

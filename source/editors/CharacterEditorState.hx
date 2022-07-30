@@ -478,6 +478,9 @@ class CharacterEditorState extends MusicBeatState
 				character.healthIcon = parsedJson.healthicon;
 				character.healthColorArray = parsedJson.healthbar_colors;
 				character.setPosition(character.positionArray[0] + OFFSET_X + 100, character.positionArray[1]);
+				
+				character.kapiHeld = parsedJson.kapi_held;
+				character.trailColor = parsedJson.trail_color;
 			}
 
 			reloadCharacterImage();
@@ -511,6 +514,8 @@ class CharacterEditorState extends MusicBeatState
 
 	var flipXCheckBox:FlxUICheckBox;
 	var noAntialiasingCheckBox:FlxUICheckBox;
+
+	var kapiHeldCheckBox:FlxUICheckBox;
 
 	var healthColorStepperR:FlxUINumericStepper;
 	var healthColorStepperG:FlxUINumericStepper;
@@ -558,6 +563,13 @@ class CharacterEditorState extends MusicBeatState
 			ghostChar.flipX = char.flipX;
 		};
 
+		kapiHeldCheckBox = new FlxUICheckBox(flipXCheckBox.x, imageInputText.y + 35, null, null, "Kapi Sustain", 80);
+		kapiHeldCheckBox.checked = char.kapiHeld;
+		kapiHeldCheckBox.callback = function() {
+			char.kapiHeld = kapiHeldCheckBox.checked;
+			ghostChar.kapiHeld = char.kapiHeld;
+		};
+
 		noAntialiasingCheckBox = new FlxUICheckBox(flipXCheckBox.x, flipXCheckBox.y + 40, null, null, "No Antialiasing", 80);
 		noAntialiasingCheckBox.checked = char.noAntialiasing;
 		noAntialiasingCheckBox.callback = function() {
@@ -597,6 +609,7 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(singDurationStepper);
 		tab_group.add(scaleStepper);
 		tab_group.add(flipXCheckBox);
+		tab_group.add(kapiHeldCheckBox);
 		tab_group.add(noAntialiasingCheckBox);
 		tab_group.add(positionXStepper);
 		tab_group.add(positionYStepper);
@@ -984,6 +997,7 @@ class CharacterEditorState extends MusicBeatState
 			singDurationStepper.value = char.singDuration;
 			scaleStepper.value = char.jsonScale;
 			flipXCheckBox.checked = char.originalFlipX;
+			kapiHeldCheckBox.checked = char.kapiHeld;
 			noAntialiasingCheckBox.checked = char.noAntialiasing;
 			resetHealthBarColor();
 			leHealthIcon.changeIcon(healthIconInputText.text);
@@ -1172,14 +1186,14 @@ class CharacterEditorState extends MusicBeatState
 			if (FlxG.mouse.wheel > 0 && FlxG.camera.zoom > 0.1 || FlxG.camera.zoom < 3) {
 				if (FlxG.keys.pressed.CONTROL) {
 					if (FlxG.keys.pressed.ALT)
-						camFollow.x += ((FlxG.mouse.wheel * 24));
+						camFollow.x += ((FlxG.mouse.wheel) * 24);
 					else
-						camFollow.y += ((FlxG.mouse.wheel * 24));
+						camFollow.y += ((FlxG.mouse.wheel) * 24);
 				} else {
 					FlxG.camera.zoom += ((FlxG.mouse.wheel / 15));
-					if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
-					if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 				}
+				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
+				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 			}
 
 			if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
@@ -1337,7 +1351,10 @@ class CharacterEditorState extends MusicBeatState
 		
 			"flip_x": char.originalFlipX,
 			"no_antialiasing": char.noAntialiasing,
-			"healthbar_colors": char.healthColorArray
+			"healthbar_colors": char.healthColorArray,
+		
+			"kapi_held": char.kapiHeld,
+			"trail_color": char.trailColor
 		};
 
 		var data:String = Json.stringify(json, "\t");
