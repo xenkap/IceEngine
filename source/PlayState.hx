@@ -1703,17 +1703,6 @@ class PlayState extends MusicBeatState
 			setOnLuas('startedCountdown', true);
 			callOnLuas('onCountdownStarted', []);
 
-			if(Paths.formatToSongPath(SONG.song) == 'dad-battle')
-				{
-					couple.dance(true);
-					sheep.dance(true);
-					n3p.dance(true);
-					
-					couple.x = -340;
-					sheep.x = 910;
-					n3p.x = 1240;
-				}
-
 			var swagCounter:Int = 0;
 
 			if (skipCountdown || startOnTime > 0) {
