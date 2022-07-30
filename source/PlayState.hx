@@ -3348,7 +3348,7 @@ class PlayState extends MusicBeatState
 						add(comboVisual);
 						comboVisual.animation.play('idle');
 						FlxG.sound.play(Paths.sound('noteComboSound'));
-						new FlxTimer().start(0.65, function(tmr:FlxTimer)
+						new FlxTimer().start(1, function(tmr:FlxTimer)
 							{
 								remove(comboVisual);
 							});
