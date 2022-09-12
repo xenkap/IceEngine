@@ -31,6 +31,7 @@ class FlxSoundTray extends Sprite
 	 * The path for the sound tray to play
 	 */
 	public static var soundPath:FlxSoundAsset;
+	public static var soundPath2:FlxSoundAsset;
 
 	/**
 	 * Helps us auto-hide the sound tray after a volume change.
@@ -132,11 +133,12 @@ class FlxSoundTray extends Sprite
 	{
 		if (!Silent)
 		{
-			var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;
-			if (sound != null)
+			// var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;
+			var sound2 = soundPath2 == null ? Paths.sound("volBeep") : soundPath2;
+			if (sound2 != null)
 			{
-				var soundVar = FlxG.sound.load(sound);
-                soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
+				var soundVar = FlxG.sound.load(Paths.sound("volBeep"));
+				soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
 				soundVar.play();
 			}
 		}
