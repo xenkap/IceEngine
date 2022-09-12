@@ -124,6 +124,8 @@ class FunkinLua {
 		// Screen stuff
 		set('screenWidth', FlxG.width);
 		set('screenHeight', FlxG.height);
+		set('windowX',Lib.application.window.x);
+		set('windowY',Lib.application.window.y);
 
 		// PlayState cringe ass nae nae bullcrap
 		set('curBeat', 0);
@@ -391,6 +393,9 @@ class FunkinLua {
 				return Reflect.getProperty(coverMeInPiss, killMe[killMe.length-1]);
 			}
 			return Reflect.getProperty(Type.resolveClass(classVar), variable);
+		});
+		Lua_helper.add_callback(lua, "moveWindow", function(x:Int, y:Int) {
+			Lib.application.window.move(x,y);
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			var killMe:Array<String> = variable.split('.');
