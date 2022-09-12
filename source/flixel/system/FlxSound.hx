@@ -1,5 +1,11 @@
 package flixel.system;
 
+import flash.events.IEventDispatcher;
+import flash.events.Event;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.media.SoundTransform;
+import flash.net.URLRequest;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.math.FlxMath;
@@ -8,13 +14,6 @@ import flixel.system.FlxAssets.FlxSoundAsset;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxStringUtil;
 import openfl.Assets;
-import openfl.events.Event;
-import openfl.events.IEventDispatcher;
-import openfl.media.Sound;
-import openfl.media.SoundChannel;
-import openfl.media.SoundTransform;
-import openfl.net.URLRequest;
-// import flash.media.SoundChannel;
 #if flash11
 import flash.utils.ByteArray;
 #end
@@ -57,17 +56,17 @@ class FlxSound extends FlxBasic
 	/**
 	 * Stores the average wave amplitude of both stereo channels
 	 */
-	public var amplitude(default, null):Float;
+	public var amplitude(get, null):Float;
 
 	/**
 	 * Just the amplitude of the left stereo channel
 	 */
-	public var amplitudeLeft(default, null):Float;
+	public var amplitudeLeft(get, null):Float;
 
 	/**
 	 * Just the amplitude of the left stereo channel
 	 */
-	public var amplitudeRight(default, null):Float;
+	public var amplitudeRight(get, null):Float;
 
 	/**
 	 * Whether to call `destroy()` when the sound has finished playing.
@@ -99,6 +98,11 @@ class FlxSound extends FlxBasic
 	 * Set pitch, which also alters the playback speed. Default is 1.
 	 */
 	public var pitch(get, set):Float;
+	
+	/**
+	 * Alters the pitch of the sound depends on the current FlxG.timeScale. Default is true.
+	 */
+	public var timeScaleBased:Bool;
 
 	/**
 	 * The position in runtime of the music playback in milliseconds.
@@ -166,6 +170,21 @@ class FlxSound extends FlxBasic
 	 * Internal tracker for volume.
 	 */
 	var _volume:Float;
+	
+	/**
+	 * Internal tracker for amplitudeLeft.
+	 */
+	var _amplitudeLeft:Float;
+	
+	/**
+	 * Internal tracker for amplitudeRight.
+	 */
+	var _amplitudeRight:Float;
+	
+	/**
+	 * Internal tracker for sound last position on when amplitude was used.
+	 */
+	var _amplitudeTime:Float;
 
 	/**
 	 * Internal tracker for sound channel position.
@@ -176,11 +195,21 @@ class FlxSound extends FlxBasic
 	 * Internal tracker for sound length, so that length can still be obtained while a sound is paused, because _sound becomes null.
 	 */
 	var _length:Float = 0;
+	
+	/**
+	 * Internal tracker for real pitch.
+	 */
+	var _realPitch:Float = 1.0;
 
 	/**
 	 * Internal tracker for pitch.
 	 */
 	var _pitch:Float = 1.0;
+	
+	/**
+	 * Internal tracker for FlxG.timeScale adjustment.
+	 */
+	var _timeScaleAdjust:Float = 1.0;
 
 	/**
 	 * Internal tracker for total volume adjustment.
@@ -229,7 +258,11 @@ class FlxSound extends FlxBasic
 		_time = 0;
 		_paused = false;
 		_volume = 1.0;
-		_volumeAdjust = 1.0;
+		_volumeAdjust = timeScaleBased ? FlxG.timeScale : 1.0;
+		_pitch = 1.0;
+		_realPitch = 1.0;
+		_timeScaleAdjust = 1.0;
+		timeScaleBased = true;
 		looped = false;
 		loopTime = 0.0;
 		endTime = 0.0;
@@ -237,9 +270,6 @@ class FlxSound extends FlxBasic
 		_radius = 0;
 		_proximityPan = false;
 		visible = false;
-		amplitude = 0;
-		amplitudeLeft = 0;
-		amplitudeRight = 0;
 		autoDestroy = false;
 
 		if (_transform == null)
@@ -279,10 +309,17 @@ class FlxSound extends FlxBasic
 	 */
 	override public function update(elapsed:Float):Void
 	{
+		var timeScaleTarget:Float = timeScaleBased ? FlxG.timeScale : 1.0;
+
+		if (_timeScaleAdjust != timeScaleTarget) {
+			_timeScaleAdjust = timeScaleTarget;
+			if (playing) pitch = _pitch;
+		}
+		
 		if (!playing)
 			return;
 
-		_time = _channel.position;
+		if (_realPitch > 0) _time = _channel.position;
 
 		var radialMultiplier:Float = 1.0;
 
@@ -304,19 +341,6 @@ class FlxSound extends FlxBasic
 		_volumeAdjust = radialMultiplier;
 		updateTransform();
 
-		if (_transform.volume > 0)
-		{
-			amplitudeLeft = _channel.leftPeak / _transform.volume;
-			amplitudeRight = _channel.rightPeak / _transform.volume;
-			amplitude = (amplitudeLeft + amplitudeRight) * 0.5;
-		}
-		else
-		{
-			amplitudeLeft = 0;
-			amplitudeRight = 0;
-			amplitude = 0;
-		}
-
 		if (endTime != null && _time >= endTime)
 			stopped();
 	}
@@ -337,7 +361,7 @@ class FlxSound extends FlxBasic
 	 * @param	OnComplete		Called when the sound finished playing
 	 * @return	This FlxSound instance (nice for chaining stuff together, if you're into that).
 	 */
-	public function loadEmbedded(EmbeddedSound:FlxSoundAsset, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void):FlxSound
+	public function loadEmbedded(EmbeddedSound:FlxSoundAsset, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void, Pitch:Float = 1):FlxSound
 	{
 		if (EmbeddedSound == null)
 			return this;
@@ -361,7 +385,7 @@ class FlxSound extends FlxBasic
 		}
 
 		// NOTE: can't pull ID3 info from embedded sound currently
-		return init(Looped, AutoDestroy, OnComplete);
+		return init(Looped, AutoDestroy, OnComplete, Pitch);
 	}
 
 	/**
@@ -375,7 +399,7 @@ class FlxSound extends FlxBasic
 	 * @param	OnLoad			Called when the sound finished loading.
 	 * @return	This FlxSound instance (nice for chaining stuff together, if you're into that).
 	 */
-	public function loadStream(SoundURL:String, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void, ?OnLoad:Void->Void):FlxSound
+	public function loadStream(SoundURL:String, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void, ?OnLoad:Void->Void, Pitch:Float = 1):FlxSound
 	{
 		cleanup(true);
 
@@ -397,7 +421,7 @@ class FlxSound extends FlxBasic
 		_sound.addEventListener(Event.COMPLETE, loadCallback, false, 0, true);
 		_sound.load(new URLRequest(SoundURL));
 
-		return init(Looped, AutoDestroy, OnComplete);
+		return init(Looped, AutoDestroy, OnComplete, Pitch);
 	}
 
 	#if flash11
@@ -410,7 +434,7 @@ class FlxSound extends FlxBasic
 	 * 							Default value is false, but `FlxG.sound.play()` and `FlxG.sound.stream()` will set it to true by default.
 	 * @return	This FlxSound instance (nice for chaining stuff together, if you're into that).
 	 */
-	public function loadByteArray(Bytes:ByteArray, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void):FlxSound
+	public function loadByteArray(Bytes:ByteArray, Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void, Pitch:Float = 1):FlxSound
 	{
 		cleanup(true);
 
@@ -418,17 +442,18 @@ class FlxSound extends FlxBasic
 		_sound.addEventListener(Event.ID3, gotID3);
 		_sound.loadCompressedDataFromByteArray(Bytes, Bytes.length);
 
-		return init(Looped, AutoDestroy, OnComplete);
+		return init(Looped, AutoDestroy, OnComplete, Pitch);
 	}
 	#end
 
-	function init(Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void):FlxSound
+	function init(Looped:Bool = false, AutoDestroy:Bool = false, ?OnComplete:Void->Void, Pitch:Float = 1):FlxSound
 	{
 		looped = Looped;
 		autoDestroy = AutoDestroy;
 		updateTransform();
 		exists = true;
 		onComplete = OnComplete;
+		pitch = Pitch;
 		_length = (_sound == null) ? 0 : _sound.length;
 		endTime = _length;
 		return this;
@@ -566,6 +591,16 @@ class FlxSound extends FlxBasic
 	{
 		return _volume * _volumeAdjust;
 	}
+	
+	/**
+	 * Returns the currently selected "real" pitch of the sound.
+	 *
+	 * @return	The adjusted pitch of the sound.
+	 */
+	public inline function getActualPitch():Float
+	{
+		return Math.max(0, _pitch * _timeScaleAdjust);
+	}
 
 	/**
 	 * Helper function to set the coordinates of this object.
@@ -586,13 +621,8 @@ class FlxSound extends FlxBasic
 	@:allow(flixel.system.FlxSoundGroup)
 	function updateTransform():Void
 	{
-		// aint fixing this shit fuck
-		try
-		{
-			_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
-				(group != null ? group.volume : 1) * _volume * _volumeAdjust;
-		}
-		catch (e) {}
+		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
+			(group != null ? group.volume : 1) * _volume * _volumeAdjust;
 
 		if (_channel != null)
 			_channel.soundTransform = _transform;
@@ -612,9 +642,11 @@ class FlxSound extends FlxBasic
 		_channel = _sound.play(_time, 0, _transform);
 		if (_channel != null)
 		{
-			#if (sys && openfl_legacy)
+			var timeScaleTarget:Float = timeScaleBased ? FlxG.timeScale : 1.0;
+			if (_timeScaleAdjust != timeScaleTarget) _timeScaleAdjust = timeScaleTarget;
+			
+			_amplitudeTime = -1;
 			pitch = _pitch;
-			#end
 			_channel.addEventListener(Event.SOUND_COMPLETE, stopped);
 			active = true;
 		}
@@ -734,9 +766,42 @@ class FlxSound extends FlxBasic
 
 	function set_volume(Volume:Float):Float
 	{
-		_volume = FlxMath.bound(Volume, 0, 1);
+		_volume = FlxMath.bound(Volume, 0, 4);
 		updateTransform();
 		return Volume;
+	}
+	
+	function update_amplitude()
+	{
+		if (_channel == null || _time == _amplitudeTime) return;
+		
+		if (_transform.volume > 0)
+		{
+			_amplitudeLeft = _channel.leftPeak / _transform.volume;
+			_amplitudeRight = _channel.rightPeak / _transform.volume;
+		}
+		else
+		{
+			_amplitudeLeft = 0;
+			_amplitudeRight = 0;
+		}
+		
+		_amplitudeTime = _time;
+	}
+	
+	function get_amplitudeLeft():Float {
+		update_amplitude();
+		return _amplitudeLeft;
+	}
+	
+	function get_amplitudeRight():Float {
+		update_amplitude();
+		return _amplitudeRight;
+	}
+	
+	function get_amplitude():Float {
+		update_amplitude();
+		return (_amplitudeLeft + _amplitudeRight) * 0.5;
 	}
 
 	inline function get_pitch():Float
@@ -746,8 +811,21 @@ class FlxSound extends FlxBasic
 
 	function set_pitch(v:Float):Float
 	{
-		if (_channel != null)
-			_channel.pitch = v;
+		v = Math.max(0, v);
+		var adjusted:Float = Math.max(0, v * _timeScaleAdjust);
+		
+		if (_channel != null) {
+			if (_channel.pitch == adjusted) return v;
+			_channel.pitch = adjusted;
+		}
+		if (_realPitch == adjusted) return v;
+		if (_realPitch <= 0 && adjusted > 0) {
+			_realPitch = adjusted;
+			time = _time;
+		}
+		else
+			_realPitch = adjusted;
+
 		return _pitch = v;
 	}
 
@@ -768,10 +846,29 @@ class FlxSound extends FlxBasic
 
 	function set_time(time:Float):Float
 	{
-		if (playing)
+		if (playing && _realPitch > 0)
 		{
-			cleanup(false, true);
-			startSound(time);
+			#if openfl
+			if (_channel == null) {
+				cleanup(false, true);
+				startSound(time);
+			}
+			else {
+				#if lime
+				@:privateAccess _channel.__source.offset = Std.int(Math.max(0, Math.min(time, length - 1)));
+				@:privateAccess _channel.__source.currentTime = 0;
+				#else
+				@:privateAccess _channel.__source.offset = 0;
+				_channel.position = Std.int(Math.max(0, Math.min(time, length - 1)));
+				#end
+			}
+			
+			#else
+			if (time < 0 || time > length) {
+				cleanup(false, true);
+				startSound(time);
+			}
+			#end
 		}
 		return _time = time;
 	}
@@ -787,7 +884,8 @@ class FlxSound extends FlxBasic
 			LabelValuePair.weak("playing", playing),
 			LabelValuePair.weak("time", time),
 			LabelValuePair.weak("length", length),
-			LabelValuePair.weak("volume", volume)
+			LabelValuePair.weak("volume", volume),
+			LabelValuePair.weak("pitch", pitch)
 		]);
 	}
 }
