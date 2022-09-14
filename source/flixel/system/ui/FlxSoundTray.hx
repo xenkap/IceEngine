@@ -148,6 +148,15 @@ class FlxSoundTray extends Sprite
 		visible = true;
 		active = true;
 		var globalVolume:Int = Math.round(FlxG.sound.volume * 10);
+		if (globalVolume < 1)
+		{
+			var sound = FlxG.sound.load(Paths.sound("volMute"));
+			FlxG.sound.volume += 1;
+			sound.play();
+			Sys.println("MUTED?");
+			FlxG.sound.volume -= 1;
+
+		}
 
 		if (FlxG.sound.muted)
 		{
