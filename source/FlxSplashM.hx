@@ -1,4 +1,4 @@
-package flixel.system;
+package;
 
 import flash.display.Graphics;
 import flash.display.Sprite;
@@ -8,12 +8,13 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.system.FlxAssets;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
-class FlxSplash extends FlxState
+class FlxSplashM extends FlxState
 {
 	public static var nextState:Class<FlxState>;
 
@@ -22,6 +23,7 @@ class FlxSplash extends FlxState
 	 */
 	public static var muted:Bool = #if html5 true #else false #end;
 
+	var dtext:String = "Ice Engine";
 	var _sprite:Sprite;
 	var _gfx:Graphics;
 	var _text:TextField;
@@ -72,7 +74,7 @@ class FlxSplash extends FlxState
 		var dtf = new TextFormat(FlxAssets.FONT_DEFAULT, 16, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		_text.defaultTextFormat = dtf;
-		_text.text = "Sussy";
+		_text.text = dtext;
 		FlxG.stage.addChild(_text);
 
 		onResize(stageWidth, stageHeight);
@@ -115,7 +117,7 @@ class FlxSplash extends FlxState
 	{
 		_functions[_curPart]();
 		_text.textColor = _colors[_curPart];
-		_text.text = "HaxeFlixel";
+		_text.text = dtext;
 		_curPart++;
 
 		if (_curPart == 5)

@@ -6,7 +6,7 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flixel.graphics.tile.FlxDrawBaseItem;
-import flixel.system.FlxSplash;
+import FlxSplashM;
 import flixel.util.FlxArrayUtil;
 import openfl.Assets;
 import openfl.filters.BitmapFilter;
@@ -86,7 +86,7 @@ class FlxGame extends Sprite
 	/**
 	 * A flag for triggering the `preGameStart` and `postGameStart` "events".
 	 */
-	@:allow(flixel.system.FlxSplash)
+	@:allow(FlxSplashM)
 	var _gameJustStarted:Bool = false;
 
 	/**
@@ -576,19 +576,19 @@ class FlxGame extends Sprite
 		FlxG.signals.preGameReset.dispatch();
 
 		#if FLX_DEBUG
-		_skipSplash = true;
-		#end
+		//skipSplash = true;
+ 		#end
 
-		if (_skipSplash || FlxSplash.nextState != null) // already played
+		if (_skipSplash || FlxSplashM.nextState != null) // already played
 		{
 			_requestedState = cast Type.createInstance(_initialState, []);
-			if (FlxSplash.nextState == null)
+			if (FlxSplashM.nextState == null)
 				_gameJustStarted = true;
 		}
 		else
 		{
-			FlxSplash.nextState = _initialState;
-			_requestedState = new FlxSplash();
+			FlxSplashM.nextState = _initialState;
+			_requestedState = new FlxSplashM();
 			_skipSplash = true; // only play it once
 		}
 
