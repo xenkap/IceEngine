@@ -13,7 +13,6 @@ import flixel.FlxG;
 import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
 import flixel.math.FlxMath;
-import utils.Log;
 #if flash
 import flash.text.AntiAliasType;
 import flash.text.GridFitType;
@@ -146,8 +145,8 @@ class FlxSoundTray extends Sprite
 			else
 			{
 				var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;
-				soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
 				var soundd = FlxG.sound.load(sound);
+				soundd.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
 				soundd.play();
 			}
 		}
