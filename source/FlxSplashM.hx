@@ -22,8 +22,10 @@ class FlxSplashM extends FlxState
 	 * @since 4.8.0
 	 */
 	public static var muted:Bool = #if html5 true #else false #end;
-
 	var dtext:String = "Ice Engine";
+	#if html5
+	var dtext:String = "Haxeflixel";
+	#end
 	var _sprite:Sprite;
 	var _gfx:Graphics;
 	var _text:TextField;

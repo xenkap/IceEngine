@@ -1,5 +1,6 @@
 package flixel.system.ui;
 
+import haxe.Log;
 #if FLX_SOUND_SYSTEM
 import flash.display.Bitmap;
 import flash.display.BitmapData;
@@ -12,6 +13,7 @@ import flixel.FlxG;
 import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
 import flixel.math.FlxMath;
+import utils.Log;
 #if flash
 import flash.text.AntiAliasType;
 import flash.text.GridFitType;
@@ -78,7 +80,7 @@ class FlxSoundTray extends Sprite
 		text.gridFitType = GridFitType.PIXEL;
 		#else
 		#end
-		var dtf:TextFormat = new TextFormat(FlxAssets.FONT_DEFAULT, 10, 0xffffff);
+		var dtf:TextFormat = new TextFormat(Paths.font("vcr.ttf"), 10, 0xffffff);
 		dtf.align = TextFormatAlign.CENTER;
 		text.defaultTextFormat = dtf;
 		addChild(text);
@@ -140,6 +142,13 @@ class FlxSoundTray extends Sprite
 				var soundVar = FlxG.sound.load(Paths.sound("volBeep"));
 				soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
 				soundVar.play();
+			}
+			else
+			{
+				var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;
+				soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
+				var soundd = FlxG.sound.load(sound);
+				soundd.play();
 			}
 		}
 
