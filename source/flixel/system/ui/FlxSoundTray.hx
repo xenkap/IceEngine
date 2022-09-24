@@ -142,13 +142,6 @@ class FlxSoundTray extends Sprite
 				soundVar.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
 				soundVar.play();
 			}
-			else
-			{
-				var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;
-				var soundd = FlxG.sound.load(sound);
-				soundd.pitch = FlxMath.remapToRange(FlxG.sound.volume, 0, 1, 0.2, 1);
-				soundd.play();
-			}
 		}
 
         lerpTo = 0;
