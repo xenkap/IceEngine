@@ -38,6 +38,7 @@ class OutdatedState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		/*
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
@@ -57,6 +58,8 @@ class OutdatedState extends MusicBeatState
 				});
 			}
 		}
+		*/
+		MusicBeatState.switchState(new MainMenuState()); //we dont need the update screen
 		super.update(elapsed);
 	}
 }
