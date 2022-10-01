@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="CrashHandler" package="com.chillsides.crashhandler" version="1.0.0" company="Ice Engine" />
+	<app main="Main" path="Export" file="CrashHandler" />
+	
+	<source path="Source" />
+	
+	<haxelib name="lime" />
+
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	<set name="BUILD_DIR" value="export/32bit" if="32bits" />	
+	<assets path="Assets" rename="assets" />
+	
+</project>

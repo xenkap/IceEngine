@@ -22,7 +22,6 @@
 
 	<!--These window settings apply to all targets-->
 	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" />
-	<assets path="FE-CrashDialog.exe" type="template" if="windows release" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -54,6 +53,7 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
+	<assets path="FE-CrashDialog.exe" type="template" if="windows release" />
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets" exclude="*.mp3"  unless="web"/>
