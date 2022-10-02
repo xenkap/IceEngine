@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin': Ice Engine" file="IceEngine" packageName="com.chillsides.iceengine" package="com.chillsides.iceengine" main="Main" version="0.4.0" company="RanIceEngine" />
+	<app title="Friday Night Funkin': Ice Engine" file="IceEngine" packageName="com.chillsides.iceengine" package="com.chillsides.iceengine" main="Main" version="0.4.0h" company="RanIceEngine" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />

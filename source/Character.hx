@@ -358,34 +358,34 @@ class Character extends BioSprite
 	 */
 	public function dance()
 	{
-		if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
+		// if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
+		// {
+		// 	playAnim(animation.curAnim.name + '-end');
+		// }
+		// else {
+		if (!debugMode && !specialAnim)
 		{
-			playAnim(animation.curAnim.name + '-end');
-		}
-		else {
-			if (!debugMode && !specialAnim)
+			if (danceIdle)
 			{
-				if (danceIdle)
+				danced = !danced;
+
+				if (danced)
+					playAnim('danceRight' + idleSuffix);
+				else
+					playAnim('danceLeft' + idleSuffix);
+				if (PlayState.hairBlowedLast == true)
 				{
-					danced = !danced;
-	
-					if (danced)
-						playAnim('danceRight' + idleSuffix);
-					else
-						playAnim('danceLeft' + idleSuffix);
-					if (PlayState.hairBlowedLast == true)
-					{
-						idleSuffix = '';
-						recalculateDanceIdle();
-						PlayState.hairBlowedLast = false;
-					}
-				}
-				else if (animation.getByName('idle' + idleSuffix) != null)
-				{
-					playAnim('idle' + idleSuffix);
+					idleSuffix = '';
+					recalculateDanceIdle();
+					PlayState.hairBlowedLast = false;
 				}
 			}
+			else if (animation.getByName('idle' + idleSuffix) != null)
+			{
+				playAnim('idle' + idleSuffix);
+			}
 		}
+		// }
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
