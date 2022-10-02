@@ -8,6 +8,7 @@ art/test_x64-debug-officialrelease.bat
 ### VS Code
 export/*
 CrashHandler/export/*
+CrashHandler/build/*
 .vscode/*
 *.code-workspace
 # Local history which shouldn't be shared.
