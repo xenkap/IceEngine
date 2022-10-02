@@ -360,8 +360,7 @@ class Paths
 			return currentTrackedAssets.get(modKey);
 		}
 		#end
-
-		var path = getPath('images/$key.png', IMAGE, library);
+		var path = getPath('images/$key.png', IMAGE, library); // MEMORY LEAK ISSUE!!!!
 		if (OpenFlAssets.exists(path, IMAGE))
 		{
 			if (!currentTrackedAssets.exists(path))
