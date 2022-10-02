@@ -94,6 +94,9 @@ class Character extends BioSprite
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; // In case a character is missing, it will use BF on its place
 
+	public var playAnimFrame:Int = 0;
+	public var playAnimName:String = '';
+
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?isOpponent:Bool = false)
 	{
 		super(x, y/*, character*/);
@@ -337,6 +340,14 @@ class Character extends BioSprite
 				}
 			}
 		}
+
+		if(animFinished)
+		{
+			if (animation.getByName(animation.curAnim.name + '-loop') != null || uniqueAnims.exists(playAnimName + '-loop'))
+			{
+				playAnim(animation.curAnim.name + '-loop');
+			}
+		}
 		super.update(elapsed);
 	}
 
@@ -347,6 +358,11 @@ class Character extends BioSprite
 	 */
 	public function dance()
 	{
+		// if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
+		// {
+		// 	playAnim(animation.curAnim.name + '-end');
+		// }
+		// else {
 		if (!debugMode && !specialAnim)
 		{
 			if (danceIdle)
@@ -369,10 +385,8 @@ class Character extends BioSprite
 				playAnim('idle' + idleSuffix);
 			}
 		}
+		// }
 	}
-
-	public var playAnimFrame:Int = 0;
-	public var playAnimName:String = '';
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
