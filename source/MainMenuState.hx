@@ -26,9 +26,9 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.5.2h'; //This is used for Discord RPC
-	public static var iceEngineVersion:String = '0.3.0h'; //This is also used for Discord RPC
-	public static var micdEngineVersion:String = '2.0.3'; //This is NOT used for Discord RPC
+	public static var psychEngineVersion:String = '0.5.2h'; // This is used for Discord RPC
+	public static var iceEngineVersion:String = '0.3.0h'; // This is also used for Discord RPC
+	public static var micdEngineVersion:String = '2.0.3'; // This is NOT used for Discord RPC
 	public static var curSelected:Int = 0;
 	public static var nightly:String = "a";
 
@@ -41,14 +41,16 @@ class MainMenuState extends MusicBeatState
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		// 'bios',
 		'credits',
 		'options'
 	];
 
-
 	var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('mBG_Main'));
+
 	public var menuItem:FlxSprite;
 	public var yScroll:Float;
+
 	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Main_Checker'), 0.2, 0.2, true, true);
 	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFAA00AA);
 	var camFollow:FlxObject;
@@ -59,7 +61,6 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -74,7 +75,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];
-		
+
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -135,11 +136,12 @@ class MainMenuState extends MusicBeatState
 			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 120) - 30}, 1.3, {ease: FlxEase.expoInOut});
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
+			if (optionShit.length < 6)
+				scr = 0;
 			menuItem.scale.set(0.8, 0.8);
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
 
@@ -151,21 +153,20 @@ class MainMenuState extends MusicBeatState
 		FlxTween.tween(bg, {angle: 0}, 1, {ease: FlxEase.quartInOut});
 		FlxTween.tween(side, {alpha: 1}, 0.9, {ease: FlxEase.quartInOut});
 
-
 		camGame.follow(camFollowPos, null, 1);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 64, 0, "Ice Engine v" + iceEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Ice Engine v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, FlxG.width - 24, "Mic'd Up v" + micdEngineVersion, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24,  FlxG.width - 24, "Mic'd Up v" + micdEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, FlxG.width - 24, "Friday Night Funkin' v0.2.7", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -177,9 +178,11 @@ class MainMenuState extends MusicBeatState
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
 		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
+		if (leDate.getDay() == 5 && leDate.getHours() >= 18)
+		{
 			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			if (!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2]))
+			{ // It's a friday night. WEEEEEEEEEEEEEEEEEE
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement();
 				ClientPrefs.saveSettings();
@@ -194,10 +197,11 @@ class MainMenuState extends MusicBeatState
 			selectable = true;
 		});
 	}
-	
+
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
+	function giveAchievement()
+	{
 		add(new AchievementObject('friday_night_play', camAchievement));
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		trace('Giving achievement "friday_night_play"');
@@ -208,6 +212,7 @@ class MainMenuState extends MusicBeatState
 	var selectedSomethin:Bool = false;
 
 	var holdTime:Float = 0;
+
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music.volume < 0.8)
@@ -217,12 +222,14 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.scale.set(FlxMath.lerp(spr.scale.x, 0.8, camLerp / (ClientPrefs.framerate / 60)), FlxMath.lerp(spr.scale.y, 0.8, 0.4 / (ClientPrefs.framerate / 60)));
+			spr.scale.set(FlxMath.lerp(spr.scale.x, 0.8, camLerp / (ClientPrefs.framerate / 60)),
+				FlxMath.lerp(spr.scale.y, 0.8, 0.4 / (ClientPrefs.framerate / 60)));
 			spr.y = FlxMath.lerp(spr.y, -20 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
 
 			if (spr.ID == curSelected)
 			{
-				spr.scale.set(FlxMath.lerp(spr.scale.x, 1.1, camLerp / (ClientPrefs.framerate / 60)), FlxMath.lerp(spr.scale.y, 1.1, 0.4 / (ClientPrefs.framerate / 60)));
+				spr.scale.set(FlxMath.lerp(spr.scale.x, 1.1, camLerp / (ClientPrefs.framerate / 60)),
+					FlxMath.lerp(spr.scale.y, 1.1, 0.4 / (ClientPrefs.framerate / 60)));
 				spr.y = FlxMath.lerp(spr.y, -90 + (spr.ID * 100), 0.4 / (ClientPrefs.framerate / 60));
 			}
 
@@ -235,8 +242,9 @@ class MainMenuState extends MusicBeatState
 		if (!selectedSomethin && selectable)
 		{
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
-			
+			if (FlxG.keys.pressed.SHIFT)
+				shiftMult = 3;
+
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -256,13 +264,13 @@ class MainMenuState extends MusicBeatState
 				holdTime = 0;
 			}
 
-			if(controls.UI_DOWN || controls.UI_UP)
+			if (controls.UI_DOWN || controls.UI_UP)
 			{
 				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 				holdTime += elapsed;
 				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
-				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+				if (holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
@@ -276,7 +284,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT || FlxG.mouse.justPressed)
+			if (controls.ACCEPT || FlxG.mouse.justPressedRight)
 			{
 				{
 					selectedSomethin = true;
@@ -309,6 +317,8 @@ class MainMenuState extends MusicBeatState
 								#end
 								case 'awards':
 									MusicBeatState.switchState(new AchievementsMenuState());
+								case 'bios':
+									MusicBeatState.switchState(new BioMenuState());
 								case 'credits':
 									MusicBeatState.switchState(new CreditsState());
 								case 'options':
@@ -357,7 +367,8 @@ class MainMenuState extends MusicBeatState
 			{
 				spr.animation.play('selected');
 				var add:Float = 0;
-				if(menuItems.length > 4) {
+				if (menuItems.length > 4)
+				{
 					add = menuItems.length * 8;
 				}
 				// camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);

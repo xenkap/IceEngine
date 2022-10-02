@@ -23,8 +23,7 @@ class LoadingSubState extends MusicBeatSubstate
 	var time = FlxG.random.int(1, 2);
 	var unPauseTimer:FlxTimer;
 
-	//public static var songName:String = '';
-
+	// public static var songName:String = '';
 	var funkay:FlxSprite;
 
 	public function new()
@@ -49,10 +48,10 @@ class LoadingSubState extends MusicBeatSubstate
 		trace(time + " seconds");
 
 		new FlxTimer().start(time, function(tmr:FlxTimer)
-			{
-				// LoadingState.loadAndSwitchState(new PlayState(), true);
-				close();
-			});
+		{
+			// LoadingState.loadAndSwitchState(new PlayState(), true);
+			close();
+		});
 	}
 
 	override function update(elapsed:Float)
