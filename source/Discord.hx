@@ -44,8 +44,13 @@ class DiscordClient
 		DiscordRpc.presence({
 			details: "In the Menus",
 			state: null,
+<<<<<<< HEAD
 			largeImageKey: 'logo',
 			largeImageText: "Ice Engine"
+=======
+			largeImageKey: 'icon',
+			largeImageText: "Friday Night Funkin' - Ice Engine"
+>>>>>>> 0ad63c23b71816ba14fe3ff0053554f5efdbed43
 		});
 	}
 
