@@ -44,7 +44,7 @@ class DiscordClient
 		DiscordRpc.presence({
 			details: "In the Menus",
 			state: null,
-			largeImageKey: 'icon',
+			largeImageKey: 'logo',
 			largeImageText: "Ice Engine"
 		});
 	}
