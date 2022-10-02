@@ -45,7 +45,7 @@ class DiscordClient
 			details: "In the Menus",
 			state: null,
 			largeImageKey: 'icon',
-			largeImageText: "Ice Engine"
+			largeImageText: "Friday Night Funkin' - Ice Engine"
 		});
 	}
 
