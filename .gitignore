@@ -19,3 +19,4 @@ CrashHandler/export/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+SourceCode.zip

@@ -5010,7 +5010,7 @@ class PlayState extends MusicBeatState
 			var strum:StrumNote = playerStrums.members[note.noteData];
 			if (strum != null)
 			{
-				spawnNoteSplash(strum.x - 50, strum.y - 25, note.noteData, note);
+				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 			}
 		}
 	}

@@ -94,6 +94,9 @@ class Character extends BioSprite
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; // In case a character is missing, it will use BF on its place
 
+	public var playAnimFrame:Int = 0;
+	public var playAnimName:String = '';
+
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?isOpponent:Bool = false)
 	{
 		super(x, y/*, character*/);
@@ -337,6 +340,14 @@ class Character extends BioSprite
 				}
 			}
 		}
+
+		if(animFinished)
+		{
+			if (animation.getByName(animation.curAnim.name + '-loop') != null || uniqueAnims.exists(playAnimName + '-loop'))
+			{
+				playAnim(animation.curAnim.name + '-loop');
+			}
+		}
 		super.update(elapsed);
 	}
 
@@ -347,32 +358,35 @@ class Character extends BioSprite
 	 */
 	public function dance()
 	{
-		if (!debugMode && !specialAnim)
+		if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
 		{
-			if (danceIdle)
+			playAnim(animation.curAnim.name + '-end');
+		}
+		else {
+			if (!debugMode && !specialAnim)
 			{
-				danced = !danced;
-
-				if (danced)
-					playAnim('danceRight' + idleSuffix);
-				else
-					playAnim('danceLeft' + idleSuffix);
-				if (PlayState.hairBlowedLast == true)
+				if (danceIdle)
 				{
-					idleSuffix = '';
-					recalculateDanceIdle();
-					PlayState.hairBlowedLast = false;
+					danced = !danced;
+	
+					if (danced)
+						playAnim('danceRight' + idleSuffix);
+					else
+						playAnim('danceLeft' + idleSuffix);
+					if (PlayState.hairBlowedLast == true)
+					{
+						idleSuffix = '';
+						recalculateDanceIdle();
+						PlayState.hairBlowedLast = false;
+					}
 				}
-			}
-			else if (animation.getByName('idle' + idleSuffix) != null)
-			{
-				playAnim('idle' + idleSuffix);
+				else if (animation.getByName('idle' + idleSuffix) != null)
+				{
+					playAnim('idle' + idleSuffix);
+				}
 			}
 		}
 	}
-
-	public var playAnimFrame:Int = 0;
-	public var playAnimName:String = '';
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
