@@ -2264,16 +2264,15 @@ class PlayState extends MusicBeatState
 		switch (event.event)
 		{
 			case 'Change Character':
-				var charType:Int = 0;
-				switch (event.value1.toLowerCase())
-				{
-					case 'gf' | 'girlfriend' | '2':
+				var charType:Int = foePlay ? 1 : 0;
+				switch(event.value1.toLowerCase()) {
+					case 'gf' | 'girlfriend' | '1':
 						charType = 2;
-					case 'dad' | 'opponent' | '1':
-						charType = 1;
+					case 'dad' | 'opponent' | '0':
+						charType = foePlay ? 0 : 1;
 					default:
 						charType = Std.parseInt(event.value1);
-						if (Math.isNaN(charType)) charType = 0;
+						if(Math.isNaN(charType)) charType = 0;
 				}
 
 				var newCharacter:String = event.value2;
@@ -3569,10 +3568,10 @@ class PlayState extends MusicBeatState
 
 				case 'Change Character':
 					var charType:Int = 0;
-					switch(value1) {
-						case 'gf' | 'girlfriend':
+					switch(value1.toLowerCase()) {
+						case 'gf' | 'girlfriend' | '2':
 							charType = 2;
-						case 'dad' | 'opponent':
+						case 'dad' | 'opponent' | '0':
 							charType = 1;
 						default:
 							charType = Std.parseInt(value1);
@@ -3581,42 +3580,84 @@ class PlayState extends MusicBeatState
 	
 					switch(charType) {
 						case 0:
-							if(boyfriend.curCharacter != value2) {
-								if(!boyfriendMap.exists(value2)) {
-									addCharacterToList(value2, charType);
+							if (!foePlay)
+							{
+								if(boyfriend.curCharacter != value2) {
+									if(!boyfriendMap.exists(value2)) {
+										addCharacterToList(value2, charType);
+									}
+		
+									var lastAlpha:Float = boyfriend.alpha;
+									boyfriend.alpha = 0.00001;
+									boyfriend = boyfriendMap.get(value2);
+									boyfriend.alpha = lastAlpha;
+									trace('new bf, ' + boyfriend.curCharacter);
+									iconP1.changeIcon(boyfriend.healthIcon);
 								}
-	
-								var lastAlpha:Float = boyfriend.alpha;
-								boyfriend.alpha = 0.00001;
-								boyfriend = boyfriendMap.get(value2);
-								boyfriend.alpha = lastAlpha;
-								trace('new bf, ' + boyfriend.curCharacter);
-								iconP1.changeIcon(boyfriend.healthIcon);
+								setOnLuas('boyfriendName', boyfriend.curCharacter);
+							} else {
+								if(dad.curCharacter != value2) {
+									if(!dadMap.exists(value2)) {
+										addCharacterToList(value2, charType);
+									}
+		
+									var lastAlpha:Float = dad.alpha;
+									dad.alpha = 0.00001;
+									dad = dadMap.get(value2);
+									dad.alpha = lastAlpha;
+									trace('new foe bf, ' + dad.curCharacter);
+									iconP1.changeIcon(dad.healthIcon);
+								}
+								setOnLuas('boyfriendName', dad.curCharacter);
 							}
-							setOnLuas('boyfriendName', boyfriend.curCharacter);
 	
 						case 1:
-							if(dad.curCharacter != value2) {
-								if(!dadMap.exists(value2)) {
-									addCharacterToList(value2, charType);
-								}
-	
-								var wasGf:Bool = dad.curCharacter.startsWith('gf');
-								var lastAlpha:Float = dad.alpha;
-								dad.alpha = 0.00001;
-								dad = dadMap.get(value2);
-								if(!dad.curCharacter.startsWith('gf')) {
-									if(wasGf && gf != null) {
-										gf.visible = true;
+							if (!foePlay)
+							{
+								if(dad.curCharacter != value2) {
+									if(!dadMap.exists(value2)) {
+										addCharacterToList(value2, charType);
 									}
-								} else if(gf != null) {
-									gf.visible = false;
+		
+									var wasGf:Bool = dad.curCharacter.startsWith('gf');
+									var lastAlpha:Float = dad.alpha;
+									dad.alpha = 0.00001;
+									dad = dadMap.get(value2);
+									if(!dad.curCharacter.startsWith('gf')) {
+										if(wasGf && gf != null) {
+											gf.visible = true;
+										}
+									} else if(gf != null) {
+										gf.visible = false;
+									}
+									dad.alpha = lastAlpha;
+									trace('new dad, ' + dad.curCharacter);
+									iconP2.changeIcon(dad.healthIcon);
 								}
-								dad.alpha = lastAlpha;
-								trace('new dad, ' + dad.curCharacter);
-								iconP2.changeIcon(dad.healthIcon);
+								setOnLuas('dadName', dad.curCharacter);
+							} else {
+								if(boyfriend.curCharacter != value2) {
+									if(!boyfriendMap.exists(value2)) {
+										addCharacterToList(value2, charType);
+									}
+		
+									var wasGf:Bool = boyfriend.curCharacter.startsWith('gf');
+									var lastAlpha:Float = boyfriend.alpha;
+									boyfriend.alpha = 0.00001;
+									boyfriend = boyfriendMap.get(value2);
+									if(!boyfriend.curCharacter.startsWith('gf')) {
+										if(wasGf && gf != null) {
+											gf.visible = true;
+										}
+									} else if(gf != null) {
+										gf.visible = false;
+									}
+									boyfriend.alpha = lastAlpha;
+									trace('new player dad, ' + boyfriend.curCharacter);
+									iconP2.changeIcon(boyfriend.healthIcon);
+								}
+								setOnLuas('dadName', boyfriend.curCharacter);
 							}
-							setOnLuas('dadName', dad.curCharacter);
 	
 						case 2:
 							if(gf != null)
@@ -3712,6 +3753,32 @@ class PlayState extends MusicBeatState
 				if (value2 == 'true')
 				{
 					FlxG.camera.zoom = defaultCamZoom;
+				}
+
+			case 'Idle and Dance':
+				// trace('Anim to play: ' + value1);
+				var char:Character = foePlay ? boyfriend : dad;
+				switch (value1.toLowerCase().trim())
+				{
+					case 'bf' | 'boyfriend':
+						char = foePlay ? dad : boyfriend;
+					case 'gf' | 'girlfriend':
+						char = gf;
+					default:
+						var val1:Int = Std.parseInt(value2);
+						if (Math.isNaN(val1))
+							val1 = 0;
+
+						switch (val1)
+						{
+							case 1: char = foePlay ? dad : boyfriend;
+							case 2: char = gf;
+						}
+				}
+
+				if (char != null)
+				{
+					char.dance(true);
 				}
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);

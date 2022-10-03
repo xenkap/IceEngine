@@ -42,7 +42,7 @@ class Bio
 		],
 		[
 			"Test",
-			"This is a test bio"
+			"This is a test bio",
 			"bf-pixel",
 			true
 		]

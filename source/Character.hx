@@ -356,14 +356,14 @@ class Character extends BioSprite
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance()
+	public function dance(?forced:Bool = false)
 	{
 		// if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
 		// {
 		// 	playAnim(animation.curAnim.name + '-end');
 		// }
 		// else {
-		if (!debugMode && !specialAnim)
+		if (forced || !debugMode && !specialAnim)
 		{
 			if (danceIdle)
 			{
