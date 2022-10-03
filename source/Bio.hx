@@ -39,12 +39,6 @@ class Bio
 			"Also known as the Spooky Kids, these kids love to celebrate Halloween.\nEven in the wrong month; but don't say that to them!",
 			'spooky',
 			false
-		],
-		[
-			"Test",
-			"This is a test bio"
-			"bf-pixel",
-			true
 		]
 	];
 
