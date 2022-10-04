@@ -2063,7 +2063,7 @@ class PlayState extends MusicBeatState
 					}
 	
 					picoCutscene.frames = AtlasFrameMaker.construct('cutscenes/stressPico');
-					picoCutscene.animation.addByPrefix('anim', 'Pico Badass', 24, true);
+					picoCutscene.animation.addByPrefix('anim', 'Pico Badass', 24, false);
 					addBehindGF(picoCutscene);
 					picoCutscene.alpha = 0.00001;
 	
