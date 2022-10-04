@@ -672,7 +672,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			songText.targetY = i;
 			grpSongs.add(songText);
 
-			var icon:HealthIcon = new HealthIcon(weekFile.songs[i][1]);
+			var icon:HealthIcon = new HealthIcon(weekFile.songs[i][1], true);
 			icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
@@ -738,7 +738,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 		if (id == FlxUIInputText.CHANGE_EVENT && (sender is FlxUIInputText))
 		{
 			weekFile.songs[curSelected][1] = iconInputText.text;
-			iconArray[curSelected].changeIcon(iconInputText.text);
+			iconArray[curSelected].changeIcon(iconInputText.text, true);
 		}
 		else if (id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper))
 		{

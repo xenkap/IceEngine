@@ -30,6 +30,7 @@ typedef CharacterFile =
 
 	var position:Array<Float>;
 	var camera_position:Array<Float>;
+	var win_icons:Bool;
 	var flip_x:Bool;
 	var no_antialiasing:Bool;
 	var healthbar_colors:Array<Int>;
@@ -77,6 +78,7 @@ class Character extends BioSprite
 	public var positionArray:Array<Float> = [0, 0];
 	public var cameraPosition:Array<Float> = [0, 0];
 
+	public var hasWinIcons:Bool = true;
 	public var kapiHeld:Bool = false;
 	public var trailColor:Array<Int> = [0, 0, 0];
 
@@ -202,6 +204,7 @@ class Character extends BioSprite
 
 				healthIcon = json.healthicon;
 				singDuration = json.sing_duration;
+				hasWinIcons = json.win_icons;
 				kapiHeld = json.kapi_held;
 				trailColor = json.trail_color;
 
