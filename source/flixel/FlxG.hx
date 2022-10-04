@@ -23,7 +23,6 @@ import flixel.system.frontEnds.SignalFrontEnd;
 import flixel.system.frontEnds.SoundFrontEnd;
 import flixel.system.frontEnds.VCRFrontEnd;
 import flixel.system.frontEnds.WatchFrontEnd;
-import flixel.system.frontEnds.WindowFrontEnd;
 import flixel.system.scaleModes.BaseScaleMode;
 import flixel.system.scaleModes.RatioScaleMode;
 import flixel.util.FlxCollision;
@@ -232,11 +231,6 @@ class FlxG
 	 */
 	public static var keys(default, null):FlxKeyboard;
 	#end
-
-	/**
-     * mine now :D
-	 */
-	 public static var windowPanes(default, null):WindowFrontEnd;
 
 	#if FLX_GAMEPAD
 	/**
