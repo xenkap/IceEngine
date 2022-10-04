@@ -1091,6 +1091,8 @@ class PlayState extends MusicBeatState
 				case 'ugh' | 'guns' | 'stress':
 					if (isStoryMode)
 						tankIntro();
+					else
+						startCountdown();
 
 				default:
 					startCountdown();
