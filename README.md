@@ -1,13 +1,16 @@
-# Friday Night Funkin' - Psych Engine
+# Friday Night Funkin' - Ice Engine
 [![CodeFactor](https://www.codefactor.io/repository/github/xenkap/iceengine/badge/main)](https://www.codefactor.io/repository/github/xenkap/iceengine/overview/main)
-
-
 
 Engine being used on Chillsides
 
 ## Installation:
 
 Go to the Wiki for a compilation tutorial.
+
+## Ice Engine Credits
+* xenkap - Main Dev & Artist
+* EyeDaleHim - Cool Dev
+* WindowsWhistler - Assistant Developer
 
 ## Psych Credits:
 * Shadow Mario - Coding
@@ -25,7 +28,3 @@ Go to the Wiki for a compilation tutorial.
 ## Mic'd Up Credits
 * Verwex - made mic'd up
 
-## Ice Engine Credits
-* xenkap - Main Dev & Artist
-* EyeDaleHim - Cool Dev
-* WindowsWhistler - Assistant Developer
