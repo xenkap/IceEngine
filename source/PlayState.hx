@@ -2278,7 +2278,7 @@ class PlayState extends MusicBeatState
 				if (gf != null
 					&& tmr.loopsLeft % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0
 					&& !gf.stunned
-					&& gf.animation.curAnim.name != null
+					&& gf.animation.curAnim != null
 					&& !gf.playAnimName.startsWith("sing")
 					&& !gf.stunned)
 				{
@@ -5919,7 +5919,7 @@ class PlayState extends MusicBeatState
 		if (gf != null
 			&& curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0
 			&& !gf.stunned
-			&& gf.animation.curAnim.name != null
+			&& gf.animation.curAnim != null
 			&& !gf.playAnimName.startsWith("sing")
 			&& !gf.stunned)
 		{
