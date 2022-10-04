@@ -15,12 +15,12 @@ class HealthIcon extends FlxSprite
 	
 	public var usingWinIcon:Bool = false;
 
-	public function new(char:String = 'bf', winIcon:Bool, isPlayer:Bool = false)
+	public function new(char:String = 'bf',/* winIcon:Bool,*/ isPlayer:Bool = false)
 	{
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char, winIcon);
+		changeIcon(char/*, winIcon*/);
 		scrollFactor.set();
 	}
 
@@ -35,25 +35,25 @@ class HealthIcon extends FlxSprite
 	public function swapOldIcon()
 	{
 		if (isOldIcon = !isOldIcon)
-			changeIcon('bf-old', usingWinIcon);
+			changeIcon('bf-old');
 		else
-			changeIcon('bf', usingWinIcon);
+			changeIcon('bf');
 	}
 
 	var iconVerPath:String;
 	private var iconOffsets:Array<Float> = [0, 0];
 
-	public function changeIcon(char:String, hasWinIcon:Bool)
+	public function changeIcon(char:String/*, hasWinIcon:Bool*/)
 	{
 		if (this.char != char)
 		{
-			usingWinIcon = hasWinIcon;
+			// usingWinIcon = hasWinIcon;
 
-			var iconDivision:Int = 2;
-			if (hasWinIcon)
-			{
-				iconDivision = 3;
-			}
+			// var iconDivision:Int = 2;
+			// if (hasWinIcon)
+			// {
+			// 	iconDivision = 3;
+			// }
 
 			var name:String = 'icons/' + char;
 			if (!Paths.fileExists('images/' + name + '.png', IMAGE))
@@ -63,16 +63,16 @@ class HealthIcon extends FlxSprite
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file); // Load stupidly first for getting the file size
-			loadGraphic(file, true, Math.floor(width / iconDivision), Math.floor(height)); // Then load it fr
+			loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); // Then load it fr
 
-			iconOffsets[0] = (width - 150) / iconDivision;
-			iconOffsets[1] = (width - 150) / iconDivision;
+			iconOffsets[0] = (width - 150) / 3;
+			iconOffsets[1] = (width - 150) / 3;
 			updateHitbox();
 
-			if (hasWinIcon)
+			// if (hasWinIcon)
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			else
-				animation.add(char, [0, 1], 0, false, isPlayer);
+			// else
+			// 	animation.add(char, [0, 1], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 

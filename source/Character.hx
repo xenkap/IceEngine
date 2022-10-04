@@ -301,7 +301,7 @@ class Character extends BioSprite
 	override function update(elapsed:Float)
 	{
 		if (Std.isOfType(FlxG.state, PlayState)) {
-			if (animation.curAnim != null && animation.curAnim.finished)
+			if (animation.curAnim != null && animFinished)
 				animFinished = true;
 			else
 				animFinished = false;
@@ -310,7 +310,7 @@ class Character extends BioSprite
 			{
 				for (animID => animChar in uniqueAnims)
 				{
-					if (animChar.animation.curAnim != null && !animChar.animation.curAnim.finished)
+					if (animChar.animation.curAnim != null && !animChar.animation.finished)
 						animFinished = false;
 				}
 			}
@@ -350,7 +350,7 @@ class Character extends BioSprite
 						playAnim('shoot' + noteData, true);
 						animationNotes.shift();
 					}
-					if(animation.curAnim.finished) playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
+					if(animFinished) playAnim(playAnimName, false, false, animation.curAnim.frames.length - 3);
 			}
 
 			if (!isPlayer)
@@ -372,7 +372,7 @@ class Character extends BioSprite
 		{
 			if (animation.getByName(animation.curAnim.name + '-loop') != null || uniqueAnims.exists(playAnimName + '-loop'))
 			{
-				playAnim(animation.curAnim.name + '-loop');
+				playAnim(playAnimName + '-loop');
 			}
 		}
 		super.update(elapsed);

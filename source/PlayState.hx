@@ -881,12 +881,12 @@ class PlayState extends MusicBeatState
 		songinfo.y += 300;
 		add(songinfo);
 
-		iconP1 = new HealthIcon(boyfriend.healthIcon, boyfriend.hasWinIcons, true);
+		iconP1 = new HealthIcon(boyfriend.healthIcon,/* boyfriend.hasWinIcons,*/ true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 
-		iconP2 = new HealthIcon(dad.healthIcon, dad.hasWinIcons, false);
+		iconP2 = new HealthIcon(dad.healthIcon,/* dad.hasWinIcons,*/ false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
@@ -4058,7 +4058,7 @@ class PlayState extends MusicBeatState
 									boyfriend = boyfriendMap.get(value2);
 									boyfriend.alpha = lastAlpha;
 									trace('new bf, ' + boyfriend.curCharacter);
-									iconP1.changeIcon(boyfriend.healthIcon, boyfriend.hasWinIcons);
+									iconP1.changeIcon(boyfriend.healthIcon/*, boyfriend.hasWinIcons*/);
 								}
 								setOnLuas('boyfriendName', boyfriend.curCharacter);
 							} else {
@@ -4072,7 +4072,7 @@ class PlayState extends MusicBeatState
 									dad = dadMap.get(value2);
 									dad.alpha = lastAlpha;
 									trace('new foe bf, ' + dad.curCharacter);
-									iconP1.changeIcon(dad.healthIcon, dad.hasWinIcons);
+									iconP1.changeIcon(dad.healthIcon/*, dad.hasWinIcons*/);
 								}
 								setOnLuas('boyfriendName', dad.curCharacter);
 							}
@@ -4098,7 +4098,7 @@ class PlayState extends MusicBeatState
 									}
 									dad.alpha = lastAlpha;
 									trace('new dad, ' + dad.curCharacter);
-									iconP2.changeIcon(dad.healthIcon, dad.hasWinIcons);
+									iconP2.changeIcon(dad.healthIcon/*, dad.hasWinIcons*/);
 								}
 								setOnLuas('dadName', dad.curCharacter);
 							} else {
@@ -4120,7 +4120,7 @@ class PlayState extends MusicBeatState
 									}
 									boyfriend.alpha = lastAlpha;
 									trace('new player dad, ' + boyfriend.curCharacter);
-									iconP2.changeIcon(boyfriend.healthIcon, boyfriend.hasWinIcons);
+									iconP2.changeIcon(boyfriend.healthIcon/*, boyfriend.hasWinIcons*/);
 								}
 								setOnLuas('dadName', boyfriend.curCharacter);
 							}

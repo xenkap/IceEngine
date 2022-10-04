@@ -328,8 +328,8 @@ class ChartingState extends MusicBeatState
 		add(waveformSprite);
 
 		var eventIcon:FlxSprite = new FlxSprite(-GRID_SIZE - 5, -90).loadGraphic(Paths.image('eventArrow'));
-		leftIcon = new HealthIcon('bf', true);
-		rightIcon = new HealthIcon('dad', true);
+		leftIcon = new HealthIcon('bf');
+		rightIcon = new HealthIcon('dad');
 		eventIcon.scrollFactor.set(1, 1);
 		leftIcon.scrollFactor.set(1, 1);
 		rightIcon.scrollFactor.set(1, 1);
@@ -2517,17 +2517,17 @@ class ChartingState extends MusicBeatState
 
 		if (_song.notes[curSection].mustHitSection)
 		{
-			leftIcon.changeIcon(healthIconP1, true);
-			rightIcon.changeIcon(healthIconP2, true);
+			leftIcon.changeIcon(healthIconP1);
+			rightIcon.changeIcon(healthIconP2);
 			if (_song.notes[curSection].gfSection)
-				leftIcon.changeIcon('gf', true);
+				leftIcon.changeIcon('gf');
 		}
 		else
 		{
-			leftIcon.changeIcon(healthIconP2, true);
-			rightIcon.changeIcon(healthIconP1, true);
+			leftIcon.changeIcon(healthIconP2);
+			rightIcon.changeIcon(healthIconP1);
 			if (_song.notes[curSection].gfSection)
-				leftIcon.changeIcon('gf', true);
+				leftIcon.changeIcon('gf');
 		}
 	}
 
