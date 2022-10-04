@@ -1981,7 +1981,6 @@ class PlayState extends MusicBeatState
 					cutsceneHandler.timer(4.5, function()
 					{
 						boyfriend.playAnim('singUP', true);
-						boyfriend.specialAnim = true;
 						FlxG.sound.play(Paths.sound('bfBeep'));
 					});
 	
@@ -2064,7 +2063,7 @@ class PlayState extends MusicBeatState
 					}
 	
 					picoCutscene.frames = AtlasFrameMaker.construct('cutscenes/stressPico');
-					picoCutscene.animation.addByPrefix('anim', 'Pico Badass', 24, false);
+					picoCutscene.animation.addByPrefix('anim', 'Pico Badass', 24, true);
 					addBehindGF(picoCutscene);
 					picoCutscene.alpha = 0.00001;
 	
@@ -3298,14 +3297,14 @@ class PlayState extends MusicBeatState
 		if (healthBar.percent < 20)
 		{
 			iconP1.animation.curAnim.curFrame = 1;
-			if (iconP2.usingWinIcon)
+			// if (iconP2.usingWinIcon)
 				iconP2.animation.curAnim.curFrame = 2;
 		}
 
 		if (healthBar.percent > 80)
 		{
 			iconP2.animation.curAnim.curFrame = 1;
-			if (iconP1.usingWinIcon)
+			// if (iconP1.usingWinIcon)
 				iconP1.animation.curAnim.curFrame = 2;
 		}
 

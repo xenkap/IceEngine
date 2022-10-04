@@ -349,21 +349,21 @@ class StoryMenuState extends MusicBeatState
 
 			trace(diffic);
 			trace(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase() + diffic));
-			if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase() + diffic))
-				|| sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase() + diffic)))
-			{
+			// if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase() + diffic))
+			// 	|| sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase() + diffic)))
+			// {
 				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
-			}
-			else if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase()))
-				&& sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase())))
-			{
-				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
-			}
-			else
-			{
-				PlayState.storyPlaylist = [];
-				PlayState.SONG = Song.loadFromJson('test', 'test');
-			}
+			// }
+			// else if (sys.FileSystem.exists(Paths.json(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase()))
+			// 	&& sys.FileSystem.exists(Paths.modsJson(PlayState.storyPlaylist[0].toLowerCase() + '/' + PlayState.storyPlaylist[0].toLowerCase())))
+			// {
+			// 	PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase());
+			// }
+			// else
+			// {
+			// 	PlayState.storyPlaylist = [];
+			// 	PlayState.SONG = Song.loadFromJson('test', 'test');
+			// }
 			PlayState.campaignScore = 0;
 			PlayState.campaignMisses = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)
