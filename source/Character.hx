@@ -290,9 +290,11 @@ class Character extends BioSprite
 		switch(curCharacter)
 		{
 			case 'pico-speaker':
-				skipDance = true;
-				loadMappedAnims();
-				playAnim("shoot1");
+				if (Std.isOfType(FlxG.state, PlayState)) {
+					skipDance = true;
+					loadMappedAnims();
+					playAnim("shoot1");
+				}
 		}
 	}
 	
@@ -341,16 +343,18 @@ class Character extends BioSprite
 			switch(curCharacter)
 			{
 				case 'pico-speaker':
-					if(animationNotes.length > 0 && Conductor.songPosition > animationNotes[0][0])
-					{
-						var noteData:Int = 1;
-						if(animationNotes[0][1] > 2) noteData = 3;
+					if (Std.isOfType(FlxG.state, PlayState)) {
+						if(animationNotes.length > 0 && Conductor.songPosition > animationNotes[0][0])
+						{
+							var noteData:Int = 1;
+							if(animationNotes[0][1] > 2) noteData = 3;
 
-						noteData += FlxG.random.int(0, 1);
-						playAnim('shoot' + noteData, true);
-						animationNotes.shift();
+							noteData += FlxG.random.int(0, 1);
+							playAnim('shoot' + noteData, true);
+							animationNotes.shift();
+						}
+						if(animFinished) playAnim(playAnimName, false, false, animation.curAnim.frames.length - 3);
 					}
-					if(animFinished) playAnim(playAnimName, false, false, animation.curAnim.frames.length - 3);
 			}
 
 			if (!isPlayer)
