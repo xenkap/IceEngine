@@ -24,6 +24,11 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var options:Array<String> = [
 		'Note Colors',
 		'Controls',

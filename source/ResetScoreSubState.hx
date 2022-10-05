@@ -7,6 +7,11 @@ using StringTools;
 
 class ResetScoreSubState extends MusicBeatSubstate
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var bg:FlxSprite;
 	var alphabetArray:Array<Alphabet> = [];
 	var icon:HealthIcon;

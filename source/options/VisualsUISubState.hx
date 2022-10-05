@@ -29,6 +29,11 @@ using StringTools;
 
 class VisualsUISubState extends BaseOptionsMenu
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	public function new()
 	{
 		title = 'Visuals and UI';

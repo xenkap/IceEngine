@@ -24,6 +24,11 @@ using StringTools;
 
 class EditorPlayState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
 	private var strumLine:FlxSprite;
 	private var comboGroup:FlxTypedGroup<FlxSprite>;

@@ -20,6 +20,44 @@ import sys.io.File;
 
 class LoadingSubState extends MusicBeatSubstate
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	#end
+
+	//if you want to remove it at some moment use
+	#if mobile
+	removeVirtualPad();
+	#end
+
+	//if you want it to have a camera
+	#if mobile
+	addPadCamera();
+	#end
+
+	//in states, these need to be added before super.create();
+	//in substates, in fuction new at the last line add these
+
+	//on Playstate.hx after all of the
+	//obj.cameras = [...];
+	//things, add
+	#if mobile
+	addMobileControls();
+	#end
+
+	//if you want to remove it at some moment use
+	#if mobile
+	removeMobileControls();
+	#end
+
+	//to make the controls visible the code is
+	#if mobile
+	mobileControls.visible = true;
+	#end
+
+	//to make the controls invisible the code is
+	#if mobile
+	mobileControls.visible = false;
+	#end
 	var time = FlxG.random.int(1, 2);
 	var unPauseTimer:FlxTimer;
 

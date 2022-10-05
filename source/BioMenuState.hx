@@ -19,6 +19,11 @@ using StringTools;
 
 class BioMenuState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	// IMPLEMENTATION FOR THIS IS REALLY CRAP
 	// DONT USE THIS YET UNLESS YOU'RE SMART ENOUGH TO FIX IT!! - Ran
 	#if ACHIEVEMENTS_ALLOWED

@@ -35,6 +35,11 @@ using StringTools;
 
 class ModsMenuState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var mods:Array<ModMetadata> = [];
 
 	static var changedAThing = false;

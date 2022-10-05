@@ -13,6 +13,11 @@ import flixel.util.FlxTimer;
 
 class FlashingState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;

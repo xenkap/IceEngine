@@ -37,6 +37,11 @@ using StringTools;
 
 class DialogueCharacterEditorState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var box:FlxSprite;
 	var daText:Alphabet = null;
 

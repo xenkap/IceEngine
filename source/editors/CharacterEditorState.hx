@@ -45,6 +45,11 @@ using StringTools;
  */
 class CharacterEditorState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var char:Character;
 	var ghostChar:Character;
 	var textAnim:FlxText;

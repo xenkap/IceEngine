@@ -29,6 +29,11 @@ using StringTools;
 
 class ControlsSubState extends MusicBeatSubstate
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 

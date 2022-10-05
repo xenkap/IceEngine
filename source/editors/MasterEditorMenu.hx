@@ -20,6 +20,11 @@ using StringTools;
 
 class MasterEditorMenu extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var options:Array<String> = [
 		'Week Editor',
 		'Menu Character Editor',

@@ -31,6 +31,11 @@ using StringTools;
 
 class GraphicsSettingsSubState extends BaseOptionsMenu
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	public function new()
 	{
 		title = 'Graphics';

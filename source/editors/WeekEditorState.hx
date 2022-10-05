@@ -37,6 +37,11 @@ using StringTools;
 
 class WeekEditorState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	mobileControls.visible = true;
+	addMobileControls();
+	#end
 	var txtWeekTitle:FlxText;
 	var bgSprite:FlxSprite;
 	var lock:FlxSprite;

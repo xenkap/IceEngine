@@ -30,7 +30,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" width="1280" height="720" resizable="false" allow-shaders="true" require-shaders="true" />
 	
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -96,6 +96,7 @@
 	<assets path="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"        library="shared"        exclude="*.mp3" unless="web"/>
+	<assets path="assets/mobile" if="mobile" /> <!-- to not have the mobile assets in another builds -saw -->
 	<assets path="assets/week2"         library="week2"         exclude="*.ogg" if="web"/>
 	<assets path="assets/week2"         library="week2"         exclude="*.mp3" unless="web"/>
 	<assets path="assets/week3"         library="week3"         exclude="*.ogg" if="web"/>
@@ -129,6 +130,18 @@
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
+	<haxelib name="extension-androidtools" if="android" />
+	<!--Make's-the-Game-use-less-ram-->
+	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+
+	<!--Always-enable-Null-Object-Reference-check-->
+	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
+	<haxedef name="HXCPP_STACK_LINE" if="release" />
+
+	<!--Android-Internet-Connection-->
+	<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
+	<config:android permission="android.permission.ACCESS_WIFI_STATE" />
+	<config:android permission="android.permission.INTERNET" />
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />

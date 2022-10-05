@@ -28,6 +28,10 @@ using StringTools;
 
 class FreeplayState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	addMobileControls();
+	#end
 	var songs:Array<SongMetadata> = [];
 
 	var selector:FlxText;

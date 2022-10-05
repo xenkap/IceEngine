@@ -16,6 +16,44 @@ import haxe.io.Path;
 
 class LoadingState extends MusicBeatState
 {
+	#if mobile
+	addVirtualPad(LEFT_FULL, A_B);
+	#end
+
+	//if you want to remove it at some moment use
+	#if mobile
+	removeVirtualPad();
+	#end
+
+	//if you want it to have a camera
+	#if mobile
+	addPadCamera();
+	#end
+
+	//in states, these need to be added before super.create();
+	//in substates, in fuction new at the last line add these
+
+	//on Playstate.hx after all of the
+	//obj.cameras = [...];
+	//things, add
+	#if mobile
+	addMobileControls();
+	#end
+
+	//if you want to remove it at some moment use
+	#if mobile
+	removeMobileControls();
+	#end
+
+	//to make the controls visible the code is
+	#if mobile
+	mobileControls.visible = true;
+	#end
+
+	//to make the controls invisible the code is
+	#if mobile
+	mobileControls.visible = false;
+	#end
 	inline static var MIN_TIME = 1.0;
 
 	// Browsers will load create(), you can make your song load a custom directory there
