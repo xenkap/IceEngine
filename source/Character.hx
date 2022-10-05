@@ -353,7 +353,7 @@ class Character extends BioSprite
 							playAnim('shoot' + noteData, true);
 							animationNotes.shift();
 						}
-						if(animFinished) playAnim(playAnimName, false, false, animation.curAnim.frames.length - 3);
+						if(animation.curAnim.finished) playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
 					}
 			}
 
@@ -424,7 +424,7 @@ class Character extends BioSprite
 		animFinished = false;
 		specialAnim = false;
 		playAnimFrame = Frame;
-		playAnimName = AnimName;
+		// playAnimName = AnimName;
 
 		//trace('$playAnimName $playAnimFrame $animFinished');
 
@@ -438,6 +438,7 @@ class Character extends BioSprite
 				visible = true;
 			animation.paused = false;
 			animation.play(AnimName, Force, Reversed, playAnimFrame);
+			playAnimName = animation.curAnim.name;
 		} else {
 			for (animChar => subChar in uniqueAnims)
 			{
@@ -450,6 +451,7 @@ class Character extends BioSprite
 			animation.paused = true;
 			visible = false;
 			uniqueAnims.get(AnimName).animation.play(AnimName, Force, Reversed, playAnimFrame);
+			playAnimName = AnimName;
 		}
 
 		var daOffset = animOffsets.get(AnimName);
