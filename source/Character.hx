@@ -303,16 +303,13 @@ class Character extends BioSprite
 	override function update(elapsed:Float)
 	{
 		if (Std.isOfType(FlxG.state, PlayState)) {
-			if (animation.curAnim != null && animFinished)
-				animFinished = true;
-			else
-				animFinished = false;
+			animFinished = animation.curAnim.finished;
 
 			if (hasUnique == true)
 			{
 				for (animID => animChar in uniqueAnims)
 				{
-					if (animChar.animation.curAnim != null && !animChar.animation.finished)
+					if (animChar.animation.curAnim != null && !animChar.animation.finished && animChar.visible)
 						animFinished = false;
 				}
 			}
