@@ -144,7 +144,7 @@ class FreeplayState extends MusicBeatState
 			}
 
 			Paths.currentModDirectory = songs[i].folder;
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
+			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter/*, songs[i].hasWinIcon*/);
 			icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
@@ -592,14 +592,16 @@ class SongMetadata
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
+	public var hasWinIcon:Bool = true;
 	public var color:Int = -7179779;
 	public var folder:String = "";
 
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
+	public function new(song:String, week:Int, songCharacter:String, color:Int, ?hasWinIcon:Bool = true)
 	{
 		this.songName = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
+		this.hasWinIcon = hasWinIcon;
 		this.color = color;
 		this.folder = Paths.currentModDirectory;
 		if (this.folder == null)

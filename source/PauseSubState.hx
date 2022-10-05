@@ -251,8 +251,6 @@ class PauseSubState extends MusicBeatSubstate
 				case "Resume":
 					if (FlxG.keys.pressed.SHIFT)
 					{
-						menuItems = ['3 (ENTER TO CANCEL)'];
-						regenMenu();
 						unPauseTimer = new FlxTimer().start(1, function(hmmm:FlxTimer)
 						{
 							menuItems = [hmmm.loopsLeft + ' (ENTER TO CANCEL)'];
@@ -264,6 +262,8 @@ class PauseSubState extends MusicBeatSubstate
 								close();
 							}
 						}, 3);
+						menuItems = ['3 (ENTER TO CANCEL)'];
+						regenMenu();
 					}
 					else
 					{

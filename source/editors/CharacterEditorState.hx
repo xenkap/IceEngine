@@ -125,7 +125,7 @@ class CharacterEditorState extends MusicBeatState
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
 
-		leHealthIcon = new HealthIcon(char.healthIcon, false);
+		leHealthIcon = new HealthIcon(char.healthIcon);
 		leHealthIcon.y = FlxG.height - 150;
 		add(leHealthIcon);
 		leHealthIcon.cameras = [camHUD];
@@ -835,7 +835,7 @@ class CharacterEditorState extends MusicBeatState
 		{
 			if (sender == healthIconInputText)
 			{
-				leHealthIcon.changeIcon(healthIconInputText.text);
+				leHealthIcon.changeIcon(healthIconInputText.text/*, char.hasWinIcons*/);
 				char.healthIcon = healthIconInputText.text;
 				updatePresence();
 			}
@@ -1094,7 +1094,7 @@ class CharacterEditorState extends MusicBeatState
 			kapiHeldCheckBox.checked = char.kapiHeld;
 			noAntialiasingCheckBox.checked = char.noAntialiasing;
 			resetHealthBarColor();
-			leHealthIcon.changeIcon(healthIconInputText.text);
+			leHealthIcon.changeIcon(healthIconInputText.text/*, char.hasWinIcons*/);
 			positionXStepper.value = char.positionArray[0];
 			positionYStepper.value = char.positionArray[1];
 			positionCameraXStepper.value = char.cameraPosition[0];

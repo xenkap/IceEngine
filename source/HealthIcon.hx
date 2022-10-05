@@ -12,13 +12,15 @@ class HealthIcon extends FlxSprite
 	private var isOldIcon:Bool = false;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
+	
+	public var usingWinIcon:Bool = false;
 
-	public function new(char:String = 'bf', isPlayer:Bool = false)
+	public function new(char:String = 'bf',/* winIcon:Bool,*/ isPlayer:Bool = false)
 	{
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char);
+		changeIcon(char/*, winIcon*/);
 		scrollFactor.set();
 	}
 
@@ -41,10 +43,18 @@ class HealthIcon extends FlxSprite
 	var iconVerPath:String;
 	private var iconOffsets:Array<Float> = [0, 0];
 
-	public function changeIcon(char:String)
+	public function changeIcon(char:String/*, hasWinIcon:Bool*/)
 	{
 		if (this.char != char)
 		{
+			// usingWinIcon = hasWinIcon;
+
+			// var iconDivision:Int = 2;
+			// if (hasWinIcon)
+			// {
+			// 	iconDivision = 3;
+			// }
+
 			var name:String = 'icons/' + char;
 			if (!Paths.fileExists('images/' + name + '.png', IMAGE))
 				name = 'icons/icon-' + char; // Older versions of psych engine's support
@@ -54,12 +64,15 @@ class HealthIcon extends FlxSprite
 
 			loadGraphic(file); // Load stupidly first for getting the file size
 			loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); // Then load it fr
+
 			iconOffsets[0] = (width - 150) / 3;
 			iconOffsets[1] = (width - 150) / 3;
-			iconOffsets[2] = (width - 150) / 3;
 			updateHitbox();
 
-			animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			// if (hasWinIcon)
+				animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			// else
+			// 	animation.add(char, [0, 1], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 

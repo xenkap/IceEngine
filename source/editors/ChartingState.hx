@@ -152,6 +152,10 @@ class ChartingState extends MusicBeatState
 		[
 			'Set Camera Zoom',
 			"Sets the default camera zoom.\nThe camera won't change back to\nthe default zoom after using this.\nValue 1: Camera zoom value (blank to revert change)\nValue 2: Set to 'true' to snap the camera back"
+		],
+		[
+			'Idle and Dance',
+			"Forces a character to play its idle animation.\n\nValue 1: To whomst does it concern (Dad, BF, GF)"
 		]
 		// ['Countdown Visuals', "Triggers the countdown.\n(UNFINISHED)"]
 	];
