@@ -49,11 +49,6 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			false); // Default value
 		addOption(option);
 
-		var option:Option = new Option('Low Detail',
-			'If checked, disables most special effects,\ndecreases lag and improves performance.\nRecommended for low-end devices.', 'lowDetail', 'bool',
-			false);
-		addOption(option);
-
 		var option:Option = new Option('Anti-Aliasing', 'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
 			'globalAntialiasing', 'bool', true);
 		option.showBoyfriend = true;

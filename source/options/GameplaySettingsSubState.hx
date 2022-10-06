@@ -86,6 +86,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 30;
 		addOption(option);
 
+		var option:Option = new Option('Show Rating Amounts',
+			'If checked, shows how many of a rating you\'ve hit in a song.', 'ratingAmounts', 'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Sick! Hit Window', 'Changes the amount of time you have\nfor hitting a "Sick!" in milliseconds.', 'sickWindow', 'int',
 			45);
 		option.displayFormat = '%vms';
