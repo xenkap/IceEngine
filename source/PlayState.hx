@@ -195,6 +195,7 @@ class PlayState extends MusicBeatState
 	public var healthDrain:Float = 1;
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
+	public var songLoops:Bool = false;
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
@@ -368,6 +369,7 @@ class PlayState extends MusicBeatState
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+		songLoops = ClientPrefs.getGameplaySetting('loops', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -4554,6 +4556,19 @@ class PlayState extends MusicBeatState
 			{
 				openChartEditor();
 				return;
+			}
+
+			if (songLoops)
+			{
+				if (!isStoryMode)
+				{
+					FlxTransitionableState.skipNextTransOut = true;
+					FlxG.resetState();
+					PlayState.instance.skipCountdown = true;
+					PlayState.instance.songScore = songScore;
+					PlayState.instance.songMisses = songMisses;
+					return;
+				}
 			}
 
 			if (isStoryMode)
