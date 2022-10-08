@@ -4,7 +4,6 @@ package;
 import Discord.DiscordClient;
 #end
 import flixel.util.FlxTimer;
-import flixel.util.FlxGradient;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -47,12 +46,13 @@ class MainMenuState extends MusicBeatState
 	];
 
 	var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('mBG_Main'));
+	var beef:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('bgdoodlenotmine'));
+	var side:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('Main_Side'));
 
 	public var menuItem:FlxSprite;
 	public var yScroll:Float;
 
 	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Main_Checker'), 0.2, 0.2, true, true);
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 300, 0xFFAA00AA);
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
@@ -101,18 +101,29 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55AE59E4, 0xAA19ECFF], 1, 90, true);
-		gradientBar.y = FlxG.height - gradientBar.height;
-		add(gradientBar);
-		gradientBar.scrollFactor.set(0, 0);
-
+		checker.blend = MULTIPLY;
+		checker.alpha = 0.65;
 		add(checker);
 		checker.scrollFactor.set(0, 0.07);
 
-		var side:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('Main_Side'));
+		beef.scrollFactor.x = 0;
+		beef.scrollFactor.y = 0;
+		beef.antialiasing = true;
+		beef.setGraphicSize(Std.int(bg.width * 0.32));
+		beef.updateHitbox();
+		beef.screenCenter();
+		beef.x = 1000;
+		beef.y = 115;
+		add(beef);
+
 		side.scrollFactor.x = 0;
 		side.scrollFactor.y = 0;
+		side.setGraphicSize(Std.int(side.width * 0.75));
+		side.updateHitbox();
+		side.screenCenter();
 		side.antialiasing = true;
+		side.x = -500;
+		side.y = -90;
 		add(side);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -133,7 +144,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 120) - 30}, 1.3, {ease: FlxEase.expoInOut});
+			FlxTween.tween(menuItem, {x: menuItem.width / 4 + (i * 60) - 75}, 1.3, {ease: FlxEase.expoInOut});
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if (optionShit.length < 6)
@@ -148,10 +159,10 @@ class MainMenuState extends MusicBeatState
 		camGame.follow(camFollow, null, camLerp);
 
 		camGame.zoom = 3;
-		side.alpha = 0;
 		FlxTween.tween(camGame, {zoom: 1}, 1.1, {ease: FlxEase.expoInOut});
 		FlxTween.tween(bg, {angle: 0}, 1, {ease: FlxEase.quartInOut});
-		FlxTween.tween(side, {alpha: 1}, 0.9, {ease: FlxEase.quartInOut});
+		FlxTween.tween(side, {x: -80}, 0.9, {ease: FlxEase.quartInOut});
+		FlxTween.tween(beef, {x: 725}, 0.9, {ease: FlxEase.quartInOut});
 
 		camGame.follow(camFollowPos, null, 1);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Ice Engine v" + Application.current.meta.get('version'), 12);
@@ -301,6 +312,8 @@ class MainMenuState extends MusicBeatState
 								spr.kill();
 							}
 						});
+						FlxTween.tween(side, {x: -500}, 1.2, {ease: FlxEase.quartInOut});
+						FlxTween.tween(beef, {x: 1000}, 1.2, {ease: FlxEase.quartInOut});
 						new FlxTimer().start(0.5, function(tmr:FlxTimer)
 						{
 							var daChoice:String = optionShit[curSelected];

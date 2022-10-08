@@ -187,7 +187,7 @@ class ClientPrefs
 		}
 		if (FlxG.save.data.ratingAmounts != null)
 		{
-			lowQuality = FlxG.save.data.ratingAmounts;
+			ratingAmounts = FlxG.save.data.ratingAmounts;
 		}
 		if (FlxG.save.data.framerate != null)
 		{
