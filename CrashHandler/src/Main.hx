@@ -5,6 +5,7 @@ import haxe.ui.components.Button;
 import haxe.ui.components.Label;
 import haxe.ui.core.Component;
 import haxe.ui.macros.ComponentMacros;
+import haxe.ui.ComponentBuilder;
 import sys.io.File;
 import sys.io.Process;
 
@@ -28,7 +29,10 @@ class Main
 		"//Memory Leak?",
 		"Lets try that again.",
 		"*click* noice",
-		"NOW'S YOUR CHANCE TO BE A [BIG SHOT]"
+		"NOW'S YOUR CHANCE TO BE A [BIG SHOT]",
+		"Booo...",
+		"FNF: Now with more crashes!",
+		"line 101: invalid crash (Imposter.hx)"
 	];
 
 	public static function main()
@@ -47,7 +51,7 @@ class Main
 
 			app.ready(function()
 			{
-				var mainView:Component = ComponentMacros.buildComponent("assets/main-view.xml");
+				var mainView:Component = ComponentBuilder.fromFile("assets/main-view.xml");
 				app.addComponent(mainView);
 
 				var messageLabel:Label = mainView.findComponent("message-label", Label);

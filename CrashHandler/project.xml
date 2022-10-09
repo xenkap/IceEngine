@@ -6,7 +6,7 @@
 	
 	<source path="Source" />
 	
-	<haxelib name="lime" />
+	<haxelib name="lime" /> <!--LIME COMPILING IS BUGGY DONT USE IT!!!!!!!!!-->
 	<haxelib name="hxWidgets" />
 	<haxelib name="haxeui-core" />
 	<haxelib name="haxeui-hxwidgets" />
