@@ -37,7 +37,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Sick!\" notes won't show particles.", 'noteSplashes', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Opponent Note Splashes', 'Self explanatory.', 'dadNoteSplashes', 'bool', false);
+		var option:Option = new Option('Opponent Note Splashes', 'Self explanatory.\nWarning: can be taxing on fps!', 'dadNoteSplashes', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
