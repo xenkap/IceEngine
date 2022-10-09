@@ -5825,26 +5825,28 @@ class PlayState extends MusicBeatState
 
 	function lightningStrikeShit():Void
 	{
-		// FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
-		// if(!ClientPrefs.lowQuality) halloweenBG.animation.play('halloweem bg lightning strike');
+		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
+		if(!ClientPrefs.lowQuality) halloweenBG.animation.play('halloweem bg lightning strike');
 
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
 
-		if (boyfriend.animOffsets.exists('scared'))
-		{
+		if(boyfriend.animOffsets.exists('scared')) {
 			boyfriend.playAnim('scared', true);
 		}
 
-		if (gf != null && gf.animOffsets.exists('scared'))
-		{
+		if(gf != null && gf.animOffsets.exists('scared')) {
 			gf.playAnim('scared', true);
-			gf.specialAnim = true;
-			gf.animation.finishCallback = function(_) // _ to ignore every args
-			{
-				gf.specialAnim = false;
-				gf.animation.finishCallback = null;
-			};
+		}
+
+		if(ClientPrefs.camZooms) {
+			FlxG.camera.zoom += 0.015;
+			camHUD.zoom += 0.03;
+
+			if(!camZooming) { //Just a way for preventing it to be permanently zoomed until Skid & Pump hits a note
+				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 0.5);
+				FlxTween.tween(camHUD, {zoom: 1}, 0.5);
+			}
 		}
 
 		if(ClientPrefs.flashing) {
@@ -6167,10 +6169,8 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		if (curStage == 'spooky')
-		{
-			if (FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
-				lightningStrikeShit();
+		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
+			lightningStrikeShit();
 		}
 
 		lastBeatHit = curBeat;
