@@ -4,7 +4,7 @@
 	<meta title="CrashHandler" package="com.chillsides.crashhandler" version="1.0.0" company="Ice Engine" />
 	<app main="Main" path="Export" file="CrashHandler" />
 	
-	<source path="Source" />
+	<source path="src" />
 	
 	<haxelib name="lime" /> <!--LIME COMPILING IS BUGGY DONT USE IT!!!!!!!!!-->
 	<haxelib name="hxWidgets" />
