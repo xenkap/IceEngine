@@ -1,108 +1,108 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
-				0,
+				1,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "shoot1",
-			"indices": [],
-			"name": "Pico shoot 1"
+			"fps": 24,
+			"name": "Pico shoot 1",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-1,
-				-128
-			],
 			"loop": false,
-			"fps": 24,
-			"anim": "shoot2",
-			"indices": [],
-			"name": "Pico shoot 2"
-		},
-		{
-			"offsets": [
-				412,
-				-64
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "shoot3",
-			"indices": [],
-			"name": "Pico shoot 3"
-		},
-		{
-			"offsets": [
-				439,
-				-19
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "shoot4",
-			"indices": [],
-			"name": "Pico shoot 4"
-		},
-		{
-			"offsets": [
-				412,
-				-64
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "shoot3-loop",
-			"indices": [
-				50,
-				51,
-				52
-			],
-			"name": "Pico shoot 3"
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "shoot1-loop",
-			"indices": [
-				23,
-				24,
-				25
-			],
-			"name": "Pico shoot 1"
-		},
-		{
 			"offsets": [
 				1,
 				-128
 			],
-			"loop": true,
+			"anim": "shoot2",
 			"fps": 24,
-			"anim": "shoot2-loop",
-			"indices": [
-				57,
-				58,
-				59
-			],
-			"name": "Pico shoot 2"
+			"name": "Pico shoot 2",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				439,
+				414,
+				-64
+			],
+			"anim": "shoot3",
+			"fps": 24,
+			"name": "Pico shoot 3",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				440,
 				-19
 			],
-			"loop": true,
+			"anim": "shoot4",
 			"fps": 24,
-			"anim": "shoot4-loop",
+			"name": "Pico shoot 4",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				413,
+				-64
+			],
+			"anim": "shoot3-loop",
+			"fps": 24,
+			"name": "Pico shoot 3",
 			"indices": [
 				50,
 				51,
 				52
+			]
+		},
+		{
+			"loop": true,
+			"offsets": [
+				1,
+				0
 			],
-			"name": "Pico shoot 4"
+			"anim": "shoot1-loop",
+			"fps": 24,
+			"name": "Pico shoot 1",
+			"indices": [
+				23,
+				24,
+				25
+			]
+		},
+		{
+			"loop": true,
+			"offsets": [
+				1,
+				-128
+			],
+			"anim": "shoot2-loop",
+			"fps": 24,
+			"name": "Pico shoot 2",
+			"indices": [
+				57,
+				58,
+				59
+			]
+		},
+		{
+			"loop": true,
+			"offsets": [
+				441,
+				-18
+			],
+			"anim": "shoot4-loop",
+			"fps": 24,
+			"name": "Pico shoot 4",
+			"indices": [
+				50,
+				51,
+				52
+			]
 		}
 	],
 	"no_antialiasing": false,
@@ -111,7 +111,9 @@
 		120,
 		-125
 	],
+	"kapi_held": false,
 	"healthicon": "pico",
+	"trail_color": null,
 	"flip_x": false,
 	"healthbar_colors": [
 		183,

@@ -132,6 +132,9 @@ class FlxSoundTray extends Sprite
 	 */
 	public function show(Silent:Bool = false):Void
 	{
+		FlxG.save.data.volume = FlxG.sound.volume;
+		FlxG.save.data.mute = FlxG.sound.muted;
+
 		if (!Silent)
 		{
 			// var sound = soundPath == null ? FlxAssets.getSound("flixel/sounds/beep") : soundPath;

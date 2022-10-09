@@ -17,7 +17,7 @@ class ClientPrefs
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
-	public static var lowDetail:Bool = false;
+	public static var ratingAmounts:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
@@ -52,6 +52,7 @@ class ClientPrefs
 		'healthdrain' => 0.5,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
+		'loops' => false,
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
@@ -105,7 +106,7 @@ class ClientPrefs
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
-		FlxG.save.data.lowDetail = lowDetail;
+		FlxG.save.data.ratingAmounts = ratingAmounts;
 		FlxG.save.data.framerate = framerate;
 		// FlxG.save.data.cursing = cursing;
 		// FlxG.save.data.violence = violence;
@@ -184,9 +185,9 @@ class ClientPrefs
 		{
 			lowQuality = FlxG.save.data.lowQuality;
 		}
-		if (FlxG.save.data.lowDetail != null)
+		if (FlxG.save.data.ratingAmounts != null)
 		{
-			lowQuality = FlxG.save.data.lowDetail;
+			ratingAmounts = FlxG.save.data.ratingAmounts;
 		}
 		if (FlxG.save.data.framerate != null)
 		{

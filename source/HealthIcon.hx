@@ -42,6 +42,8 @@ class HealthIcon extends FlxSprite
 
 	var iconVerPath:String;
 	private var iconOffsets:Array<Float> = [0, 0];
+	public var hasWinIcon:Bool = false;
+	public var iconDivision:Int = 2;
 
 	public function changeIcon(char:String/*, hasWinIcon:Bool*/)
 	{
@@ -63,16 +65,24 @@ class HealthIcon extends FlxSprite
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file); // Load stupidly first for getting the file size
-			loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); // Then load it fr
 
-			iconOffsets[0] = (width - 150) / 3;
-			iconOffsets[1] = (width - 150) / 3;
+			var winCheck1 = (width / 2) - height;
+			if (winCheck1 < 0) winCheck1 = winCheck1 * -1;
+			var winCheck2 = (width / 3) - height;
+			if (winCheck2 < 0) winCheck2 = winCheck2 * -1;
+
+			if (winCheck2 < winCheck1) {
+				hasWinIcon = true;
+				iconDivision = 3;
+			}
+
+			loadGraphic(file, true, Math.floor(width / iconDivision), Math.floor(height)); // Then load it fr
+
+			iconOffsets[0] = (width - 150) / iconDivision;
+			iconOffsets[1] = (width - 150) / iconDivision;
 			updateHitbox();
 
-			// if (hasWinIcon)
-				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			// else
-			// 	animation.add(char, [0, 1], 0, false, isPlayer);
+			animation.add(char, [0, 1, iconDivision - 1], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 
