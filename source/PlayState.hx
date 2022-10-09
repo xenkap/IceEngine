@@ -5503,6 +5503,7 @@ class PlayState extends MusicBeatState
 
 		if (!note.isSustainNote)
 		{
+			if (ClientPrefs.dadNoteSplashes) spawnDadNoteSplashOnNote(note);
 			note.kill();
 			notes.remove(note, true);
 			note.destroy();
@@ -5701,6 +5702,18 @@ class PlayState extends MusicBeatState
 			}
 		}
 	}
+
+	function spawnDadNoteSplashOnNote(note:Note)
+		{
+			if (ClientPrefs.noteSplashes && note != null)
+			{
+				var strum:StrumNote = opponentStrums.members[note.noteData];
+				if (strum != null)
+				{
+					spawnNoteSplash(strum.x, strum.y, note.noteData, note);
+				}
+			}
+		}
 
 	public function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null)
 	{
