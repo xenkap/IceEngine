@@ -2278,7 +2278,7 @@ class PlayState extends MusicBeatState
 
 		for (asset in introAlts)
 			Paths.image(asset);
-		var introSoundpt2:Array<String> = introAssets.get('default');
+		var introSoundpt2:Array<String> = introsounds.get('default');
 
 		for (amogus in introSoundpt2) //GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD - windows
 			Paths.sound(amogus + introSoundsSuffix);
