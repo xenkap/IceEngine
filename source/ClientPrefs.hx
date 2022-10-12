@@ -110,7 +110,7 @@ class ClientPrefs
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.ratingAmounts = ratingAmounts;
 		FlxG.save.data.framerate = framerate;
-		// FlxG.save.data.cursing = cursing;
+		FlxG.save.data.cursing = cursing;
 		// FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
@@ -209,12 +209,12 @@ class ClientPrefs
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		/*if(FlxG.save.data.cursing != null) {
+		if(FlxG.save.data.cursing != null) {
 				cursing = FlxG.save.data.cursing;
 			}
-			if(FlxG.save.data.violence != null) {
-				violence = FlxG.save.data.violence;
-		}*/
+		// if(FlxG.save.data.violence != null) {
+		// 	violence = FlxG.save.data.violence;
+		// }
 		if (FlxG.save.data.camZooms != null)
 		{
 			camZooms = FlxG.save.data.camZooms;

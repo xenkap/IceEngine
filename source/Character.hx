@@ -454,10 +454,16 @@ class Character extends BioSprite
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
 		{
-			offset.set(daOffset[0], daOffset[1]);
+			if (flipX)
+				offset.set(daOffset[0] * -1 - (width - frameWidth), daOffset[1]);
+			else
+				offset.set(daOffset[0], daOffset[1]);
 		}
 		else
-			offset.set(0, 0);
+			if (flipX)
+				offset.set(0 * -1 - (width - frameWidth), 0);
+			else
+				offset.set(0, 0);
 
 		if (curCharacter.startsWith('gf'))
 		{
