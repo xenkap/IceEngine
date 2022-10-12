@@ -47,7 +47,6 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
-
 		fullText = Assets.getText(Paths.txt('pauseTrivia'));
 		triviaArray = fullText.split('\n');
 
