@@ -72,7 +72,7 @@ class PlayState extends MusicBeatState
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], // From 0% to 19%
-		['Shit', 0.4], // From 20% to 39%
+		[(ClientPrefs.cursing ? 'Meh' : 'Shit'), 0.4], // From 20% to 39%
 		['Bad', 0.5], // From 40% to 49%
 		['Bruh', 0.6], // From 50% to 59%
 		['Meh', 0.69], // From 60% to 68%
@@ -276,8 +276,6 @@ class PlayState extends MusicBeatState
 	var goodsTxtTween:FlxTween;
 	var badsTxtTween:FlxTween;
 	var shitsTxtTween:FlxTween;
-
-	public var noteRatings:Array<Int> = [0, 0, 0, 0];
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -3220,7 +3218,7 @@ class PlayState extends MusicBeatState
 						limo.animation.play('idle-loop', false, false, 0);
 					}
 
-					skyBG.x = skyBG.x + 0.02;
+					skyBG.x = skyBG.x + 0.001;
 				}
 			case 'mall':
 				if (heyTimer > 0)
@@ -3274,10 +3272,13 @@ class PlayState extends MusicBeatState
 			accuracyTxt.text = "Rating: " + ratingName + ' (' + CoolUtil.formatAccuracy(Highscore.floorDecimal(ratingPercent * 100, 2)) + '%)' + ' - ' + ratingFC;
 		}
 
-		sicksTxt.text = "Sicks: " + noteRatings[0];
-		goodsTxt.text = "Goods: " + noteRatings[1];
-		badsTxt.text = "Bads: " + noteRatings[2];
-		shitsTxt.text = "Shits: " + noteRatings[3];
+		sicksTxt.text = "Sicks: " + sicks;
+		goodsTxt.text = "Goods: " + goods;
+		badsTxt.text = "Bads: " + bads;
+		if (ClientPrefs.cursing)
+			shitsTxt.text = "Shits: " + shits;
+		else
+			shitsTxt.text = "Mehs: " + shits;
 
 		if (botplayTxt.visible)
 		{
@@ -4766,6 +4767,7 @@ class PlayState extends MusicBeatState
 				score = 50;
 				if (!note.ratingDisabled)
 					shits++;
+				daRating = "meh";
 			case "bad": // bad
 				totalNotesHit += 0.5;
 				note.ratingMod = 0.5;
@@ -5685,7 +5687,6 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				noteRatings[['sick', 'good', 'bad', 'shit'].indexOf(accRating)] += 1;
 				note.kill();
 				notes.remove(note, true);
 				note.destroy();
@@ -5728,16 +5729,18 @@ class PlayState extends MusicBeatState
 		var hue:Float = ClientPrefs.arrowHSV[data % 4][0] / 360;
 		var sat:Float = ClientPrefs.arrowHSV[data % 4][1] / 100;
 		var brt:Float = ClientPrefs.arrowHSV[data % 4][2] / 100;
+		var tra:Float = 1;
 		if (note != null)
 		{
 			skin = note.noteSplashTexture;
 			hue = note.noteSplashHue;
 			sat = note.noteSplashSat;
 			brt = note.noteSplashBrt;
+			tra = note.alpha;
 		}
 
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
-		splash.setupNoteSplash(x, y, data, skin, hue, sat, brt);
+		splash.setupNoteSplash(x, y, tra, data, skin, hue, sat, brt);
 		grpNoteSplashes.add(splash);
 	}
 

@@ -35,10 +35,10 @@ class NoteSplash extends FlxSprite
 		setupNoteSplash(x, y, note);
 	}
 
-	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0)
+	public function setupNoteSplash(x:Float, y:Float, alph:Float = 1, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0)
 	{
 		setPosition(x - Note.swagWidth * 0.70, y - Note.swagWidth * 0.70);
-		alpha = 0.6;
+		alpha = alph * 0.6;
 
 		if (texture == null)
 		{
