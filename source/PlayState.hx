@@ -2281,7 +2281,7 @@ class PlayState extends MusicBeatState
 		var introSoundpt2:Array<String> = introAssets.get('default');
 
 		for (amogus in introSoundpt2) //GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD - windows
-			Paths.sound(amogus + introSoundsSuffix)
+			Paths.sound(amogus + introSoundsSuffix);
 	}
 
 	public function startCountdown():Void
