@@ -2266,7 +2266,11 @@ class PlayState extends MusicBeatState
 	function cacheCountdown()
 	{
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
+		var introsounds:Map<String, Array<String>> = new Map<String, Array<String>>();
 		introAssets.set('default', ['ready', 'set', 'go']);
+
+		introsounds.set('default', ['intro3','intro2','intro1','introGo'])
+
 		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
 		var introAlts:Array<String> = introAssets.get('default');
@@ -2274,11 +2278,10 @@ class PlayState extends MusicBeatState
 
 		for (asset in introAlts)
 			Paths.image(asset);
+		var introSoundpt2:Array<String> = introAssets.get('default');
 
-		Paths.sound('intro3' + introSoundsSuffix);
-		Paths.sound('intro2' + introSoundsSuffix);
-		Paths.sound('intro1' + introSoundsSuffix);
-		Paths.sound('introGo' + introSoundsSuffix);
+		for (amogus in introSoundpt2) //GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD - windows
+			Paths.sound(amogus + introSoundsSuffix)
 	}
 
 	public function startCountdown():Void
@@ -2707,7 +2710,7 @@ class PlayState extends MusicBeatState
 				unspawnNotes.push(swagNote);
 				var floorSus:Int = Math.floor(susLength);
 
-				if (floorSus > 0)
+				if (floorSus > 0) // When the floor is sus 🤔🤔🤔🤔🤔🤔
 				{
 					for (susNote in 0...floorSus + 1)
 					{
