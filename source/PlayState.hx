@@ -2269,7 +2269,7 @@ class PlayState extends MusicBeatState
 		var introsounds:Map<String, Array<String>> = new Map<String, Array<String>>();
 		introAssets.set('default', ['ready', 'set', 'go']);
 
-		introsounds.set('default', ['intro3','intro2','intro1','introGo'])
+		introsounds.set('default', ['intro3','intro2','intro1','introGo']);
 
 		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
