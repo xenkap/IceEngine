@@ -35,6 +35,7 @@ typedef CharacterFile =
 	var no_antialiasing:Bool;
 	var healthbar_colors:Array<Int>;
 	var kapi_held:Bool;
+	var is_playable:Bool;
 	var trail_color:Array<Int>;
 }
 
@@ -59,6 +60,7 @@ class Character extends BioSprite
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
+	public var isPlayable:Bool = true;
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = DEFAULT_CHARACTER;
 
@@ -208,6 +210,8 @@ class Character extends BioSprite
 				hasWinIcons = json.win_icons;
 				kapiHeld = json.kapi_held;
 				trailColor = json.trail_color;
+
+				isPlayable = json.is_playable;
 
 				flipX = !!json.flip_x;
 				originalFlipX = flipX;
@@ -386,11 +390,6 @@ class Character extends BioSprite
 	 */
 	public function dance(?forced:Bool = false)
 	{
-		// if (animation.getByName(animation.curAnim.name + '-end') != null || uniqueAnims.exists(playAnimName + '-end'))
-		// {
-		// 	playAnim(animation.curAnim.name + '-end');
-		// }
-		// else {
 		if (forced || !debugMode && !skipDance && !specialAnim)
 		{
 			if (danceIdle)
@@ -413,7 +412,6 @@ class Character extends BioSprite
 				playAnim('idle' + idleSuffix);
 			}
 		}
-		// }
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
@@ -421,9 +419,17 @@ class Character extends BioSprite
 		animFinished = false;
 		specialAnim = false;
 		playAnimFrame = Frame;
-		// playAnimName = AnimName;
 
-		//trace('$playAnimName $playAnimFrame $animFinished');
+		// if ((isPlayer && isPlayable && Std.isOfType(FlxG.state, PlayState)) {
+		// 	if (AnimName == 'singLEFT')
+		// 		AnimName = 'singRIGHT';
+		// 	else if (AnimName == 'singLEFTmiss')
+		// 		AnimName = 'singRIGHTmiss';
+		// 	else if (AnimName == 'singRIGHT')
+		// 		AnimName = 'singLEFT';
+		// 	else if (AnimName == 'singRIGHTmiss')
+		// 		AnimName = 'singLEFTmiss';
+		// }
 
 		if (!uniqueAnims.exists(AnimName))
 		{

@@ -1517,6 +1517,7 @@ class CharacterEditorState extends MusicBeatState
 			"no_antialiasing": char.noAntialiasing,
 			"healthbar_colors": char.healthColorArray,
 
+			"is_playable": char.isPlayer,
 			"kapi_held": char.kapiHeld,
 			"trail_color": char.trailColor
 		};
