@@ -289,6 +289,7 @@ class ChartingState extends MusicBeatState
 		{
 			_song = {
 				song: 'Test',
+				songID: 'Test',
 				notes: [],
 				events: [],
 				bpm: 150.0,
@@ -477,6 +478,7 @@ class ChartingState extends MusicBeatState
 	var playSoundBf:FlxUICheckBox = null;
 	var playSoundDad:FlxUICheckBox = null;
 	var UI_songTitle:FlxUIInputText;
+	var UI_songID:FlxUIInputText;
 	var noteSkinInputText:FlxUIInputText;
 	var noteSplashesInputText:FlxUIInputText;
 	var stageDropDown:FlxUIDropDownMenuCustom;
@@ -503,7 +505,7 @@ class ChartingState extends MusicBeatState
 
 		var reloadSong:FlxButton = new FlxButton(saveButton.x + 90, saveButton.y, "Reload Audio", function()
 		{
-			currentSongName = Paths.formatToSongPath(UI_songTitle.text);
+			currentSongName = Paths.formatToSongPath(UI_songID.text);
 			loadSong();
 			loadAudioBuffer();
 			updateWaveform();
@@ -709,6 +711,9 @@ class ChartingState extends MusicBeatState
 		diffDropDown.selectedLabel = CoolUtil.difficulties[curDiff];
 		blockPressWhileScrolling.push(diffDropDown);
 
+		UI_songID = new FlxUIInputText(stageDropDown.x, player2DropDown.y, 70, _song.songID, 8);
+		blockPressWhileTypingOn.push(UI_songID);
+
 		var skin = PlayState.SONG.arrowSkin;
 		if (skin == null)
 			skin = '';
@@ -749,11 +754,13 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(new FlxText(player1DropDown.x, player1DropDown.y - 15, 0, 'Boyfriend:'));
 		tab_group_song.add(new FlxText(stageDropDown.x, stageDropDown.y - 15, 0, 'Stage:'));
 		tab_group_song.add(new FlxText(diffDropDown.x, diffDropDown.y - 15, 0, 'Difficulty:'));
+		tab_group_song.add(new FlxText(UI_songID.x, UI_songID.y - 15, 0, 'Music:'));
 		tab_group_song.add(new FlxText(noteSkinInputText.x, noteSkinInputText.y - 15, 0, 'Note Texture:'));
 		tab_group_song.add(new FlxText(noteSplashesInputText.x, noteSplashesInputText.y - 15, 0, 'Note Splashes Texture:'));
 		tab_group_song.add(player2DropDown);
 		tab_group_song.add(player3DropDown);
 		tab_group_song.add(player1DropDown);
+		tab_group_song.add(UI_songID);
 		tab_group_song.add(diffDropDown);
 		tab_group_song.add(stageDropDown);
 
@@ -1677,6 +1684,10 @@ class ChartingState extends MusicBeatState
 		}
 		Conductor.songPosition = FlxG.sound.music.time;
 		_song.song = UI_songTitle.text;
+		if (UI_songID.text != null && UI_songID.text != '')
+			_song.songID = UI_songID.text;
+		else
+			_song.songID = _song.song;
 
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) / zoomList[curZoom] % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps));
 		for (i in 0...8)
@@ -3133,6 +3144,7 @@ class ChartingState extends MusicBeatState
 		_song.events.sort(sortByTime);
 		var eventsSong:SwagSong = {
 			song: _song.song,
+			songID: _song.songID,
 			notes: [],
 			events: _song.events,
 			bpm: _song.bpm,

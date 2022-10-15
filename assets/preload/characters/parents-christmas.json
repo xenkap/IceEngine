@@ -101,6 +101,50 @@
 		},
 		{
 			"offsets": [
+				-1,
+				-24
+			],
+			"loop": false,
+			"anim": "singRIGHT-bars",
+			"fps": 24,
+			"name": "Parent Right Note Both",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-30,
+				-27
+			],
+			"loop": false,
+			"anim": "singDOWN-bars",
+			"fps": 24,
+			"name": "Parent Down Note Both",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-30,
+				15
+			],
+			"loop": false,
+			"anim": "singLEFT-bars",
+			"fps": 24,
+			"name": "Parent Left Note Both",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-47,
+				24
+			],
+			"loop": false,
+			"anim": "singUP-bars",
+			"fps": 24,
+			"name": "Parent Up Note Both",
+			"indices": []
+		},
+		{
+			"offsets": [
 				2,
 				0
 			],
@@ -242,6 +286,70 @@
 			"anim": "singDOWN-alt-loop",
 			"loop": true,
 			"name": "Parent Down Note Mom"
+		},
+		{
+			"offsets": [
+				-1,
+				-24
+			],
+			"indices": [
+				11,
+				12,
+				13,
+				14
+			],
+			"fps": 24,
+			"anim": "singRIGHT-bars-loop",
+			"loop": true,
+			"name": "Parent Right Note Both"
+		},
+		{
+			"offsets": [
+				-47,
+				24
+			],
+			"indices": [
+				10,
+				11,
+				12,
+				13
+			],
+			"fps": 24,
+			"anim": "singUP-bars-loop",
+			"loop": true,
+			"name": "Parent Up Note Both"
+		},
+		{
+			"offsets": [
+				-30,
+				15
+			],
+			"indices": [
+				11,
+				12,
+				13,
+				14
+			],
+			"fps": 24,
+			"anim": "singLEFT-bars-loop",
+			"loop": true,
+			"name": "Parent Left Note Both"
+		},
+		{
+			"offsets": [
+				-30,
+				-27
+			],
+			"indices": [
+				11,
+				12,
+				13,
+				14
+			],
+			"fps": 24,
+			"anim": "singDOWN-bars-loop",
+			"loop": true,
+			"name": "Parent Down Note Both"
 		}
 	],
 	"no_antialiasing": false,
