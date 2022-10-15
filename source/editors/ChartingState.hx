@@ -290,6 +290,7 @@ class ChartingState extends MusicBeatState
 			_song = {
 				song: 'Test',
 				songID: 'Test',
+				eventJson: 'events',
 				notes: [],
 				events: [],
 				bpm: 150.0,
@@ -365,7 +366,7 @@ class ChartingState extends MusicBeatState
 
 		// sections = _song.notes;
 
-		currentSongName = Paths.formatToSongPath(_song.song);
+		currentSongName = Paths.formatToSongPath(_song.songID);
 		loadAudioBuffer();
 		reloadGridLayer();
 		loadSong();
@@ -479,6 +480,7 @@ class ChartingState extends MusicBeatState
 	var playSoundDad:FlxUICheckBox = null;
 	var UI_songTitle:FlxUIInputText;
 	var UI_songID:FlxUIInputText;
+	var UI_songEvents:FlxUIInputText;
 	var noteSkinInputText:FlxUIInputText;
 	var noteSplashesInputText:FlxUIInputText;
 	var stageDropDown:FlxUIDropDownMenuCustom;
@@ -528,9 +530,9 @@ class ChartingState extends MusicBeatState
 		var loadEventJson:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 30, 'Load Events', function()
 		{
 			var songName:String = Paths.formatToSongPath(_song.song);
-			var file:String = Paths.json(songName + '/events');
+			var file:String = Paths.json(songName + '/' + _song.eventJson);
 			#if sys
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
+			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/' + _song.eventJson)) || #end FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
@@ -577,6 +579,9 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.value = _song.speed;
 		stepperSpeed.name = 'song_speed';
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
+
+		UI_songEvents = new FlxUIInputText(saveEvents.x, stepperBPM.y + 19, 70, _song.eventJson, 8);
+		blockPressWhileTypingOn.push(UI_songEvents);
 
 		#if MODS_ALLOWED
 		var directories:Array<String> = [
@@ -711,7 +716,7 @@ class ChartingState extends MusicBeatState
 		diffDropDown.selectedLabel = CoolUtil.difficulties[curDiff];
 		blockPressWhileScrolling.push(diffDropDown);
 
-		UI_songID = new FlxUIInputText(stageDropDown.x, player2DropDown.y, 70, _song.songID, 8);
+		UI_songID = new FlxUIInputText(stageDropDown.x, player2DropDown.y + 2, 100, _song.songID, 8);
 		blockPressWhileTypingOn.push(UI_songID);
 
 		var skin = PlayState.SONG.arrowSkin;
@@ -744,17 +749,19 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(loadEventJson);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
+		tab_group_song.add(UI_songEvents);
 		tab_group_song.add(reloadNotesButton);
 		tab_group_song.add(noteSkinInputText);
 		tab_group_song.add(noteSplashesInputText);
 		tab_group_song.add(new FlxText(stepperBPM.x, stepperBPM.y - 15, 0, 'Song BPM:'));
 		tab_group_song.add(new FlxText(stepperSpeed.x, stepperSpeed.y - 15, 0, 'Song Speed:'));
+		tab_group_song.add(new FlxText(UI_songEvents.x, UI_songEvents.y - 15, 0, 'Event Json:'));
 		tab_group_song.add(new FlxText(player2DropDown.x, player2DropDown.y - 15, 0, 'Opponent:'));
 		tab_group_song.add(new FlxText(player3DropDown.x, player3DropDown.y - 15, 0, 'Girlfriend:'));
 		tab_group_song.add(new FlxText(player1DropDown.x, player1DropDown.y - 15, 0, 'Boyfriend:'));
 		tab_group_song.add(new FlxText(stageDropDown.x, stageDropDown.y - 15, 0, 'Stage:'));
 		tab_group_song.add(new FlxText(diffDropDown.x, diffDropDown.y - 15, 0, 'Difficulty:'));
-		tab_group_song.add(new FlxText(UI_songID.x, UI_songID.y - 15, 0, 'Music:'));
+		tab_group_song.add(new FlxText(UI_songID.x, UI_songID.y - 17, 0, 'Music:'));
 		tab_group_song.add(new FlxText(noteSkinInputText.x, noteSkinInputText.y - 15, 0, 'Note Texture:'));
 		tab_group_song.add(new FlxText(noteSplashesInputText.x, noteSplashesInputText.y - 15, 0, 'Note Splashes Texture:'));
 		tab_group_song.add(player2DropDown);
@@ -1689,6 +1696,10 @@ class ChartingState extends MusicBeatState
 		else
 			_song.songID = _song.song;
 
+		if (UI_songEvents.text != null && UI_songEvents.text != '')
+			_song.eventJson = UI_songEvents.text;
+		else
+			_song.eventJson = 'events';
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) / zoomList[curZoom] % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps));
 		for (i in 0...8)
 		{
@@ -3145,6 +3156,7 @@ class ChartingState extends MusicBeatState
 		var eventsSong:SwagSong = {
 			song: _song.song,
 			songID: _song.songID,
+			eventJson: _song.eventJson,
 			notes: [],
 			events: _song.events,
 			bpm: _song.bpm,
@@ -3172,7 +3184,7 @@ class ChartingState extends MusicBeatState
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-			_file.save(data.trim(), "events.json");
+			_file.save(data.trim(), _song.eventJson + '.json');
 		}
 	}
 
