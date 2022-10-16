@@ -32,7 +32,9 @@ class Main
 		"NOW'S YOUR CHANCE TO BE A [BIG SHOT]",
 		"Booo...",
 		"FNF: Now with more crashes!",
-		"line 101: invalid crash (Imposter.hx)"
+		"line 101: invalid crash (Imposter.hx)",
+		"oh shit here we go again.",
+		"                                                   sus"
 	];
 
 	public static function main()
