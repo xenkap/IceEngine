@@ -131,6 +131,8 @@ class MainMenuState extends MusicBeatState
 
 		var scale:Float = 1;
 
+		var tex = Paths.getSparrowAtlas('FNF_main_menu_assets');
+
 		for (i in 0...optionShit.length)
 		{
 			// var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 40;
