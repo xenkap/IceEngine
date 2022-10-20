@@ -13,6 +13,7 @@ class ClientPrefs
 	// public static var noteScroll:String = 'upscroll';
 	public static var middleScroll:Bool = false;
 	public static var showFPS:Bool = true;
+	public static var showMS:Bool = true;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -103,6 +104,7 @@ class ClientPrefs
 		// FlxG.save.data.noteScroll = noteScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.showMS = showMS;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
@@ -170,6 +172,10 @@ class ClientPrefs
 			{
 				Main.fpsVar.visible = showFPS;
 			}
+		}
+		if (FlxG.save.data.showMS != null)
+		{
+			showMS = FlxG.save.data.showMS;
 		}
 		if (FlxG.save.data.flashing != null)
 		{

@@ -182,6 +182,8 @@ class PlayState extends MusicBeatState
 	public var bads:Int = 0;
 	public var shits:Int = 0;
 
+	var msDelay:FlxText;
+
 	private var generatedMusic:Bool = false;
 
 	public var endingSong:Bool = false;
@@ -276,6 +278,7 @@ class PlayState extends MusicBeatState
 	var goodsTxtTween:FlxTween;
 	var badsTxtTween:FlxTween;
 	var shitsTxtTween:FlxTween;
+	var msDelayTween:FlxTween;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -756,6 +759,15 @@ class PlayState extends MusicBeatState
 		}
 		updateTime = showTime;
 
+		msDelay = new FlxText(0, 0, 400, "", 32);
+		msDelay.setFormat(Paths.font("pixel.otf"), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		msDelay.scrollFactor.set();
+		msDelay.alpha = 0;
+		msDelay.borderSize = 1;
+		msDelay.size = 20;
+		msDelay.visible = ClientPrefs.showMS;
+		add(msDelay);
+
 		timeBarBG = new AttachedSprite('timeBar');
 		timeBarBG.x = timeTxt.x;
 		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
@@ -1055,6 +1067,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+		msDelay.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -4752,15 +4765,16 @@ class PlayState extends MusicBeatState
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
-		//
 
 		var rating:FlxSprite = new FlxSprite();
 		var delayShit:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
+		var judgement:Array<String> = Conductor.judgeNote(note);
+		
 		// tryna do MS based judgment due to popular demand
-		var daRating:String = Conductor.judgeNote(note)[0];
-		var daDelayShit:String = Conductor.judgeNote(note)[1];
+		var daRating:String = judgement[0];
+		var daDelayShit:String = judgement[1];
 
 		switch (daRating)
 		{
@@ -4977,6 +4991,27 @@ class PlayState extends MusicBeatState
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
 		delayShit.updateHitbox();
+
+		msDelay.x = rating.x - 100;
+		msDelay.y = rating.y - 75;
+		msDelay.text = judgement[2] + 'ms';
+		if (judgement[1] == 'early')
+			msDelay.color = FlxColor.LIME;
+		else if (judgement[1] == 'late')
+			msDelay.color = FlxColor.CYAN;
+		else
+			msDelay.color = FlxColor.WHITE;
+		msDelay.alpha = 1;
+		if (msDelayTween != null)
+		{
+			msDelayTween.cancel();
+		}
+		msDelayTween = FlxTween.tween(msDelay, {alpha: 0}, 0.6, {
+			onComplete: function(twn:FlxTween)
+			{
+				msDelayTween = null;
+			}
+		});
 
 		var seperatedScore:Array<Int> = [];
 

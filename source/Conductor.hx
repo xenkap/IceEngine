@@ -59,10 +59,10 @@ class Conductor
 		{
 			if (diff <= timingWindows[Math.round(Math.min(i, timingWindows.length - 1))])
 			{
-				return [windowNames[i], delayRate];
+				return [windowNames[i], delayRate, '' + Math.round(diff*100)/100];
 			}
 		}
-		return ['shit', delayRate];
+		return ['shit', delayRate, '' + Math.round(diff*100)/100];
 	}
 
 	public static function mapBPMChanges(song:SwagSong)
