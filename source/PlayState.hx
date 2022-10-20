@@ -765,6 +765,8 @@ class PlayState extends MusicBeatState
 		msDelay.alpha = 0;
 		msDelay.borderSize = 1;
 		msDelay.size = 20;
+		msDelay.wordWrap = false;
+		msDelay.autoSize = true;
 		msDelay.visible = ClientPrefs.showMS;
 		add(msDelay);
 
