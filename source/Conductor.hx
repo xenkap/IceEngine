@@ -33,8 +33,7 @@ class Conductor
 	{
 	}
 
-	public static function judgeNote(note:Note, delay:Float = 0,
-			windowName:String = "") // STOLEN FROM KADE ENGINE (bbpanzu) - I had to rewrite it later anyway after i added the custom hit windows lmao (Shadow Mario)
+	public static function judgeNote(note:Note, delay:Float = 0, windowName:String = "")
 	{
 		// tryna do MS based judgment due to popular demand
 		var diff:Float = note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset;
@@ -51,18 +50,17 @@ class Conductor
 				delayRate = "late";
 			}
 		}
-		//trace(delayRate + ' ' + diff + ' ' + (Conductor.safeZoneOffset * 0.1));
 
-		diff = Math.abs(diff);
-		// var diff = Math.abs(note.strumTime - Conductor.songPosition) / (PlayState.songMultiplier >= 1 ? PlayState.songMultiplier : 1);
+		var diffAbs = Math.abs(diff);
+
 		for (i in 0...timingWindows.length) // based on 4 timing windows, will break with anything else
 		{
-			if (diff <= timingWindows[Math.round(Math.min(i, timingWindows.length - 1))])
+			if (diffAbs <= timingWindows[Math.round(Math.min(i, timingWindows.length - 1))])
 			{
-				return [windowNames[i], delayRate, '' + Math.round(diff*100)/100];
+				return [windowNames[i], delayRate, '' + Math.round(diff * 100) / 100];
 			}
 		}
-		return ['shit', delayRate, '' + Math.round(diff*100)/100];
+		return ['shit', delayRate, '' + Math.round(diff * 100) / 100];
 	}
 
 	public static function mapBPMChanges(song:SwagSong)

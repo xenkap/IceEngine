@@ -759,14 +759,12 @@ class PlayState extends MusicBeatState
 		}
 		updateTime = showTime;
 
-		msDelay = new FlxText(0, 0, 400, "", 32);
-		msDelay.setFormat(Paths.font("pixel.otf"), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+		msDelay = new FlxText(0, -70 - ClientPrefs.comboOffset[5], 0, "", 32);
+		msDelay.wordWrap = false;
+		msDelay.setFormat(Paths.font("pixel.otf"), 20, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 		msDelay.scrollFactor.set();
 		msDelay.alpha = 0;
 		msDelay.borderSize = 1;
-		msDelay.size = 20;
-		msDelay.wordWrap = false;
-		msDelay.autoSize = true;
 		msDelay.visible = ClientPrefs.showMS;
 		add(msDelay);
 
@@ -2670,7 +2668,7 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(file))
 		{
 		#end
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+			var eventsData:Array<Dynamic> = Song.loadFromJson(SONG.eventJson, songName).events;
 			for (event in eventsData) // Event Notes
 			{
 				for (i in 0...event[1].length)
@@ -4938,11 +4936,34 @@ class PlayState extends MusicBeatState
 		rating.x = coolText.x - 40;
 		rating.y -= 70;
 		rating.acceleration.y = 550;
-		rating.velocity.y -= FlxG.random.int(140, 175);
-		rating.velocity.x -= FlxG.random.int(0, 10);
 		rating.visible = (!ClientPrefs.hideHud && showRating);
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
+
+		msDelay.x = rating.x;
+		msDelay.y = -ClientPrefs.comboOffset[1] + 170;
+		msDelay.text = judgement[2].replace('-', '') + 'ms';
+		var diffNum = Std.parseFloat(judgement[2]);
+		if (diffNum > 0)
+			msDelay.color = FlxColor.LIME;
+		else if (diffNum < 0)
+			msDelay.color = FlxColor.CYAN;
+		else
+			msDelay.color = FlxColor.YELLOW;
+		msDelay.alpha = 1;
+		if (msDelayTween != null)
+		{
+			msDelayTween.cancel();
+		}
+		msDelayTween = FlxTween.tween(msDelay, {alpha: 0}, 1.2, {
+			onComplete: function(twn:FlxTween)
+			{
+				msDelayTween = null;
+			}
+		});
+
+		rating.velocity.y -= FlxG.random.int(140, 175);
+		rating.velocity.x -= FlxG.random.int(0, 10);
 
 		delayShit.loadGraphic(Paths.image(pixelShitPart1 + daDelayShit + pixelShitPart2));
 		delayShit.cameras = [camHUD];
@@ -4988,32 +5009,14 @@ class PlayState extends MusicBeatState
 			rating.setGraphicSize(Std.int(rating.width * daPixelZoom * 0.85));
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * daPixelZoom * 0.85));
 			delayShit.setGraphicSize(Std.int(delayShit.width * daPixelZoom * 0.85));
+			rating.y = rating.y - 50;
+			delayShit.y = delayShit.y - 50;
+			comboSpr.y = comboSpr.y - 50;
 		}
 
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
 		delayShit.updateHitbox();
-
-		msDelay.x = rating.x - 100;
-		msDelay.y = rating.y - 75;
-		msDelay.text = judgement[2] + 'ms';
-		if (judgement[1] == 'early')
-			msDelay.color = FlxColor.LIME;
-		else if (judgement[1] == 'late')
-			msDelay.color = FlxColor.CYAN;
-		else
-			msDelay.color = FlxColor.WHITE;
-		msDelay.alpha = 1;
-		if (msDelayTween != null)
-		{
-			msDelayTween.cancel();
-		}
-		msDelayTween = FlxTween.tween(msDelay, {alpha: 0}, 0.6, {
-			onComplete: function(twn:FlxTween)
-			{
-				msDelayTween = null;
-			}
-		});
 
 		var seperatedScore:Array<Int> = [];
 
@@ -5045,6 +5048,7 @@ class PlayState extends MusicBeatState
 			else
 			{
 				numScore.setGraphicSize(Std.int(numScore.width * daPixelZoom));
+				numScore.y = numScore.y - 50;
 			}
 			numScore.updateHitbox();
 

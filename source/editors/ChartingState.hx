@@ -538,7 +538,7 @@ class ChartingState extends MusicBeatState
 			#end
 			{
 				clearEvents();
-				var events:SwagSong = Song.loadFromJson('events', songName);
+				var events:SwagSong = Song.loadFromJson(_song.eventJson, songName);
 				_song.events = events.events;
 				changeSection(curSection);
 			}
