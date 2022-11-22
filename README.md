@@ -1,7 +1,6 @@
 # Friday Night Funkin' - Ice Engine
-[![CodeFactor](https://www.codefactor.io/repository/github/xenkap/iceengine/badge/main)](https://www.codefactor.io/repository/github/xenkap/iceengine/overview/main)
 
-Engine being used on Chillsides
+Engine used on Chillsides
 
 ## Installation:
 
