@@ -2,6 +2,8 @@
 
 The Engine used for Chillsides (Demo)
 
+##THIS ENGINE IS DEAD! PLEASE USE https://github.com/xenkap/FlareEngine
+
 ## Installation:
 
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
